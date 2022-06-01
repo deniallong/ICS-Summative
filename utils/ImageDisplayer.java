@@ -14,11 +14,14 @@ public class ImageDisplayer implements ImageObserver {
     
     public void display(File file, int x, int y, Console c) throws IOException {
 
+        // Creating the image object
         Image image = ImageIO.read(file);
 
+        // Drawing the image
         c.drawImage(image, x, y, this);
     }
 
+    // (Method that must be included because of the ImageObserver interface, ignore this)
     public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
         return false;
     }
