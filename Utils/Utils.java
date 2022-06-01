@@ -1,3 +1,5 @@
+package Util;
+
 import hsa.Console;
 
 public class Utils
