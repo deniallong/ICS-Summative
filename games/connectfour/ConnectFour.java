@@ -1,3 +1,5 @@
+package games.connectfour;
+
 import hsa.Console;
 import java.awt.*;
 
