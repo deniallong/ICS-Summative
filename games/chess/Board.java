@@ -45,14 +45,7 @@ public class Board
         i.display(boardImage, 0, 0);
     }
 
-    public int[][] getOpenSpaces() 
-    {
-        // TODO
-
-        return new int[0][0];
-    }
-
-    public int[][] getUncheckedSpaces()
+    public int[][] getCheckedSpaces()
     {
         // TODO
 

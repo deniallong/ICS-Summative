@@ -10,7 +10,7 @@ public class Pawn extends ChessPiece {
         super(player);
     }
 
-    public Pair[] getMoves(int[][] openSpaces, int row, int col)
+    public Pair[] getMoves(ChessPiece[][] board, int row, int col)
     {
         // Declaring variables
         Pair[] moves;
@@ -20,8 +20,25 @@ public class Pawn extends ChessPiece {
 
         // Processing
         // Checking which moves are valid
-        if (row < openSpaces.length - 1 && openSpaces[row + 1][col] == 0) {
+        if (row < board.length - 1 && board[row + 1][col] == null) 
+        {
             moves = Utils.add(moves, new Pair(row + 1, col));
+        }
+
+        // Checking whether an enemy piece exists on the direct diagonal or not
+        if (row < board.length - 1) 
+        {
+            // Left diagonal
+            if (col > 0 && board[row + 1][col - 1] != null && board[row + 1][col - 1].getPlayer() == this.getPlayer())
+            {
+                moves = Utils.add(moves, new Pair(row + 1, col - 1));
+            }
+
+            // Right diagonal
+            if (col < board[0].length - 1 && board[row + 1][col + 1] != null && board[row + 1][col + 1].getPlayer() == this.getPlayer())
+            {
+                moves = Utils.add(moves, new Pair(row + 1, col + 1));
+            }
         }
 
         return moves;
