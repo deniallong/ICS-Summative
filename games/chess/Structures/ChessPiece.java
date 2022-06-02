@@ -1,16 +1,34 @@
 package games.chess.Structures;
 
 import java.io.IOException;
+import java.io.File;
 
 import utils.*;
 
 public abstract class ChessPiece 
 {
-    private int player;
+    static ImageDisplayer i;
 
-    public ChessPiece(int player) 
+    private int player;
+    private File pieceImage;
+
+    static 
+    {
+        i = new ImageDisplayer();
+    }
+
+    public ChessPiece(int player, String name) 
     {
         this.player = player;
+
+        if (player == 0)
+        {
+            pieceImage = new File("resources/chess/images/" + name + "white.png");
+        }
+        else 
+        {
+            pieceImage = new File("resources/chess/images/" + name + "black.png");
+        }
     }
 
     // Getters
@@ -21,5 +39,9 @@ public abstract class ChessPiece
 
     // Placeholder functions
     public abstract Pair[] getMoves(ChessPiece[][] board, int row, int col);
-    public abstract void display(int row, int col) throws IOException;
+   
+    public void display(int row, int col) throws IOException
+    {
+        i.display(pieceImage, col * 59, (7 - row) * 59);
+    }
 }

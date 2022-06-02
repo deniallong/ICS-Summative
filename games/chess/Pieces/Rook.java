@@ -13,23 +13,11 @@ public class Rook extends ChessPiece
 
     private File pieceImage;
 
-    static 
-    {
-        i = new ImageDisplayer();
-    }
+    
     
     public Rook(int player)
     {
-        super(player);
-
-        if (player == 0)
-        {
-            pieceImage = new File("resources/chess/images/rookwhite.png");
-        }
-        else 
-        {
-            pieceImage = new File("resources/chess/images/rookblack.png");
-        }
+        super(player, "Rook");
     }
 
     public Pair[] getMoves(ChessPiece[][] board, int row, int col)
@@ -68,6 +56,6 @@ public class Rook extends ChessPiece
 
     public void display(int row, int col) throws IOException
     {
-        i.display(pieceImage, 0, 0);
+        i.display(pieceImage, col * 59, (7 - row) * 59);
     }
 }

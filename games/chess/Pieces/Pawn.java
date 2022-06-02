@@ -20,16 +20,7 @@ public class Pawn extends ChessPiece
     
     public Pawn(int player)
     {
-        super(player);
-
-        if (player == 0)
-        {
-            pieceImage = new File("resources/chess/images/pawnwhite.png");
-        }
-        else 
-        {
-            pieceImage = new File("resources/chess/images/pawnblack.png");
-        }
+        super(player, "pawn");
     }
 
     public Pair[] getMoves(ChessPiece[][] board, int row, int col)
@@ -64,10 +55,5 @@ public class Pawn extends ChessPiece
         }
 
         return moves;
-    }
-
-    public void display(int row, int col) throws IOException
-    {
-        i.display(pieceImage, 0, 0);
     }
 }

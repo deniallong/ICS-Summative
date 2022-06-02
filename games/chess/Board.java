@@ -44,7 +44,17 @@ public class Board
     {
 
         i.display(boardImage, 0, 0);
-        board[1][0].display(1, 0);
+        
+        for (int row = 0; row < board.length; row++) 
+        {
+            for (int col = 0; col < board[row].length; col++)
+            {
+                if (board[row][col] != null)
+                { 
+                    board[row][col].display(row, col);
+                }
+            }
+        }
     }
 
     public int[][] getCheckedSpaces()
