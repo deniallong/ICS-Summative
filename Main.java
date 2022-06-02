@@ -17,11 +17,13 @@ public class Main {
         // Main code
     }
 
-    public static void ChessDriver() throws IOException {
+    public static void ChessDriver() throws IOException 
+    {
         Chess.run();
     }
 
-    public static void ConnectFourDriver() throws IOException {
+    public static void ConnectFourDriver() throws IOException 
+    {
 
     }
 }

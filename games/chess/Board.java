@@ -6,7 +6,8 @@ import java.io.IOException;
 import utils.ImageDisplayer;
 import hsa.Console;
 
-public class Board {
+public class Board 
+{
 
     static File boardImage;
     static ImageDisplayer i;
@@ -14,7 +15,8 @@ public class Board {
     private int rows;
     private int cols;
 
-    public Board() {
+    public Board() 
+    {
 
         this.rows = 8;
         this.cols = 8;
