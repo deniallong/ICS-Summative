@@ -38,6 +38,16 @@ public class Board
             board[1][i] = new Pawn(0);
             board[6][i] = new Pawn(1);
         }
+
+        board[0][0] = new Rook(0);
+        board[0][7] = new Rook(0);
+        board[7][0] = new Rook(1);
+        board[7][7] = new Rook(1);
+
+        board[0][2] = new Bishop(0);
+        board[0][5] = new Bishop(0);
+        board[7][2] = new Bishop(1);
+        board[7][5] = new Bishop(1);
     }
 
     public void display() throws IOException
