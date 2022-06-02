@@ -17,7 +17,7 @@ public class Test
     {
         c.clear();
 
-        boardFile = new File("resources/images/Connect4_Empty.png");
+        boardFile = new File("resources/images/Connect4Board.png");
 
         i.display(boardFile, 0, 0, c);
     }

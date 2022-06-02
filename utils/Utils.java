@@ -136,4 +136,21 @@ public class Utils
 		//Returns the array.
 		return array;
 	}
+
+	public static boolean inARow(int[] array, int target, int length)
+	{
+		int rowLength;
+		
+		rowLength = 0;
+
+		for(int index = 0; index < array.length; index++)
+		{
+			for(int consecutiveNumber = 0; consecutiveNumber < length; consecutiveNumber++)
+				if(array[index + consecutiveNumber] == target)
+					rowLength++;
+				
+			if(rowLength == length)
+				return true;
+		}
+	}
 }

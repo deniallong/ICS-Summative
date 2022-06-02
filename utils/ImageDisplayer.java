@@ -11,8 +11,16 @@ import javax.imageio.ImageIO;
 import hsa.Console;
 
 public class ImageDisplayer implements ImageObserver {
+
+    static Console c;
+
+    static 
+    {
+        c = new Console();
+    }
     
-    public void display(File file, int x, int y, Console c) throws IOException {
+    public void display(File file, int x, int y) throws IOException 
+    {
 
         // Creating the image object
         Image image = ImageIO.read(file);
@@ -22,7 +30,8 @@ public class ImageDisplayer implements ImageObserver {
     }
 
     // (Method that must be included because of the ImageObserver interface, ignore this)
-    public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
+    public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) 
+    {
         return false;
     }
 }

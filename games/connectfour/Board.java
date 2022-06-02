@@ -68,12 +68,15 @@ public class Board
     
     public boolean checkWin(int player)
     {
-        int inRow;
-        int inColumn;
-        int inDiagonal;
-        
-        Utils.search(board, player);
-        
+        int inRow[];
+        int inColumn[];
+        int inDiagonal[];
+
+        for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
+        {
+            inRow = Utils.search(board[rowIndex], player);
+            if(hasConsecutive(board[rowIndex]) = true)
+        }
         return false;
     }
     
