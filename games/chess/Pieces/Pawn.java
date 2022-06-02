@@ -6,12 +6,12 @@ import utils.*;
 public class Pawn extends ChessPiece 
 {
     
-    public Pawn(int player)
+    public Pawn(int player, int row, int col)
     {
-        super(player, "pawn");
+        super(player, "pawn", row, col);
     }
 
-    public Pair[] getMoves(ChessPiece[][] board, int row, int col)
+    public Pair[] getMoves(ChessPiece[][] board)
     {
         // Declaring variables
         Pair[] moves;
