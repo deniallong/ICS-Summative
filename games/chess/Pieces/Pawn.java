@@ -4,12 +4,12 @@ import utils.Pair;
 
 public class Pawn extends ChessPiece {
     
-    public Pawn(int row, int col)
+    public Pawn(int player)
     {
-        super(row, col);
+        super(player);
     }
 
-    public Pair[] getMoves()
+    public Pair[] getMoves(int[][] openSpaces, int row, int col)
     {
         // Declaring variables
         Pair[] moves;
@@ -19,6 +19,9 @@ public class Pawn extends ChessPiece {
 
         // Processing
         // Checking which moves are valid
+        if (row < openSpaces.length - 1 && openSpaces[row + 1][col] == 0) {
+            moves[0] = new Pair(row + 1, col);
+        }
 
         return moves;
     }

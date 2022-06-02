@@ -1,16 +1,23 @@
 package games.chess.Pieces;
 
-abstract class ChessPiece 
+import utils.Pair;
+
+public abstract class ChessPiece 
 {
     
-    private int row;
-    private int col;
+    private int player;
 
-    public ChessPiece(int row, int col) 
+    public ChessPiece(int player) 
     {
-        this.row = row;
-        this.col = col;
+        this.player = player;
     }
 
-    public int[] getMoves;
+    // Getters
+    public int getPlayer() 
+    {
+        return this.player;
+    }
+
+    // Placeholder functions
+    public Pair[] getMoves;
 }

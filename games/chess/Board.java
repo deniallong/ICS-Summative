@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 import utils.ImageDisplayer;
+
 import hsa.Console;
+
+import games.chess.Pieces.*;
 
 public class Board 
 {
@@ -14,20 +17,27 @@ public class Board
 
     private int rows;
     private int cols;
+    private ChessPiece[][] board;
+
+    static 
+    {
+        i = new ImageDisplayer();
+
+        boardImage = new File("resources/chess/images/chessboard.png");
+    }
 
     public Board() 
     {
 
         this.rows = 8;
         this.cols = 8;
- 
-    }
 
-    public static void initialize() 
-    {
-        i = new ImageDisplayer();
-
-        boardImage = new File("resources/chess/images/chessboard.png");
+        // Initializing board
+        // Placing pawns
+        for (int i = 0; i < 8; i++) {
+            board[1][i] = new Pawn(0);
+            board[6][i] = new Pawn(1);
+        }
     }
 
     public void display() throws IOException
