@@ -6,12 +6,12 @@ import utils.*;
 public class Knight extends ChessPiece 
 {
 
-    public Knight(int player)
+    public Knight(int player, int row, int col)
     {
-        super(player, "knight");
+        super(player, "knight", row, col);
     }
 
-    public Pair[] getMoves(ChessPiece[][] board, int row, int col)
+    public Pair[] getMoves(ChessPiece[][] board)
     {
         // Declaring variables
         Pair[] moves;
