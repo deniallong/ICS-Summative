@@ -21,24 +21,75 @@ public class Rook extends ChessPiece
 
         // Processing
         // Checking which moves are valid
-        if (row < board.length - 1 && board[row + 1][col] == null) 
+        // Checking top column
+        for (int i = row + 1; i < board.length; i++)
         {
-            moves = Utils.add(moves, new Pair(row + 1, col));
+            if (board[i][col] == null)
+            {
+                moves = Utils.add(moves, new Pair(i, col));
+            }
+            else 
+            {
+                if (board[i][col].getPlayer() != this.getPlayer())
+                {
+                    moves = Utils.add(moves, new Pair(i, col));
+                }
+
+                i = board.length;
+            }
         }
 
-        // Checking whether an enemy piece exists on the direct diagonal or not
-        if (row < board.length - 1) 
+        // Checking bottom column
+        for (int i = row - 1; i >= 0; i--)
         {
-            // Left diagonal
-            if (col > 0 && board[row + 1][col - 1] != null && board[row + 1][col - 1].getPlayer() == this.getPlayer())
+            if (board[i][col] == null)
             {
-                moves = Utils.add(moves, new Pair(row + 1, col - 1));
+                moves = Utils.add(moves, new Pair(i, col));
             }
-
-            // Right diagonal
-            if (col < board[0].length - 1 && board[row + 1][col + 1] != null && board[row + 1][col + 1].getPlayer() == this.getPlayer())
+            else 
             {
-                moves = Utils.add(moves, new Pair(row + 1, col + 1));
+                if (board[i][col].getPlayer() != this.getPlayer())
+                {
+                    moves = Utils.add(moves, new Pair(i, col));
+                }
+
+                i = -1;
+            }
+        }
+
+        // Checking right row
+        for (int i = col + 1; i < board[row].length; i++)
+        {
+            if (board[row][i] == null)
+            {
+                moves = Utils.add(moves, new Pair(row, i));
+            }
+            else 
+            {
+                if (board[row][i].getPlayer() != this.getPlayer())
+                {
+                    moves = Utils.add(moves, new Pair(row, i));
+                }
+
+                i = board[row].length;
+            }
+        }
+
+        // Checking left row
+        for (int i = col - 1; i >= 0; i--)
+        {
+            if (board[row][i] == null)
+            {
+                moves = Utils.add(moves, new Pair(row, i));
+            }
+            else 
+            {
+                if (board[row][i].getPlayer() != this.getPlayer())
+                {
+                    moves = Utils.add(moves, new Pair(row, i));
+                }
+
+                i = -1;
             }
         }
 
