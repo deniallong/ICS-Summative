@@ -59,10 +59,10 @@ public class Board
 
         // Placing Kings
         board[0][4] = new King(0);
-        board[7][3] = new King(1);
+        board[7][4] = new King(1);
 
         board[0][3] = new Queen(0);
-        board[7][4] = new Queen(1);
+        board[7][3] = new Queen(1);
     }
 
     public void display() throws IOException
