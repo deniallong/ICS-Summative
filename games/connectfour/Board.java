@@ -61,9 +61,9 @@ public class Board
         yPosition = columnIndex * 75;
 
         if(player == 1)
-            i.display(yellowPieceImage, xPosition, yPosition, c);
+            i.display(yellowPieceImage, xPosition, yPosition);
         else if(player == 2)
-            i.display(redPieceImage, xPosition, yPosition, c);
+            i.display(redPieceImage, xPosition, yPosition);
     }
     
     public boolean checkWin(int player)

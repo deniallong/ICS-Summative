@@ -47,7 +47,6 @@ public class Utils
 		return returnArray;
 	}
 
-<<<<<<< HEAD
 	public static int[] search(int[] searchArray , int target) 
     {
 		//Variable Declaration
@@ -137,23 +136,7 @@ public class Utils
 		//Returns the array.
 		return array;
 	}
-
-	public static boolean inARow(int[] array, int target, int length)
-	{
-		int rowLength;
-		
-		rowLength = 0;
-
-		for(int index = 0; index < array.length; index++)
-		{
-			for(int consecutiveNumber = 0; consecutiveNumber < length; consecutiveNumber++)
-				if(array[index + consecutiveNumber] == target)
-					rowLength++;
-				
-			if(rowLength == length)
-				return true;
-		}
-=======
+	
 	public static Pair[] add(Pair[] array, Pair addition)
 	{
 		//Declares the array.
@@ -168,7 +151,6 @@ public class Utils
 
 		//Returns the new array.
 		return returnArray;
->>>>>>> e10333e17f34e48b03e61559ed260bcf00202079
 	}
 
 	public static int[][] searchMatrix(int[][] searchArray , int target) 
