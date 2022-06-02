@@ -63,7 +63,7 @@ public class Utils
 		return returnArray;
 	}
 
-	public static int[][] search(int[][] searchArray , int target) 
+	public static int[][] searchMatrix(int[][] searchArray , int target) 
     {
 		//Variable Declaration
 		int found, returnRowIndex;
