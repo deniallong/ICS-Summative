@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) throws IOException
     {
         // Main code
+        ChessDriver();
     }
 
     public static void ChessDriver() throws IOException 

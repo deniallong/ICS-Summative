@@ -3,7 +3,7 @@ package games.chess;
 import java.io.File;
 import java.io.IOException;
 
-import utils.ImageDisplayer;
+import utils.*;
 
 import games.chess.Pieces.*;
 import games.chess.Structures.*;
@@ -25,11 +25,12 @@ public class Board
         boardImage = new File("resources/chess/images/chessboard.png");
     }
 
-    public Board() 
+    public Board() throws IOException
     {
 
         this.rows = 8;
         this.cols = 8;
+        this.board = new ChessPiece[8][8];
 
         // Initializing board
         // Placing pawns

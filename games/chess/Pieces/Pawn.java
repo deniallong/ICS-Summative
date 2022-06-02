@@ -1,9 +1,23 @@
 package games.chess.Pieces;
 
+import java.io.File;
+import java.io.IOException;
+
 import games.chess.Structures.*;
 import utils.*;
 
-public class Pawn extends ChessPiece {
+public class Pawn extends ChessPiece 
+{
+
+    static File pieceImage;
+    static ImageDisplayer i;
+
+    static 
+    {
+        i = new ImageDisplayer();
+
+        pieceImage = new File("resources/chess/images/pawn.png");
+    }
     
     public Pawn(int player)
     {
@@ -42,5 +56,10 @@ public class Pawn extends ChessPiece {
         }
 
         return moves;
+    }
+
+    public void display(int row, int col) throws IOException
+    {
+        i.display(pieceImage, 0, 0);
     }
 }

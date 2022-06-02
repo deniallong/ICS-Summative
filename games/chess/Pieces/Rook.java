@@ -1,16 +1,30 @@
 package games.chess.Pieces;
 
+import java.io.File;
+import java.io.IOException;
+
 import games.chess.Structures.*;
 import utils.*;
 
-public class Rook extends ChessPiece {
+public class Rook extends ChessPiece 
+{
 
+    static File pieceImage;
+    static ImageDisplayer i;
+
+    static 
+    {
+        i = new ImageDisplayer();
+
+        pieceImage = new File("resources/chess/images/rook.png");
+    }
+    
     public Rook(int player)
     {
         super(player);
     }
 
-    public Pair[] getMoves(int[][] openSpaces, int row, int col)
+    public Pair[] getMoves(ChessPiece[][] board, int row, int col)
     {
         // Declaring variables
         Pair[] moves;
@@ -22,5 +36,10 @@ public class Rook extends ChessPiece {
         // Checking which moves are valid
 
         return moves;
+    }
+
+    public void display(int row, int col) throws IOException
+    {
+        i.display(pieceImage, 0, 0);
     }
 }
