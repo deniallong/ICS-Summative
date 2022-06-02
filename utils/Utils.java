@@ -46,4 +46,20 @@ public class Utils
 		//Returns the new array.
 		return returnArray;
 	}
+
+	public static Pair[] add(Pair[] array, Pair addition)
+	{
+		//Declares the array.
+		Pair returnArray[] = new Pair[array.length + 1];
+
+		//Enters all the elements of the old array into the new array.
+		for(int index = 0; index < array.length; index++)
+			returnArray[index] = array[index];
+		
+		//Adds the new element to the end of the array.
+		returnArray[array.length] = addition;
+
+		//Returns the new array.
+		return returnArray;
+	}
 }

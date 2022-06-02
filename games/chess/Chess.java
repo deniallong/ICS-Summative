@@ -9,8 +9,6 @@ public class Chess
     
     public static void run() throws IOException
     {
-        Board.initialize();
-
         board = new Board();
         board.display();
     }

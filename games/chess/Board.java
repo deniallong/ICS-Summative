@@ -3,8 +3,10 @@ package games.chess;
 import java.io.File;
 import java.io.IOException;
 
-import utils.ImageDisplayer;
-import hsa.Console;
+import utils.*;
+
+import games.chess.Pieces.*;
+import games.chess.Structures.*;
 
 public class Board 
 {
@@ -14,25 +16,51 @@ public class Board
 
     private int rows;
     private int cols;
+    private ChessPiece[][] board;
 
-    public Board() 
-    {
-
-        this.rows = 8;
-        this.cols = 8;
- 
-    }
-
-    public static void initialize() 
+    static 
     {
         i = new ImageDisplayer();
 
         boardImage = new File("resources/chess/images/chessboard.png");
     }
 
+    public Board() throws IOException
+    {
+
+        this.rows = 8;
+        this.cols = 8;
+        this.board = new ChessPiece[8][8];
+
+        // Initializing board
+        // Placing pawns
+        for (int i = 0; i < 8; i++) {
+            board[1][i] = new Pawn(0);
+            board[6][i] = new Pawn(1);
+        }
+    }
+
     public void display() throws IOException
     {
 
         i.display(boardImage, 0, 0);
+        
+        for (int row = 0; row < board.length; row++) 
+        {
+            for (int col = 0; col < board[row].length; col++)
+            {
+                if (board[row][col] != null)
+                { 
+                    board[row][col].display(row, col);
+                }
+            }
+        }
+    }
+
+    public int[][] getCheckedSpaces()
+    {
+        // TODO
+
+        return new int[0][0];
     }
 }
