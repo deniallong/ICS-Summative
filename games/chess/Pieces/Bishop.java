@@ -6,18 +6,21 @@ import java.io.IOException;
 import games.chess.Structures.*;
 import utils.*;
 
-public class Rook extends ChessPiece 
+public class Bishop extends ChessPiece 
 {
 
     static ImageDisplayer i;
 
     private File pieceImage;
 
-    
-    
-    public Rook(int player)
+    static 
     {
-        super(player, "Rook");
+        i = new ImageDisplayer();
+    }
+    
+    public Bishop(int player)
+    {
+        super(player, "bishop");
     }
 
     public Pair[] getMoves(ChessPiece[][] board, int row, int col)
