@@ -46,4 +46,74 @@ public class Utils
 		//Returns the new array.
 		return returnArray;
 	}
+
+	public static int[] search(int[] searchArray , int target) 
+    {
+		//Variable Declaration
+		int found, returnIndex;
+
+		//Variable Initialisation
+		found = 0;
+		returnIndex = 0;
+		
+		//Notes down how many instances the array contains the target.
+		for(int index = 0; index < searchArray.length; index++)
+		{            
+			if(searchArray[index] == target)
+				found++;
+		}
+
+		//Declares an array with corresponding length.
+		int returnArray[] = new int[found];
+
+		//Enters the indices where the target is found in the original array in the new array.
+		for(int index = 0; index < searchArray.length; index++)
+		{
+			if(searchArray[index] == target)
+			{
+				returnArray[returnIndex] = index;
+				returnIndex++;
+			}
+		}
+
+		//Returns the array of indices.
+		return returnArray;
+    }
+
+	public static int[][] search(int[][] searchArray , int target) 
+    {
+		//Variable Declaration
+		int found, returnRowIndex;
+
+		//Variable Initialisation
+		found = 0;
+		returnRowIndex = 0;
+		
+		//Notes down how many instances the array contains the target.
+		for(int rowIndex = 0; rowIndex < searchArray.length; rowIndex++)
+			for(int columnIndex = 0; columnIndex < searchArray[rowIndex].length; columnIndex++)
+				if(searchArray[rowIndex][columnIndex] == target)
+					found++;
+
+		//Declares an array with corresponding length.
+		int returnArray[][] = new int[found][2];
+
+		//Enters the indices where the target is found in the original array in the new array.
+		for(int rowIndex = 0; rowIndex < searchArray.length; rowIndex++)
+		{
+			rowIndex++;
+
+			for(int columnIndex = 0; columnIndex < searchArray[rowIndex].length; columnIndex++)
+				if(searchArray[rowIndex][columnIndex] == target)
+				{
+					returnArray[returnRowIndex][0] = rowIndex;
+					returnArray[returnRowIndex][1] = columnIndex;
+
+					returnRowIndex++;
+				}
+		}
+
+		//Returns the array of indices.
+		return returnArray;
+	}
 }

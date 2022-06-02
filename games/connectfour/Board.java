@@ -33,16 +33,17 @@ public class Board
                 board[rowIndex][columnIndex] = 0;
     }
 
-    public void displayCoin(int[] move, int player)
+    public void displayCoin(int[] move, int player) throws IOException
     {
-        String piece;
+        int xPosition, yPosition;
         
-        if(colour == "y")
-            piece = "";
-        else if(colour == "r")
-            piece = "";
-        
-        i.display();
+        xPosition = move[0] * 100;
+        yPosition = move[1] * 100;
+
+        if(player == 1)
+            i.display(yellowPieceImage, xPosition, yPosition, c);
+        else if(player == 2)
+            i.display(redPieceImage, xPosition, yPosition, c);
     }
 
     public void display() throws IOException
@@ -69,12 +70,7 @@ public class Board
     {
         int unfilled;
 
-        unfilled = 0;
-        
-        for(int rowIndex = 0; rowIndex < 7; rowIndex++)
-            for(int columnIndex = 0; columnIndex < 7; columnIndex++)
-                if(board[rowIndex][columnIndex] == 0)
-                    unfilled++;
+        unfilled = Utils.search(board[][], 0).length;
 
         if(unfilled == 0)
             return true;
@@ -95,7 +91,7 @@ public class Board
         i = new ImageDisplayer();
 
         boardImage = new File("resources/connectfour/images/Connect4Board.png");
-        yellowPieceImage = new File("resources/images/Connect4YellowPiece.png")
+        yellowPieceImage = new File("resources/images/Connect4YellowPiece.png");
         redPieceImage = new File("resources/images/Connect4RedPiece.png");
     }
 }
