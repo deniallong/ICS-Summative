@@ -11,8 +11,14 @@ import javax.imageio.ImageIO;
 import hsa.Console;
 
 public class ImageDisplayer implements ImageObserver {
+
+    static Console c;
+
+    static {
+        c = new Console();
+    }
     
-    public void display(File file, int x, int y, Console c) throws IOException {
+    public void display(File file, int x, int y) throws IOException {
 
         // Creating the image object
         Image image = ImageIO.read(file);
