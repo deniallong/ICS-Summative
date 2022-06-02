@@ -1,6 +1,6 @@
 package games.chess.Pieces;
 
-import utils.Pair;
+import utils.*;
 
 public abstract class ChessPiece 
 {

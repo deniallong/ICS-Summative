@@ -1,6 +1,6 @@
 package games.chess.Pieces;
 
-import utils.Pair;
+import utils.*;
 
 public class Pawn extends ChessPiece {
     

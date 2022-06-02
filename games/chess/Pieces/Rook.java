@@ -1,8 +1,6 @@
 package games.chess.Pieces;
 
-import games.chess.Chess;
-
-import utils.Pair;
+import utils.*;
 
 public class Rook extends ChessPiece {
 
@@ -21,7 +19,7 @@ public class Rook extends ChessPiece {
 
         // Processing
         // Checking which moves are valid
-        
+
         return moves;
     }
 }
