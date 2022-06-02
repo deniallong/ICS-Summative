@@ -39,15 +39,30 @@ public class Board
             board[6][i] = new Pawn(1);
         }
 
+        // Placing Rooks
         board[0][0] = new Rook(0);
         board[0][7] = new Rook(0);
         board[7][0] = new Rook(1);
         board[7][7] = new Rook(1);
 
+        // Placing Knight
+        board[0][1] = new Knight(0);
+        board[0][6] = new Knight(0);
+        board[7][1] = new Knight(1);
+        board[7][6] = new Knight(1);
+
+        // Placing Bishops
         board[0][2] = new Bishop(0);
         board[0][5] = new Bishop(0);
         board[7][2] = new Bishop(1);
         board[7][5] = new Bishop(1);
+
+        // Placing Kings
+        board[0][4] = new King(0);
+        board[7][3] = new King(1);
+
+        board[0][3] = new Queen(0);
+        board[7][4] = new Queen(1);
     }
 
     public void display() throws IOException
