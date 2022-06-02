@@ -3,9 +3,6 @@ package games.connectfour;
 import java.io.File;
 import java.io.IOException;
 
-import java.awt.Color;
-import java.awt.Image;
-
 import hsa.Console;
 import utils.Utils;
 import utils.ImageDisplayer;
@@ -21,8 +18,7 @@ public class Board
     static File redPieceImage;
 
     private int board[][];
-    private int yellowPositions[][];
-    private int redPositions[][];
+    private int Positions[][];
     
     Board()
     {
@@ -33,17 +29,13 @@ public class Board
                 board[rowIndex][columnIndex] = 0;
     }
 
-    public void displayCoin(int[] move, int player) throws IOException
-    {
-        int xPosition, yPosition;
-        
-        xPosition = move[0] * 100;
-        yPosition = move[1] * 100;
+    public static void initialize() {
+        c = new Console();
+        i = new ImageDisplayer();
 
-        if(player == 1)
-            i.display(yellowPieceImage, xPosition, yPosition, c);
-        else if(player == 2)
-            i.display(redPieceImage, xPosition, yPosition, c);
+        boardImage = new File("resources/connectfour/images/Connect4Board.png");
+        yellowPieceImage = new File("resources/images/Connect4YellowPiece.png");
+        redPieceImage = new File("resources/images/Connect4RedPiece.png");
     }
 
     public void display() throws IOException
@@ -55,22 +47,41 @@ public class Board
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
 	    {
 		    for(int columnIndex = 0; columnIndex < board[rowIndex].length; columnIndex++)
-                displayCoin(rowIndex, columnIndex, board[rowIndex][columnIndex]);
+                displayPiece(rowIndex, columnIndex, board[rowIndex][columnIndex]);
         
 	        c.println();
 	    }
     }
-    
-    public boolean checkWin()
+
+    public void displayPiece(int rowIndex, int columnIndex, int player) throws IOException
     {
+        int xPosition, yPosition;
         
+        xPosition = rowIndex * 75;
+        yPosition = columnIndex * 75;
+
+        if(player == 1)
+            i.display(yellowPieceImage, xPosition, yPosition, c);
+        else if(player == 2)
+            i.display(redPieceImage, xPosition, yPosition, c);
+    }
+    
+    public boolean checkWin(int player)
+    {
+        int inRow;
+        int inColumn;
+        int inDiagonal;
+        
+        Utils.search(board, player);
+
+        return false;
     }
     
     public boolean checkTie()
     {
         int unfilled;
 
-        unfilled = Utils.search(board[][], 0).length;
+        unfilled = Utils.search(board, 0).length;
 
         if(unfilled == 0)
             return true;
@@ -79,19 +90,13 @@ public class Board
             return false;
     }
 
-    public void getMove(int player, int[] move)
+    public void getMove(int player)
     {
-        Utils.input("Enter the column you want to drop your piece: ", 1, 7);
-        
-        board[move[0]][move[1]] = player;
-    }
+        int move[] = new int[2];
 
-    public static void initialize() {
-        c = new Console();
-        i = new ImageDisplayer();
+        move[0] = Utils.input("Enter the column you want to drop your piece: ", 1, 7);
+        move[1] = Utils.search(board[move[0]], player).length;
 
-        boardImage = new File("resources/connectfour/images/Connect4Board.png");
-        yellowPieceImage = new File("resources/images/Connect4YellowPiece.png");
-        redPieceImage = new File("resources/images/Connect4RedPiece.png");
+        board[move[0]][move[1]] = player;        
     }
 }

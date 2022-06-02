@@ -95,10 +95,10 @@ public class Utils
 				if(searchArray[rowIndex][columnIndex] == target)
 					found++;
 
-		//Declares an array with corresponding length.
+		//Declares an array with corresponding dimensions.
 		int returnArray[][] = new int[found][2];
 
-		//Enters the indices where the target is found in the original array in the new array.
+		//Enters the coordinates where the target is found in the original array in the new array.
 		for(int rowIndex = 0; rowIndex < searchArray.length; rowIndex++)
 		{
 			rowIndex++;
@@ -116,4 +116,6 @@ public class Utils
 		//Returns the array of indices.
 		return returnArray;
 	}
+
+	//SORT METHOD HERE sort(int[] array) or smth
 }
