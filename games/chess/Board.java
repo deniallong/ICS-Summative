@@ -9,8 +9,6 @@ import hsa.Console;
 public class Board {
 
     static File boardImage;
-
-    static Console c;
     static ImageDisplayer i;
 
     private int rows;
@@ -25,7 +23,6 @@ public class Board {
 
     public static void initialize() 
     {
-        c = new Console();
         i = new ImageDisplayer();
 
         boardImage = new File("resources/chess/images/chessboard.png");
@@ -34,6 +31,6 @@ public class Board {
     public void display() throws IOException
     {
 
-        i.display(boardImage, 0, 0, c);
+        i.display(boardImage, 0, 0);
     }
 }
