@@ -1,20 +1,11 @@
 package games.chess.Pieces;
 
-import java.io.File;
-import java.io.IOException;
-
 import games.chess.Structures.*;
 import utils.*;
 
 public class Queen extends ChessPiece 
 {
 
-    static ImageDisplayer i;
-
-    private File pieceImage;
-
-    
-    
     public Queen(int player)
     {
         super(player, "Queen");
