@@ -73,7 +73,7 @@ public class Board
         int inDiagonal;
         
         Utils.search(board, player);
-
+        
         return false;
     }
     

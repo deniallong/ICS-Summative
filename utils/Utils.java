@@ -117,5 +117,23 @@ public class Utils
 		return returnArray;
 	}
 
-	//SORT METHOD HERE sort(int[] array) or smth
+	//change this later
+	public static int[] sort(int[] array)
+	{               
+		//Variable Declaration.
+		int a, b, t;
+
+		//Loops therough the array, switching elements that are out of order until the array is sorted.
+		for(a = 1; a < array.length; a++) 
+			for(b = array.length - 1; b >= a; b--) 
+				if(array[b - 1] > array[b])
+				{
+					t = array[b - 1];
+					array[b - 1] = array[b];
+					array[b] = t;
+				}
+		
+		//Returns the array.
+		return array;
+	}
 }
