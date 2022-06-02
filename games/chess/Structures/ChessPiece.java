@@ -12,12 +12,15 @@ public abstract class ChessPiece
     private int player;
     private File pieceImage;
 
+    public int row;
+    public int col;
+
     static 
     {
         i = new ImageDisplayer();
     }
 
-    public ChessPiece(int player, String name) 
+    public ChessPiece(int player, String name, int row, int col) 
     {
         this.player = player;
 
@@ -29,6 +32,9 @@ public abstract class ChessPiece
         {
             pieceImage = new File("resources/chess/images/" + name + "black.png");
         }
+
+        this.row = row;
+        this.col = col;
     }
 
     // Getters
@@ -38,9 +44,9 @@ public abstract class ChessPiece
     }
 
     // Placeholder functions
-    public abstract Pair[] getMoves(ChessPiece[][] board, int row, int col);
+    public abstract Pair[] getMoves(ChessPiece[][] board);
    
-    public void display(int row, int col) throws IOException
+    public void display() throws IOException
     {
         i.display(pieceImage, col * 59, (7 - row) * 59);
     }

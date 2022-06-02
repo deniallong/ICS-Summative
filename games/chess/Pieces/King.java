@@ -6,12 +6,12 @@ import utils.*;
 public class King extends ChessPiece 
 {
     
-    public King(int player)
+    public King(int player, int row, int col)
     {
-        super(player, "King");
+        super(player, "King", row, col);
     }
 
-    public Pair[] getMoves(ChessPiece[][] board, int row, int col)
+    public Pair[] getMoves(ChessPiece[][] board)
     {
         // Declaring variables
         Pair[] moves;
