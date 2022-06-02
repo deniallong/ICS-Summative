@@ -9,19 +9,27 @@ import utils.*;
 public class Pawn extends ChessPiece 
 {
 
-    static File pieceImage;
     static ImageDisplayer i;
+
+    private File pieceImage;
 
     static 
     {
         i = new ImageDisplayer();
-
-        pieceImage = new File("resources/chess/images/pawn.png");
     }
     
     public Pawn(int player)
     {
         super(player);
+
+        if (player == 0)
+        {
+            pieceImage = new File("resources/chess/images/whiterook.png");
+        }
+        else 
+        {
+            pieceImage = new File("resources/chess/images/blackrook.png");
+        }
     }
 
     public Pair[] getMoves(ChessPiece[][] board, int row, int col)

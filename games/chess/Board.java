@@ -44,6 +44,7 @@ public class Board
     {
 
         i.display(boardImage, 0, 0);
+        board[1][0].display(1, 0);
     }
 
     public int[][] getCheckedSpaces()
