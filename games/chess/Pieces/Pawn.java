@@ -24,11 +24,11 @@ public class Pawn extends ChessPiece
 
         if (player == 0)
         {
-            pieceImage = new File("resources/chess/images/whiterook.png");
+            pieceImage = new File("resources/chess/images/pawnwhite.png");
         }
         else 
         {
-            pieceImage = new File("resources/chess/images/blackrook.png");
+            pieceImage = new File("resources/chess/images/pawnblack.png");
         }
     }
 
