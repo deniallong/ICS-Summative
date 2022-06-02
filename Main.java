@@ -2,7 +2,6 @@ import java.io.IOException;
 
 import hsa.Console;
 
-import utils.Utils;
 import utils.ImageDisplayer;
 
 import games.chess.Chess;

@@ -5,8 +5,6 @@ import java.io.IOException;
 
 import utils.ImageDisplayer;
 
-import hsa.Console;
-
 import games.chess.Pieces.*;
 
 public class Board 
