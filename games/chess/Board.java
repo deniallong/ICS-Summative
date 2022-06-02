@@ -6,6 +6,7 @@ import java.io.IOException;
 import utils.ImageDisplayer;
 
 import games.chess.Pieces.*;
+import games.chess.Structures.*;
 
 public class Board 
 {

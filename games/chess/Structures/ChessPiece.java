@@ -1,4 +1,4 @@
-package games.chess.Pieces;
+package games.chess.Structures;
 
 import utils.*;
 

@@ -1,8 +1,8 @@
-import java.io.IOException;
-
 import hsa.Console;
 
-import utils.ImageDisplayer;
+import java.io.IOException;
+
+import utils.*;
 
 import games.chess.Chess;
 
