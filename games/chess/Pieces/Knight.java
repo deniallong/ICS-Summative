@@ -3,12 +3,12 @@ package games.chess.Pieces;
 import games.chess.Structures.*;
 import utils.*;
 
-public class Pawn extends ChessPiece 
+public class Knight extends ChessPiece 
 {
-    
-    public Pawn(int player)
+
+    public Knight(int player)
     {
-        super(player, "pawn");
+        super(player, "knight");
     }
 
     public Pair[] getMoves(ChessPiece[][] board, int row, int col)
