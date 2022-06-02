@@ -16,12 +16,12 @@ public class Pawn extends ChessPiece {
         Pair[] moves;
 
         // Initializing variables
-        moves = new Pair[1];
+        moves = new Pair[0];
 
         // Processing
         // Checking which moves are valid
         if (row < openSpaces.length - 1 && openSpaces[row + 1][col] == 0) {
-            moves[0] = new Pair(row + 1, col);
+            moves = Utils.add(moves, new Pair(row + 1, col));
         }
 
         return moves;
