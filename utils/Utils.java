@@ -171,7 +171,7 @@ public class Utils
 >>>>>>> e10333e17f34e48b03e61559ed260bcf00202079
 	}
 
-	public static int[][] search(int[][] searchArray , int target) 
+	public static int[][] searchMatrix(int[][] searchArray , int target) 
     {
 		//Variable Declaration
 		int found, returnRowIndex;
