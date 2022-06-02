@@ -10,7 +10,6 @@ import utils.ImageDisplayer;
 public class Board
 {
     static ImageDisplayer i;
-
     static Console c;
 
     static File boardImage;
@@ -18,7 +17,6 @@ public class Board
     static File redPieceImage;
 
     private int board[][];
-    private int Positions[][];
     
     Board()
     {
@@ -42,7 +40,7 @@ public class Board
     {
         c.clear();
 
-        i.display(boardImage, 0, 0, c);
+        i.display(boardImage, 0, 0);
 
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
 	    {
@@ -65,19 +63,30 @@ public class Board
         else if(player == 2)
             i.display(redPieceImage, xPosition, yPosition);
     }
-    
+    /*
     public boolean checkWin(int player)
     {
-        int inRow[];
-        int inColumn[];
-        int inDiagonal[];
+        int failed;
+        
+        int column[] = new int[7];
+        int diagonal[];
+
+        failed = 0;
 
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
-        {
-            inRow = Utils.search(board[rowIndex], player);
-            if(hasConsecutive(board[rowIndex]) = true)
-        }
-        return false;
+            if(Utils.inARow(board[rowIndex], 4, player))
+                return true;
+            else
+                failed++;
+
+        for(int rowIndex = 0; rowIndex < board[rowIndex].length; rowIndex++)
+            if(Utils.inARow(column, 4, player))
+                return true;
+            else
+                failed++;
+        
+        if(failed == 3)        
+            return false;
     }
     
     public boolean checkTie()
@@ -100,6 +109,7 @@ public class Board
         move[0] = Utils.input("Enter the column you want to drop your piece: ", 1, 7);
         move[1] = Utils.search(board[move[0]], player).length;
 
-        board[move[0]][move[1]] = player;        
+        board[move[0]][move[1]] = player;
     }
+    */
 }

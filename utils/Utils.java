@@ -136,7 +136,7 @@ public class Utils
 		//Returns the array.
 		return array;
 	}
-	
+
 	public static Pair[] add(Pair[] array, Pair addition)
 	{
 		//Declares the array.
