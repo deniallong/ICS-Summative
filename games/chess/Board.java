@@ -61,6 +61,7 @@ public class Board
         board[0][4] = new King(0);
         board[7][4] = new King(1);
 
+        // Placing Queens
         board[0][3] = new Queen(0);
         board[7][3] = new Queen(1);
     }
