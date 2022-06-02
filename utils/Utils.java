@@ -47,6 +47,7 @@ public class Utils
 		return returnArray;
 	}
 
+<<<<<<< HEAD
 	public static int[] search(int[] searchArray , int target) 
     {
 		//Variable Declaration
@@ -152,5 +153,21 @@ public class Utils
 			if(rowLength == length)
 				return true;
 		}
+=======
+	public static Pair[] add(Pair[] array, Pair addition)
+	{
+		//Declares the array.
+		Pair returnArray[] = new Pair[array.length + 1];
+
+		//Enters all the elements of the old array into the new array.
+		for(int index = 0; index < array.length; index++)
+			returnArray[index] = array[index];
+		
+		//Adds the new element to the end of the array.
+		returnArray[array.length] = addition;
+
+		//Returns the new array.
+		return returnArray;
+>>>>>>> e10333e17f34e48b03e61559ed260bcf00202079
 	}
 }
