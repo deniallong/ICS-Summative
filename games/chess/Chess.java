@@ -16,7 +16,9 @@ public class Chess
         c = new Console();
 
         int turn;
-        String move;
+        String[] move;
+        String from;
+        String to;
 
         turn = 0;
 
@@ -25,8 +27,9 @@ public class Chess
 
         while (true)
         {
-            move = c.readLine();
-            System.out.println(move);
+            move = c.readLine().split(" ");
+
+            
         }
     }
 }
