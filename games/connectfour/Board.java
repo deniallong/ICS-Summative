@@ -20,10 +20,10 @@ public class Board
     
     Board()
     {
-        board = new int[7][7];
+        board = new int[6][7];
 
-        for(int rowIndex = 0; rowIndex < 7; rowIndex++)
-            for(int columnIndex = 0; columnIndex < 7; columnIndex++)
+        for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
+            for(int columnIndex = 0; columnIndex < board[rowIndex].length; columnIndex++)
                 board[rowIndex][columnIndex] = 0;
     }
 
@@ -32,22 +32,19 @@ public class Board
         i = new ImageDisplayer();
 
         boardImage = new File("resources/connectfour/images/Connect4Board.png");
-        yellowPieceImage = new File("resources/images/Connect4YellowPiece.png");
-        redPieceImage = new File("resources/images/Connect4RedPiece.png");
+        yellowPieceImage = new File("resources/connectfour/images/Connect4YellowPiece.png");
+        redPieceImage = new File("resources/connectfour/images/Connect4RedPiece.png");
     }
 
     public void display() throws IOException
     {
-        c.clear();
-
         i.display(boardImage, 0, 0);
 
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
 	    {
 		    for(int columnIndex = 0; columnIndex < board[rowIndex].length; columnIndex++)
-                displayPiece(rowIndex, columnIndex, board[rowIndex][columnIndex]);
-        
-	        c.println();
+                if(board[rowIndex][columnIndex] != 0)
+                    displayPiece(rowIndex, columnIndex, board[rowIndex][columnIndex]);
 	    }
     }
 
@@ -55,8 +52,8 @@ public class Board
     {
         int xPosition, yPosition;
         
-        xPosition = rowIndex * 75;
-        yPosition = columnIndex * 75;
+        xPosition = rowIndex * 63;
+        yPosition = 317 - columnIndex * 75;
 
         if(player == 1)
             i.display(yellowPieceImage, xPosition, yPosition);
