@@ -60,7 +60,17 @@ public class Board
         else if(player == 2)
             i.display(redPieceImage, xPosition, yPosition);
     }
-    
+
+    public void getMove(int player, int input)
+    {
+        int move[] = new int[2];
+
+        move[0] = input;
+        move[1] = Utils.search(board[move[0]], player).length;
+
+        board[move[0]][move[1]] = player;
+    }
+
     public boolean checkWin(int player)
     {
         int failed;
@@ -100,15 +110,9 @@ public class Board
         else
             return false;
     }
-
-    public void getMove(int player)
-    {
-        int move[] = new int[2];
-
-        move[0] = Utils.input("Enter the column you want to drop your piece: ", 1, 7);
-        move[1] = Utils.search(board[move[0]], player).length;
-
-        board[move[0]][move[1]] = player;
-    }
     
+    public void displayWin(int player)
+    {
+        
+    }
 }
