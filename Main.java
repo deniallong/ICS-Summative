@@ -5,6 +5,7 @@ import java.io.IOException;
 import utils.*;
 
 import games.chess.Chess;
+import games.connectfour.ConnectFour;
 
 public class Main {
 
@@ -14,7 +15,8 @@ public class Main {
     public static void main(String[] args) throws IOException
     {
         // Main code
-        ChessDriver();
+        //ChessDriver();
+        ConnectFourDriver();
     }
 
     public static void ChessDriver() throws IOException 
@@ -24,6 +26,6 @@ public class Main {
 
     public static void ConnectFourDriver() throws IOException 
     {
-
+        ConnectFour.run();
     }
 }

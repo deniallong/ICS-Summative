@@ -1,21 +1,25 @@
 package games.connectfour;
 
+import java.io.File;
+import java.io.IOException;
+
 import hsa.Console;
-import java.awt.*;
+import utils.Utils;
+import utils.ImageDisplayer;
 
 public class ConnectFour
 {
-    static Console c;
+	static Console c;
 
-    static Board b;
+    private static Board b;
 
-    public void run()
+    public static void run() throws IOException
     {
         c = new Console();
         
         Board.initialize();
         b = new Board();
 
-        Board.display();
+        b.display();
     }
 }

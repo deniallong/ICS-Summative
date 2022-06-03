@@ -27,8 +27,8 @@ public class Board
                 board[rowIndex][columnIndex] = 0;
     }
 
-    public static void initialize() {
-        c = new Console();
+    public static void initialize()
+    {
         i = new ImageDisplayer();
 
         boardImage = new File("resources/connectfour/images/Connect4Board.png");
@@ -63,27 +63,29 @@ public class Board
         else if(player == 2)
             i.display(redPieceImage, xPosition, yPosition);
     }
-    /*
+    
     public boolean checkWin(int player)
     {
         int failed;
-        
+
         int column[] = new int[7];
         int diagonal[];
 
         failed = 0;
 
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
-            if(Utils.inARow(board[rowIndex], 4, player))
+            if(Utils.inARow(board[rowIndex], player, 4))
                 return true;
             else
                 failed++;
 
-        for(int rowIndex = 0; rowIndex < board[rowIndex].length; rowIndex++)
-            if(Utils.inARow(column, 4, player))
+        for(int columnIndex = 0; columnIndex < board[columnIndex].length; columnIndex++)
+            if(Utils.inARow(column, player, 4))
                 return true;
             else
                 failed++;
+        
+        for(int )
         
         if(failed == 3)        
             return false;
@@ -111,5 +113,5 @@ public class Board
 
         board[move[0]][move[1]] = player;
     }
-    */
+    
 }
