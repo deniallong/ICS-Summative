@@ -23,8 +23,12 @@ public class Board
         board = new int[6][7];
 
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
+        {
             for(int columnIndex = 0; columnIndex < board[rowIndex].length; columnIndex++)
+            {
                 board[rowIndex][columnIndex] = 0;
+            }
+        }
     }
 
     public static void initialize()
@@ -43,8 +47,12 @@ public class Board
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
 	    {
 		    for(int columnIndex = 0; columnIndex < board[rowIndex].length; columnIndex++)
+            {
                 if(board[rowIndex][columnIndex] != 0)
+                {
                     displayPiece(rowIndex, columnIndex, board[rowIndex][columnIndex]);
+                }
+            }
 	    }
     }
 
@@ -52,13 +60,17 @@ public class Board
     {
         int xPosition, yPosition;
         
-        xPosition = rowIndex * 63;
-        yPosition = 317 - columnIndex * 75;
+        xPosition = rowIndex * 58 + 41;
+        yPosition = 308 - columnIndex * 58;
 
         if(player == 1)
+        {
             i.display(yellowPieceImage, xPosition, yPosition);
+        }
         else if(player == 2)
+        {
             i.display(redPieceImage, xPosition, yPosition);
+        }
     }
 
     public void getMove(int player, int input)
@@ -81,21 +93,35 @@ public class Board
         failed = 0;
 
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
+        {
             if(Utils.inARow(board[rowIndex], player, 4))
+            {
                 return true;
+            }
             else
+            {
                 failed++;
+            }
+        }
 
         for(int columnIndex = 0; columnIndex < board[columnIndex].length; columnIndex++)
+        {
             if(Utils.inARow(column, player, 4))
+            {
                 return true;
+            }
             else
+            {
                 failed++;
+            }
+        }
         
         for(int )
         
-        if(failed == 3)        
+        if(failed == 3)
+        {    
             return false;
+        }
     }
     
     public boolean checkTie()
@@ -105,14 +131,18 @@ public class Board
         unfilled = Utils.search(board, 0).length;
 
         if(unfilled == 0)
+        {
             return true;
+        }
 
         else
+        {
             return false;
+        }
     }
     
     public void displayWin(int player)
     {
-        
+
     }
 }

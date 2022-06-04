@@ -13,7 +13,7 @@ public class ConnectFour
 
     public static void run() throws IOException
     {
-        c = new Console();
+        //c = new Console();
         
         Board.initialize();
         b = new Board();
@@ -21,7 +21,15 @@ public class ConnectFour
         int move;
 
         b.display();
+        for(int rowIndex = 0; rowIndex < 6; rowIndex++)
+        {
+            for(int columnIndex = 0; columnIndex < 7; columnIndex++)
+            {
+                b.displayPiece(columnIndex, rowIndex, 1);
+            }
+        }
 
+        /*
         while(b.checkWin(1) == false && b.checkWin(2) == false && b.checkTie() == false)
         {
             for(int player = 1; player <= 2; player++)
@@ -40,5 +48,6 @@ public class ConnectFour
         
         else if(b.checkTie())
             c.println("It's a tie.");
+        */
     }
 }
