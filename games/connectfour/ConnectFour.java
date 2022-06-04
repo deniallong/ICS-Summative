@@ -14,25 +14,17 @@ public class ConnectFour
     public static void run() throws IOException
     {
         int move;
-   //c = new Console();
-        
-        //Board.initialize();
+
+        c = new Console();
         b = new Board();
+        //b.display();
+
+        b.display();
+        move = Utils.input("Enter the column you want to drop your piece", 1, 7);
+        b.getMove(1, move);
         b.display();
 
-        for(int rowIndex = 0; rowIndex < 6; rowIndex++)
-        {
-            for(int columnIndex = 0; columnIndex < 7; columnIndex++)
-            {
-                b.displayPiece(rowIndex, columnIndex, 2);
-            }
-        }
-        
-
-        b.print();
-
-        /*
-        while(b.checkWin(1) == false && b.checkWin(2) == false && b.checkTie() == false)
+        /* while(b.checkWin(1) == false && b.checkWin(2) == false && b.checkTie() == false)
         {
             for(int player = 1; player <= 2; player++)
             {
@@ -49,7 +41,7 @@ public class ConnectFour
             c.println("Red wins!");
         
         else if(b.checkTie())
-            c.println("It's a tie.");
-        */
+            c.println("It's a tie."); */
+       
     }
 }

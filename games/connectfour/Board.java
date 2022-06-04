@@ -57,23 +57,30 @@ public class Board
             }
 	    }
     }
-
+/* 
     public void print()
     {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
+        for (int i = 0; i < board.length; i++)
+        {
+            for (int j = 0; j < board[i].length; j++)
+            {
                System.out.print(board[i][j] + " ");
             }
             System.out.println();
          }
     }
-
+ */
     public void displayPiece(int rowIndex, int columnIndex, int player) throws IOException
     {
-        int xPosition, yPosition;
+        int xBase, yBase, width, height, xPosition, yPosition;
         
-        xPosition = columnIndex * 58 + 41;
-        yPosition = 308 - rowIndex * 58;
+        xBase = 41;
+        yBase = 308;
+        width = 58;
+        height = 58;
+
+        xPosition = columnIndex * width + xBase;
+        yPosition = yBase - rowIndex * height;
 
         if(player == 1)
         {
@@ -128,7 +135,7 @@ public class Board
             }
         }
         
-        for(int )
+        //for(int )
         
         if(failed == 3)
         {    
