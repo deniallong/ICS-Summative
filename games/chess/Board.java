@@ -14,9 +14,10 @@ public class Board
     static File boardImage;
     static ImageDisplayer i;
 
-    private int rows;
-    private int cols;
-    private ChessPiece[][] board;
+    public int rows;
+    public int cols;
+
+    public ChessPiece[][] board;
 
     static 
     {
@@ -118,5 +119,10 @@ public class Board
         // TODO
 
         return new int[0][0];
+    }
+
+    public ChessPiece[][] getBoard()
+    {
+        return board;
     }
 }

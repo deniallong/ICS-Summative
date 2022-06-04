@@ -8,7 +8,7 @@ public class Queen extends ChessPiece
 
     public Queen(int player, int row, int col)
     {
-        super(player, "Queen", row, col);
+        super(player, "queen", row, col);
     }
 
     public Pair[] getMoves(ChessPiece[][] board)
