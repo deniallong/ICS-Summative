@@ -22,6 +22,8 @@ public class Board
     {
         board = new int[6][7];
 
+        initialize();
+
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
         {
             for(int columnIndex = 0; columnIndex < board[rowIndex].length; columnIndex++)
@@ -31,7 +33,7 @@ public class Board
         }
     }
 
-    public static void initialize()
+    private static void initialize()
     {
         i = new ImageDisplayer();
 
@@ -56,12 +58,22 @@ public class Board
 	    }
     }
 
+    public void print()
+    {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+               System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+         }
+    }
+
     public void displayPiece(int rowIndex, int columnIndex, int player) throws IOException
     {
         int xPosition, yPosition;
         
-        xPosition = rowIndex * 58 + 41;
-        yPosition = 308 - columnIndex * 58;
+        xPosition = columnIndex * 58 + 41;
+        yPosition = 308 - rowIndex * 58;
 
         if(player == 1)
         {
@@ -141,8 +153,28 @@ public class Board
         }
     }
     
+    public void winMessage(int player)
+    {
+        if(checkWin(1))
+        {
+            c.println("Yellow wins!");
+        }
+        
+        else if(checkWin(2))
+        {
+            c.println("Red wins!");
+        }
+        
+        else if(checkTie())
+        {
+            c.println("It's a tie.");
+        }
+
+        this.displayWin(player);
+    }
+
     public void displayWin(int player)
     {
-
+        
     }
 }

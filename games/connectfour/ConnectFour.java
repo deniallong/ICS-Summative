@@ -13,21 +13,23 @@ public class ConnectFour
 
     public static void run() throws IOException
     {
-        //c = new Console();
-        
-        Board.initialize();
-        b = new Board();
-
         int move;
-
+   //c = new Console();
+        
+        //Board.initialize();
+        b = new Board();
         b.display();
+
         for(int rowIndex = 0; rowIndex < 6; rowIndex++)
         {
             for(int columnIndex = 0; columnIndex < 7; columnIndex++)
             {
-                b.displayPiece(columnIndex, rowIndex, 1);
+                b.displayPiece(rowIndex, columnIndex, 2);
             }
         }
+        
+
+        b.print();
 
         /*
         while(b.checkWin(1) == false && b.checkWin(2) == false && b.checkTie() == false)
