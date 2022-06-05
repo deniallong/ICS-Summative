@@ -8,7 +8,6 @@ import utils.Utils;
 public class ConnectFour
 {
 	static Console c;
-
     private static Board b;
 
     public static void run() throws IOException
@@ -20,9 +19,16 @@ public class ConnectFour
         //b.display();
 
         b.display();
-        move = Utils.input("Enter the column you want to drop your piece", 1, 7);
-        b.getMove(1, move);
-        b.display();
+        
+        for(int moveNumber = 0; moveNumber < 5; moveNumber++)
+        {
+            for(int player = 1; player <= 2; player++)
+            {
+                b.getMove(player, Utils.input("Enter the column you want to drop your piece: ", b.getValidMoves(), c));
+                b.display();
+                b.print();
+            }
+        }
 
         /* while(b.checkWin(1) == false && b.checkWin(2) == false && b.checkTie() == false)
         {

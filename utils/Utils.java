@@ -6,7 +6,7 @@ public class Utils
 {
     static Console c;
 
-    public static int input(String prompt, int low, int high) 
+    public static int input(String prompt, int low, int high, Console c) 
     {
 		//Variable Declaration
 		int input;
@@ -23,13 +23,38 @@ public class Utils
 		else
 		{
 			//Outputs the valid range and prompts user to try again.
-			c.println("Your input is invalid. Inputs must be an integer between " + low + " and " + high + ", inclusive.");
+			c.println("\nYour input is invalid. Inputs must be an integer between " + low + " and " + high + ", inclusive.");
 			c.print("Try a valid input: ");
 			
 			//Returns the method.
-			return input("", low, high);
+			return input("", low, high, c);
 		}
-    } 
+    }
+
+	public static int input(String prompt, int[] choices, Console c) 
+    {
+		//Variable Declaration
+		int input;
+	
+		//Prompts user to enter an integer.
+		c.print(prompt);
+		input = c.readInt();
+	
+		//Checks if integer is within the valid range.
+		if(search(choices, input).length >= 1)
+			//Returns the valid input.
+			return input;
+			
+		else
+		{
+			//Outputs the valid range and prompts user to try again.
+			c.println("\nYour input is invalid. Inputs must be an integer in this set: " + choices);
+			c.print("Try a valid input: ");
+			
+			//Returns the method.
+			return input("", choices, c);
+		}
+    }
 
     public static int[] add(int[] array, int addition)
 	{
@@ -50,30 +75,13 @@ public class Utils
 	public static int[] search(int[] searchArray , int target) 
     {
 		//Variable Declaration
-		int found, returnIndex;
-
-		//Variable Initialisation
-		found = 0;
-		returnIndex = 0;
+		int returnArray[] = new int[0];
 		
 		//Notes down how many instances the array contains the target.
 		for(int index = 0; index < searchArray.length; index++)
 		{            
 			if(searchArray[index] == target)
-				found++;
-		}
-
-		//Declares an array with corresponding length.
-		int returnArray[] = new int[found];
-
-		//Enters the indices where the target is found in the original array in the new array.
-		for(int index = 0; index < searchArray.length; index++)
-		{
-			if(searchArray[index] == target)
-			{
-				returnArray[returnIndex] = index;
-				returnIndex++;
-			}
+				add(returnArray, index);
 		}
 
 		//Returns the array of indices.
@@ -192,15 +200,30 @@ public class Utils
 
 	public static boolean inARow(int[] array, int target, int length)
 	{
-		int rowLength;
+		int rowLength, checkLength;
 		
+		boolean breakCondition;
+
 		rowLength = 0;
+		checkLength = array.length - length + 1;
 
-		for(int index = 0; index < array.length; index++)
+		for(int index = 0; index < checkLength; index++)
 		{
-			boolean breakCondition;
-
 			breakCondition = false;
+
+			if(array[index] == target)
+			{
+				if(array[index + 1] == target)
+				{
+					if(array[index + 2] == target)
+					{
+						if(array[index + 3] == target)
+						{
+							return true;
+						}
+					}
+				}
+			}
 
 			for(int consecutiveNumber = 0; consecutiveNumber < length && breakCondition == false; consecutiveNumber++)
 				if(array[index + consecutiveNumber] == target)
@@ -213,5 +236,17 @@ public class Utils
 			return true;
 		else
 			return false;
+	}
+
+	public static int[] getColumn(int[][] array, int columnIndex)
+	{
+		int returnArray[] = new int[array.length];
+
+		for(int rowIndex = 0; rowIndex < array.length; rowIndex++)
+		{
+			returnArray[rowIndex] = array[rowIndex][columnIndex];
+		}
+
+		return returnArray;
 	}
 }

@@ -16,7 +16,7 @@ public class Board
     static File yellowPieceImage;
     static File redPieceImage;
 
-    private int board[][];
+    /* private */ public int board[][];
     
     Board()
     {
@@ -29,6 +29,7 @@ public class Board
             for(int columnIndex = 0; columnIndex < board[rowIndex].length; columnIndex++)
             {
                 board[rowIndex][columnIndex] = 0;
+                //board[rowIndex][columnIndex] = (int) (Math.random() * 5) + 1;
             }
         }
     }
@@ -57,7 +58,7 @@ public class Board
             }
 	    }
     }
-/* 
+
     public void print()
     {
         for (int i = 0; i < board.length; i++)
@@ -69,7 +70,8 @@ public class Board
             System.out.println();
          }
     }
- */
+
+    
     public void displayPiece(int rowIndex, int columnIndex, int player) throws IOException
     {
         int xBase, yBase, width, height, xPosition, yPosition;
@@ -91,13 +93,28 @@ public class Board
             i.display(redPieceImage, xPosition, yPosition);
         }
     }
+    
+    public int[] getValidMoves()
+    {
+        int validMoves[] = new int[0];
 
+        for(int index = 0; index < board[0].length; index++)
+        {
+            if(Utils.search(Utils.getColumn(board, index), 1).length < board.length)
+            {
+                Utils.add(validMoves, index);
+            }
+        }
+
+        return validMoves;
+    }
+    
     public void getMove(int player, int input)
     {
         int move[] = new int[2];
-
-        move[0] = input;
-        move[1] = Utils.search(board[move[0]], player).length;
+        
+        move[1] = input - 1;
+        move[0] = input + 1;
 
         board[move[0]][move[1]] = player;
     }
@@ -137,7 +154,7 @@ public class Board
         
         //for(int )
         
-        if(failed == 3)
+        if(failed == 2)
         {    
             return false;
         }
