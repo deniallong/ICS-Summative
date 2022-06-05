@@ -7,8 +7,8 @@ import utils.*;
 import games.chess.Chess;
 import games.connectfour.ConnectFour;
 
-public class Main {
-
+public class Main
+{
     static Console c;
     static ImageDisplayer displayer;
     

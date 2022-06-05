@@ -24,7 +24,7 @@ public class ConnectFour
         {
             for(int player = 1; player <= 2; player++)
             {
-                b.getMove(player, Utils.input("Enter the column you want to drop your piece: ", b.getValidMoves(), c));
+                b.getMove(player, Utils.input("Enter the column you want to drop your piece: ", 1,7, c));
                 b.display();
                 b.print();
             }

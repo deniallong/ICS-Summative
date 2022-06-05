@@ -16,7 +16,7 @@ public class Board
     static File yellowPieceImage;
     static File redPieceImage;
 
-    /* private */ public int board[][];
+    private int board[][];
     
     Board()
     {
@@ -41,6 +41,28 @@ public class Board
         boardImage = new File("resources/connectfour/images/Connect4Board.png");
         yellowPieceImage = new File("resources/connectfour/images/Connect4YellowPiece.png");
         redPieceImage = new File("resources/connectfour/images/Connect4RedPiece.png");
+    }
+
+    public void displayPiece(int rowIndex, int columnIndex, int player) throws IOException
+    {
+        int xBase, yBase, width, height, xPosition, yPosition;
+        
+        xBase = 41;
+        yBase = 308;
+        width = 58;
+        height = 58;
+
+        xPosition = columnIndex * width + xBase;
+        yPosition = yBase - rowIndex * height;
+
+        if(player == 1)
+        {
+            i.display(yellowPieceImage, xPosition, yPosition);
+        }
+        else if(player == 2)
+        {
+            i.display(redPieceImage, xPosition, yPosition);
+        }
     }
 
     public void display() throws IOException
@@ -70,29 +92,6 @@ public class Board
             System.out.println();
          }
     }
-
-    
-    public void displayPiece(int rowIndex, int columnIndex, int player) throws IOException
-    {
-        int xBase, yBase, width, height, xPosition, yPosition;
-        
-        xBase = 41;
-        yBase = 308;
-        width = 58;
-        height = 58;
-
-        xPosition = columnIndex * width + xBase;
-        yPosition = yBase - rowIndex * height;
-
-        if(player == 1)
-        {
-            i.display(yellowPieceImage, xPosition, yPosition);
-        }
-        else if(player == 2)
-        {
-            i.display(redPieceImage, xPosition, yPosition);
-        }
-    }
     
     public int[] getValidMoves()
     {
@@ -114,7 +113,8 @@ public class Board
         int move[] = new int[2];
         
         move[1] = input - 1;
-        move[0] = input + 1;
+        move[0] = Utils.search(Utils.getColumn(board, move[1]), 1).length;
+        System.out.println(move[0]);
 
         board[move[0]][move[1]] = player;
     }
