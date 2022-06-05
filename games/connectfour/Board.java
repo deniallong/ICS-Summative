@@ -113,8 +113,7 @@ public class Board
         int move[] = new int[2];
         
         move[1] = input - 1;
-        move[0] = Utils.search(Utils.getColumn(board, move[1]), 1).length;
-        System.out.println(move[0]);
+        move[0] = Utils.search(Utils.getColumn(board, move[1]), 1).length + Utils.search(Utils.getColumn(board, move[1]), 2).length;
 
         board[move[0]][move[1]] = player;
     }
