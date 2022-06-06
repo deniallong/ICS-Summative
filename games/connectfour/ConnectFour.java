@@ -16,14 +16,15 @@ public class ConnectFour
 
         c = new Console();
         b = new Board();
-        //b.display();
 
         b.display();
+        c.println("Each player will enter the column they want to place their piece when prompted. Columns are numbered 1 to 7 from left to right. The first player to get 4  pieces in a row, column, or diagonal, wins.");
         
         for(int moveNumber = 0; moveNumber < 5; moveNumber++)
         {
             for(int player = 1; player <= 2; player++)
             {
+                c.println("\nPlayer " + player + " move.");
                 b.getMove(player, Utils.input("Enter the column you want to drop your piece: ", 1,7, c));
                 b.display();
             }
@@ -33,8 +34,8 @@ public class ConnectFour
         {
             for(int player = 1; player <= 2; player++)
             {
-                move = Utils.input("Enter the column you want to drop your piece", 1, 7);
-                b.getMove(player, move);
+                c.println("\nPlayer " + player + " move.");
+                b.getMove(player, Utils.input("Enter the column you want to drop your piece: ", 1,7, c));
                 b.display();
             }
         }
