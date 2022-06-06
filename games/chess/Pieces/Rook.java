@@ -8,7 +8,7 @@ public class Rook extends ChessPiece
     
     public Rook(int player, int row, int col)
     {
-        super(player, "Rook", row, col);
+        super(player, "rook", row, col);
     }
 
     public Pair[] getMoves(ChessPiece[][] board)
