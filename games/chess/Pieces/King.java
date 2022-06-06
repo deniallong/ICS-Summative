@@ -8,7 +8,7 @@ public class King extends ChessPiece
     
     public King(int player, int row, int col)
     {
-        super(player, "King", row, col);
+        super(player, "king", row, col);
     }
 
     public Pair[] getMoves(ChessPiece[][] board)

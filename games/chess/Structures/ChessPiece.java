@@ -12,6 +12,7 @@ public abstract class ChessPiece
     private int player;
     private File pieceImage;
 
+    public String name;
     public int row;
     public int col;
 
@@ -35,6 +36,7 @@ public abstract class ChessPiece
 
         this.row = row;
         this.col = col;
+        this.name = name;
     }
 
     // Getters
