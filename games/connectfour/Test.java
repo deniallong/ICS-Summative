@@ -19,14 +19,11 @@ public class Test {
             System.out.print(array[index] + "b");
         } */
         c = new Console();
-        int choices[] = {1,2,2,2,2,2,2,3,4,5,6,7,8,9,0};
-        int input = 2;
+        int choices[] = {1,2,3,4,5};
+        
+        int input = Utils.input("bruh: ", choices, c);
 
-        for(int index = 0; index < Utils.search(choices, input).length; index ++)
-        {
-            System.out.print(Utils.search(choices, input)[index]);
-            System.out.print("bruh");
-        }        
+        c.println(input);
     }
 }
 

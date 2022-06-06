@@ -40,15 +40,20 @@ public class Utils
 		c.print(prompt);
 		input = c.readInt();
 	
-		//Checks if integer is within the valid range.
+		//Checks if integer is one of the valid choices.
 		if(search(choices, input).length >= 1)
 			//Returns the valid input.
 			return input;
 			
 		else
 		{
-			//Outputs the valid range and prompts user to try again.
-			c.println("\nYour input is invalid. Inputs must be an integer in this set: " + choices);
+			//Outputs the valid choices and prompts user to try again.
+			c.println("\nYour input is invalid. Inputs must be an integer in this set: ");
+			for(int index = 0; index < choices.length - 1; index++)
+			{
+				c.print(choices[index] + ", ");
+			}
+			c.println("or " + choices[choices.length - 1] + ".");
 			c.print("Try a valid input: ");
 			
 			//Returns the method.
@@ -63,7 +68,9 @@ public class Utils
 
 		//Enters all the elements of the old array into the new array.
 		for(int index = 0; index < array.length; index++)
+		{
 			returnArray[index] = array[index];
+		}
 		
 		//Adds the new element to the end of the array.
 		returnArray[array.length] = addition;
@@ -219,38 +226,20 @@ public class Utils
 	public static boolean inARow(int[] array, int target, int length)
 	{
 		int rowLength, checkLength;
-		
-		boolean breakCondition;
 
 		rowLength = 0;
 		checkLength = array.length - length + 1;
 
 		for(int index = 0; index < checkLength; index++)
 		{
-			breakCondition = false;
-
-			if(array[index] == target)
-			{
-				if(array[index + 1] == target)
-				{
-					if(array[index + 2] == target)
-					{
-						if(array[index + 3] == target)
-						{
-							return true;
-						}
-					}
-				}
-			}
-
-			for(int consecutiveNumber = 0; consecutiveNumber < length && breakCondition == false; consecutiveNumber++)
+			for(int consecutiveNumber = 0; consecutiveNumber < length; consecutiveNumber++)
 				if(array[index + consecutiveNumber] == target)
 					rowLength++;
 				else
 					breakCondition = true;
 		}
 
-		if(rowLength == length)
+		if(rowLength == length - 1)
 			return true;
 		else
 			return false;

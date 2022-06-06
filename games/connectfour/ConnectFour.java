@@ -8,7 +8,7 @@ import utils.Utils;
 public class ConnectFour
 {
 	static Console c;
-    private static Board b;
+    static Board b;
 
     public static void run() throws IOException
     {
@@ -25,7 +25,7 @@ public class ConnectFour
             for(int player = 1; player <= 2; player++)
             {
                 c.println("\nPlayer " + player + " move.");
-                b.getMove(player, Utils.input("Enter the column you want to drop your piece: ", 1,7, c));
+                b.getMove(player, Utils.input("Enter the column you want to drop your piece: ", b.getValidMoves(), c));
                 b.display();
             }
         }

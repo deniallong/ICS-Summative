@@ -85,11 +85,11 @@ public class Board
     {
         int validMoves[] = new int[0];
 
-        for(int index = 0; index < board[0].length; index++)
+        for(int columnIndex = 0; columnIndex < board[5].length; columnIndex++)
         {
-            if(Utils.search(Utils.getColumn(board, index), 1).length < board.length)
+            if(board[5][columnIndex] == 0)
             {
-                Utils.add(validMoves, index);
+                validMoves = Utils.add(validMoves, columnIndex + 1);
             }
         }
 
