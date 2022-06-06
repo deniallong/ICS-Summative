@@ -20,7 +20,7 @@ public class ConnectFour
         b.display();
         c.println("Each player will enter the column they want to place their piece when prompted. Columns are numbered 1 to 7 from left to right. The first player to get 4  pieces in a row, column, or diagonal, wins.");
         
-        for(int moveNumber = 0; moveNumber < 5; moveNumber++)
+        for(int moveNumber = 0; moveNumber < 20; moveNumber++)
         {
             for(int player = 1; player <= 2; player++)
             {
