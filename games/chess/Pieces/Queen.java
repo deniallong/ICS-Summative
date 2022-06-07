@@ -19,11 +19,11 @@ public class Queen extends ChessPiece
         // Initializing variables
         moves = new Pair[0];
 
-        // Processing
+       // Processing
+        // Checking which moves are valid
         // Checking top left diagonal
         for (int i = 1; i <= Math.min(7 - row, col); i++) 
         {
-            System.out.println("a");
             if (board[row + i][col - i] == null || board[row + i][col - i].getPlayer() != this.getPlayer()) 
             {
                 moves = Utils.add(moves, new Pair(row + i, col - i));
@@ -35,11 +35,11 @@ public class Queen extends ChessPiece
                     moves = Utils.add(moves, new Pair(row + i, col - i));
                 }
                 
-                i = Math.min(7 - row, col);
+                i = Math.min(7 - row, col) + 1;
             } 
         }
 
-        // Checking top right column
+        // Checking top right diagonal
         for (int i = 1; i <= Math.min(7 - row, 7 - col); i++) 
         {
             if (board[row + i][col + i] == null || board[row + i][col + i].getPlayer() != this.getPlayer()) 
@@ -53,7 +53,7 @@ public class Queen extends ChessPiece
                     moves = Utils.add(moves, new Pair(row + i, col + i));
                 }
                 
-                i = Math.min(7 - row, col);
+                i = Math.min(7 - row, 7 - col) + 1;
             } 
         }
 
@@ -71,11 +71,11 @@ public class Queen extends ChessPiece
                     moves = Utils.add(moves, new Pair(row - i, col - i));
                 }
                 
-                i = Math.min(row, col);
+                i = Math.min(row, col) + 1;
             } 
         }
 
-        // Checking bottom right column
+        // Checking bottom right diagonal
         for (int i = 1; i <= Math.min(row, 7 - col); i++) 
         {
             if (board[row - i][col + i] == null || board[row - i][col + i].getPlayer() != this.getPlayer()) 
@@ -89,7 +89,7 @@ public class Queen extends ChessPiece
                     moves = Utils.add(moves, new Pair(row - i, col + i));
                 }
                 
-                i = Math.min(row, 7 - col);
+                i = Math.min(row, 7 - col) + 1;
             } 
         }
 
@@ -267,5 +267,10 @@ public class Queen extends ChessPiece
         }
 
         return moves;
+    }
+
+    public ChessPiece clonePiece()
+    {
+        return new Queen(this.getPlayer(), row, col);
     }
 }

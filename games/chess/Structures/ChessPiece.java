@@ -48,6 +48,8 @@ public abstract class ChessPiece
     // Placeholder functions
     public abstract Pair[] getMoves(ChessPiece[][] board);
     public abstract Pair[] getDangerZones(ChessPiece[][]board);
+    public abstract ChessPiece clonePiece();
+    
    
     public void display() throws IOException
     {

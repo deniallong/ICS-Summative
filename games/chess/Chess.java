@@ -20,9 +20,12 @@ public class Chess
 
         int turn;
         String[] move;
+        boolean[][] checkedSquares;
         String fromLetter;
         Pair fromCoords;
         Pair toCoords;
+        ChessPiece blackKing; 
+        ChessPiece whiteKing;
         ChessPiece fromPiece;
         ChessPiece temp;
         boolean turnProgressed;
@@ -32,9 +35,12 @@ public class Chess
         boardObject = new Board();
         boardObject.display();
 
+        whiteKing = boardObject.board[0][4];
+        blackKing = boardObject.board[7][4];
+
         while (true)
         {
-            boolean[][] poo = getCheckedSpaces(boardObject.board);
+            boolean[][] poo = getCheckedSpaces(boardObject.board, 0);
 
             for (int i = 7; i >= 0; i--) 
             {
@@ -67,12 +73,78 @@ public class Chess
                     {
                         if (boardObject.isValidMove(fromCoords, toCoords, turn))
                         {
-                            boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                            boardObject.board[fromCoords.a][fromCoords.b] = null;
+                            checkedSquares = getCheckedSpaces(boardObject.board, turn);
 
-                            fromPiece.row = toCoords.a;
-                            fromPiece.col = toCoords.b;
-                            turnProgressed = true;
+                            System.out.println(turn);
+
+                            // Checking if a king is in check
+                            if (turn == 0 && checkedSquares[whiteKing.row][whiteKing.col])
+                            {
+                                if (avoidCheckValid(boardObject.board, fromCoords, toCoords, whiteKing))
+                                {
+                                    boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                    boardObject.board[fromCoords.a][fromCoords.b] = null;
+
+                                    fromPiece.row = toCoords.a;
+                                    fromPiece.col = toCoords.b;
+                                    turnProgressed = true;
+                                }
+                                else 
+                                {
+                                    c.println("That move is not valid, as the king would still be in check!");
+                                }
+                            }
+                            else if (turn == 1 && checkedSquares[blackKing.row][blackKing.col])
+                            {
+                                if (avoidCheckValid(boardObject.board, fromCoords, toCoords, blackKing))
+                                {
+                                    boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                    boardObject.board[fromCoords.a][fromCoords.b] = null;
+
+                                    fromPiece.row = toCoords.a;
+                                    fromPiece.col = toCoords.b;
+                                    turnProgressed = true;
+                                }
+                                else 
+                                {
+                                    c.println("That move is not valid, as the king would still be in check!");
+                                }
+                            }
+                            else 
+                            {
+                                if (fromPiece.name == "king")
+                                {
+                                    if (!checkedSquares[toCoords.a][toCoords.b])
+                                    {
+                                        boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                        boardObject.board[fromCoords.a][fromCoords.b] = null;
+
+                                        fromPiece.row = toCoords.a;
+                                        fromPiece.col = toCoords.b;
+                                        turnProgressed = true;
+                                    } 
+                                    else 
+                                    {
+                                        c.println("The king cannot go there, as it will be in check!");
+                                    }
+                                } 
+                                else 
+                                {   
+                                    if (turn == 0 && avoidCheckValid(boardObject.board, fromCoords, toCoords, whiteKing) || turn == 1 && avoidCheckValid(boardObject.board, fromCoords, toCoords, blackKing))
+                                    {
+                                        boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                        boardObject.board[fromCoords.a][fromCoords.b] = null;
+
+                                        fromPiece.row = toCoords.a;
+                                        fromPiece.col = toCoords.b;
+                                        turnProgressed = true;
+                                    }
+                                    else 
+                                    {
+                                        c.println("You cannot make that move, as it puts the king in check!");
+                                    }
+                                }
+                            }    
                         }
                         else 
                         {
@@ -108,7 +180,7 @@ public class Chess
                 }
             }
 
-            poo = getCheckedSpaces(boardObject.board);
+            poo = getCheckedSpaces(boardObject.board, 0);
 
             for (int i = 7; i >= 0; i--) 
             {
@@ -124,6 +196,30 @@ public class Chess
 
                 System.out.println();
             }
+
+            checkedSquares = getCheckedSpaces(boardObject.board, turn);
+
+            if (turnProgressed)
+            {
+                if (turn == 0)
+                {
+                    if (checkedSquares[whiteKing.row][whiteKing.col])
+                    {
+                        c.println("The white king is in check!");
+                    }
+
+                    c.println("It is now white's turn!");
+                }
+                else 
+                {
+                    if (checkedSquares[blackKing.row][blackKing.col])
+                    {
+                        c.println("The black king is in check!");
+                    }
+
+                    c.println("It is now black's turn!");
+                }
+            }
         }
     }
 
@@ -137,7 +233,7 @@ public class Chess
         return false;
     }
 
-    public static boolean[][] getCheckedSpaces(ChessPiece[][] board)
+    public static boolean[][] getCheckedSpaces(ChessPiece[][] board, int player)
     {
         boolean[][] ans;
 
@@ -147,7 +243,7 @@ public class Chess
         {
             for (int v = 0; v < 8; v++)
             {
-                if (board[i][v] != null)
+                if (board[i][v] != null && board[i][v].getPlayer() != player)
                 {
                     Pair[] moves; 
 
@@ -167,5 +263,43 @@ public class Chess
         }
 
         return ans;
+    }
+
+    public static boolean avoidCheckValid(ChessPiece[][] board, Pair from, Pair to, ChessPiece king)
+    {
+        ChessPiece[][] boardClone;
+        ChessPiece fromPiece;
+
+        boardClone = new ChessPiece[8][8]; 
+
+        // Cloning the board
+        for (int i = 0; i < board.length; i++)
+        {
+            for (int v = 0; v < board[i].length; v++)
+            {
+                if (board[i][v] != null)
+                {
+                    boardClone[i][v] = board[i][v].clonePiece();
+                }
+            }
+        }
+
+        if (boardClone[king.row][king.col].name.equals("king")) 
+        {
+            king = boardClone[king.row][king.col];
+        }
+
+        // Simulating the piece moving
+        fromPiece = boardClone[from.a][from.b];
+
+        boardClone[to.a][to.b] = fromPiece;
+        boardClone[from.a][from.b] = null;
+
+        boardClone[to.a][to.b].row = to.a;
+        boardClone[to.a][to.b].col = to.b;
+
+        boolean[][] checkedSquares = getCheckedSpaces(boardClone, board[from.a][from.b].getPlayer());
+
+        return !checkedSquares[king.row][king.col];
     }
 }

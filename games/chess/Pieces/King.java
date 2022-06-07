@@ -118,4 +118,9 @@ public class King extends ChessPiece
 
         return moves;
     }
+
+    public ChessPiece clonePiece()
+    {
+        return new King(this.getPlayer(), row, col);
+    }
 }

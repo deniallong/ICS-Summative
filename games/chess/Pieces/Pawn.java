@@ -100,4 +100,9 @@ public class Pawn extends ChessPiece
 
         return moves;
     }
+
+    public ChessPiece clonePiece()
+    {
+        return new Pawn(this.getPlayer(), row, col);
+    }
 }

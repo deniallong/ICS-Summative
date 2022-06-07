@@ -50,4 +50,9 @@ public class Knight extends ChessPiece
     {
         return new Pair[0];
     }
+
+    public ChessPiece clonePiece()
+    {
+        return new Knight(this.getPlayer(), row, col);
+    }
 }

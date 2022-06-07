@@ -152,4 +152,9 @@ public class Rook extends ChessPiece
 
         return moves;
     }
+
+    public ChessPiece clonePiece()
+    {
+        return new Rook(this.getPlayer(), row, col);
+    }
 }

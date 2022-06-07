@@ -53,7 +53,7 @@ public class Bishop extends ChessPiece
                     moves = Utils.add(moves, new Pair(row + i, col + i));
                 }
                 
-                i = Math.min(7 - row, col) + 1;
+                i = Math.min(7 - row, 7 - col) + 1;
             } 
         }
 
@@ -151,5 +151,10 @@ public class Bishop extends ChessPiece
         }
 
         return moves;
+    }
+
+    public ChessPiece clonePiece()
+    {
+        return new Bishop(this.getPlayer(), row, col);
     }
 }
