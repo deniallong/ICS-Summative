@@ -48,7 +48,7 @@ public class Board
         int xMargin, yMargin, width, height, xPosition, yPosition;
         
         xMargin = 41;
-        yMargin = 308;
+        yMargin = 358;
         width = 58;
         height = 58;
 
@@ -190,12 +190,5 @@ public class Board
         {
             c.println("It's a tie.");
         }
-
-        this.displayWin(player);
-    }
-
-    public void displayWin(int player)
-    {
-        
     }
 }

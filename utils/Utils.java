@@ -214,6 +214,11 @@ public class Utils
 
 		for(int index = 0; index < checkLength; index++)
 		{
+			if(array[index] == target)
+			{
+				
+			}
+			
 			for(int consecutiveNumber = 0; consecutiveNumber < length; consecutiveNumber++)
 				if(array[index + consecutiveNumber] == target)
 					rowLength++;
