@@ -37,8 +37,8 @@ public class Chess
             turnProgressed = false;
             move = c.readLine().split(" ");
 
-            fromCoords = new Pair(Integer.parseInt(move[0].substring(0, 1)) - 1, Integer.parseInt(move[0].substring(1, 2)) - 1);
-            toCoords = new Pair(Integer.parseInt(move[1].substring(0, 1)) - 1, Integer.parseInt(move[1].substring(1, 2)) - 1);
+            fromCoords = new Pair(Integer.parseInt(move[0].substring(1, 2)) - 1, Integer.parseInt(move[0].substring(0, 1)) - 1);
+            toCoords = new Pair(Integer.parseInt(move[1].substring(1, 2)) - 1, Integer.parseInt(move[1].substring(0, 1)) - 1);
 
             if (verifyCoordinates(fromCoords) && verifyCoordinates(toCoords))
             {
