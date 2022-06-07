@@ -17,8 +17,10 @@ public class Utils
 	
 		//Checks if integer is within the valid range.
 		if(input >= low && input <= high)
+		{
 			//Returns the valid input.
 			return input;
+		}
 			
 		else
 		{
@@ -81,18 +83,18 @@ public class Utils
 
 	public static int[] search(int[] searchArray , int target) 
     {
-        //Variable Declaration
-        int returnArray[] = new int[0];
+		//Variable Declaration
+		int returnArray[] = new int[0];
 
-        //Notes down how many instances the array contains the target.
-        for(int index = 0; index < searchArray.length; index++)
-        {
-            if(searchArray[index] == target)
-                returnArray = add(returnArray, index);
-        }
+		//Notes down how many instances the array contains the target.
+		for(int index = 0; index < searchArray.length; index++)
+		{            
+			if(searchArray[index] == target)
+				returnArray = add(returnArray, index);
+		}
 
-        //Returns the array of indices.
-        return returnArray;
+		//Returns the array of indices.
+		return returnArray;
     }
 
 	public static int[][] search(int[][] searchArray , int target) 
@@ -150,24 +152,29 @@ public class Utils
 
 	public static boolean inARow(int[] array, int target, int length)
 	{
-		int rowLength, checkLength;
+		int rowLength;
 
 		rowLength = 0;
-		checkLength = array.length - length + 1;
 
-		for(int index = 0; index < checkLength; index++)
+		for(int index = 0; index < array.length; index++)
 		{
-			for(int consecutiveNumber = 0; consecutiveNumber < length; consecutiveNumber++)
-				if(array[index + consecutiveNumber] == target)
-					rowLength++;
-				else
-					breakCondition = true;
+			if(array[index] == target)
+			{
+				rowLength++;
+
+				if(rowLength == length)
+				{
+					return true;
+				}
+			}
+
+			else
+			{
+				rowLength = 0;
+			}
 		}
 
-		if(rowLength == length - 1)
-			return true;
-		else
-			return false;
+		return false;
 	}
 
 	public static int[] getColumn(int[][] array, int columnIndex)
