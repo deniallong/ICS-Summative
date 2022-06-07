@@ -1,5 +1,6 @@
 package games.chess.Pieces;
 
+import games.chess.Chess;
 import games.chess.Structures.*;
 import utils.*;
 
@@ -43,5 +44,10 @@ public class Knight extends ChessPiece
         }
 
         return moves;
+    }
+
+    public Pair[] getDangerZones(ChessPiece[][] board)
+    {
+        return new Pair[0];
     }
 }
