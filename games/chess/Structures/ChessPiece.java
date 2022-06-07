@@ -50,6 +50,6 @@ public abstract class ChessPiece
    
     public void display() throws IOException
     {
-        i.display(pieceImage, col * 59, (7 - row) * 59);
+        i.display(pieceImage, 62 + col * 59, (7 - row) * 59);
     }
 }

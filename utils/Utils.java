@@ -150,26 +150,6 @@ public class Utils
 		return returnArray;
 	}
 
-	//change this later
-	public static int[] sort(int[] array)
-	{               
-		//Variable Declaration.
-		int a, b, t;
-
-		//Loops therough the array, switching elements that are out of order until the array is sorted.
-		for(a = 1; a < array.length; a++) 
-			for(b = array.length - 1; b >= a; b--) 
-				if(array[b - 1] > array[b])
-				{
-					t = array[b - 1];
-					array[b - 1] = array[b];
-					array[b] = t;
-				}
-		
-		//Returns the array.
-		return array;
-	}
-
 	public static Pair[] add(Pair[] array, Pair addition)
 	{
 		//Declares the array.
@@ -183,43 +163,6 @@ public class Utils
 		returnArray[array.length] = addition;
 
 		//Returns the new array.
-		return returnArray;
-	}
-
-	public static int[][] searchMatrix(int[][] searchArray , int target) 
-    {
-		//Variable Declaration
-		int found, returnRowIndex;
-
-		//Variable Initialisation
-		found = 0;
-		returnRowIndex = 0;
-		
-		//Notes down how many instances the array contains the target.
-		for(int rowIndex = 0; rowIndex < searchArray.length; rowIndex++)
-			for(int columnIndex = 0; columnIndex < searchArray[rowIndex].length; columnIndex++)
-				if(searchArray[rowIndex][columnIndex] == target)
-					found++;
-
-		//Declares an array with corresponding dimensions.
-		int returnArray[][] = new int[found][2];
-
-		//Enters the coordinates where the target is found in the original array in the new array.
-		for(int rowIndex = 0; rowIndex < searchArray.length; rowIndex++)
-		{
-			rowIndex++;
-
-			for(int columnIndex = 0; columnIndex < searchArray[rowIndex].length; columnIndex++)
-				if(searchArray[rowIndex][columnIndex] == target)
-				{
-					returnArray[returnRowIndex][0] = rowIndex;
-					returnArray[returnRowIndex][1] = columnIndex;
-
-					returnRowIndex++;
-				}
-		}
-
-		//Returns the array of indices.
 		return returnArray;
 	}
 
