@@ -82,31 +82,13 @@ public class Utils
 	public static int[] search(int[] searchArray , int target) 
     {
 		//Variable Declaration
-		int found, returnIndex;
-
-		//Variable Initialisation
-		found = 0;
-		returnIndex = 0;
+		int returnArray[] = new int[0];
 
 		//Notes down how many instances the array contains the target.
 		for(int index = 0; index < searchArray.length; index++)
 		{            
 			if(searchArray[index] == target)
-				found++;
-		}
-
-		//Declares an array with corresponding length.
-		int returnArray[] = new int[found];
-
-		//Enters the indices where the target is found in the original array in the new array.
-		for(int index = 0; index < searchArray.length; index++)
-		{
-			if(searchArray[index] == target)
-			{
-				returnArray[returnIndex] = index;
-				returnIndex++;
-			}
-				add(returnArray, index);
+				returnArray = add(returnArray, index);
 		}
 
 		//Returns the array of indices.

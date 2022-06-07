@@ -45,15 +45,15 @@ public class Board
 
     public void displayPiece(int rowIndex, int columnIndex, int player) throws IOException
     {
-        int xBase, yBase, width, height, xPosition, yPosition;
+        int xMargin, yMargin, width, height, xPosition, yPosition;
         
-        xBase = 41;
-        yBase = 308;
+        xMargin = 41;
+        yMargin = 308;
         width = 58;
         height = 58;
 
-        xPosition = columnIndex * width + xBase;
-        yPosition = yBase - rowIndex * height;
+        xPosition = columnIndex * width + xMargin;
+        yPosition = yMargin - rowIndex * height;
 
         if(player == 1)
         {
@@ -129,7 +129,7 @@ public class Board
 
         for(int columnIndex = 0; columnIndex < board[columnIndex].length; columnIndex++)
         {
-            if(Utils.inARow(column, player, 4))
+            if(Utils.inARow(Utils.getColumn(board, columnIndex), player, 4))
             {
                 return true;
             }
@@ -139,7 +139,17 @@ public class Board
             }
         }
         
-        //for(int )
+        for(int columnIndex = 0; columnIndex < board[columnIndex].length; columnIndex++)
+        {
+            if(Utils.inARow(Utils.getColumn(board, columnIndex), player, 4))
+            {
+                return true;
+            }
+            else
+            {
+                failed++;
+            }
+        }
         
         if(failed == 2)
         {    
