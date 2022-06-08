@@ -15,6 +15,9 @@ public class Board
     static File boardImage;
     static File yellowPieceImage;
     static File redPieceImage;
+    static File yellowWin;
+    static File redWin;
+    static File tie;
 
     private int board[][];
     
@@ -41,6 +44,9 @@ public class Board
         boardImage = new File("resources/connectfour/images/Connect4Board.png");
         yellowPieceImage = new File("resources/connectfour/images/Connect4YellowPiece.png");
         redPieceImage = new File("resources/connectfour/images/Connect4RedPiece.png");
+        yellowWin = new File("resources/connectfour/images/Player1WinMessage.png");
+        redWin = new File("resources/connectfour/images/Player2WinMessage.png");
+        tie = new File("resources/connectfour/images/TieMessage.png");
     }
 
     public void displayPiece(int rowIndex, int columnIndex, int player) throws IOException
@@ -108,87 +114,50 @@ public class Board
 
     public boolean checkWin(int player)
     {
-        int failed;
-
-        int column[] = new int[7];
-        int diagonal[];
-
-        failed = 0;
-
         for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
         {
             if(Utils.inARow(board[rowIndex], player, 4))
             {
                 return true;
             }
-            else
-            {
-                failed++;
-            }
         }
 
-        for(int columnIndex = 0; columnIndex < board[columnIndex].length; columnIndex++)
+        for(int columnIndex = 0; columnIndex < board.length; columnIndex++)
         {
             if(Utils.inARow(Utils.getColumn(board, columnIndex), player, 4))
             {
                 return true;
             }
-            else
-            {
-                failed++;
-            }
         }
         
-        for(int columnIndex = 0; columnIndex < board[columnIndex].length; columnIndex++)
-        {
-            if(Utils.inARow(Utils.getColumn(board, columnIndex), player, 4))
-            {
-                return true;
-            }
-            else
-            {
-                failed++;
-            }
-        }
-        
-        if(failed == 2)
-        {    
-            return false;
-        }
+        return false;
     }
-    
+
     public boolean checkTie()
-    {
-        int unfilled;
-
-        unfilled = Utils.search(board, 0).length;
-
-        if(unfilled == 0)
+    { 
+        if(getValidMoves().length == 0)
         {
             return true;
         }
 
-        else
-        {
-            return false;
-        }
+        return false;
     }
     
-    public void winMessage(int player)
+    public void winMessage() throws IOException
     {
         if(checkWin(1))
         {
-            c.println("Yellow wins!");
+            i.display(yellowWin, 0, 0);
         }
         
         else if(checkWin(2))
         {
-            c.println("Red wins!");
+            i.display(redWin, 0, 0);
         }
         
         else if(checkTie())
         {
-            c.println("It's a tie.");
+            i.display(tie, 0, 0);
         }
     }
 }
