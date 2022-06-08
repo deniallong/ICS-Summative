@@ -6,33 +6,6 @@ public class Utils
 {
     static Console c;
 
-    public static int input(String prompt, int low, int high, Console c) 
-    {
-		//Variable Declaration
-		int input;
-	
-		//Prompts user to enter an integer.
-		c.print(prompt);
-		input = c.readInt();
-	
-		//Checks if integer is within the valid range.
-		if(input >= low && input <= high)
-		{
-			//Returns the valid input.
-			return input;
-		}
-			
-		else
-		{
-			//Outputs the valid range and prompts user to try again.
-			c.println("\nYour input is invalid. Inputs must be an integer between " + low + " and " + high + ", inclusive.");
-			c.print("Try a valid input: ");
-			
-			//Returns the method.
-			return input("", low, high, c);
-		}
-    }
-
 	public static int input(String prompt, int[] choices, Console c) 
     {
 		//Variable Declaration
@@ -51,10 +24,12 @@ public class Utils
 		{
 			//Outputs the valid choices and prompts user to try again.
 			c.println("\nYour input is invalid. Inputs must be an integer in this set: ");
+
 			for(int index = 0; index < choices.length - 1; index++)
 			{
 				c.print(choices[index] + ", ");
 			}
+			
 			c.println("or " + choices[choices.length - 1] + ".");
 			c.print("Try a valid input: ");
 			
@@ -81,22 +56,6 @@ public class Utils
 		return returnArray;
 	}
 
-	public static int[] search(int[] searchArray , int target) 
-    {
-		//Variable Declaration
-		int returnArray[] = new int[0];
-
-		//Notes down how many instances the array contains the target.
-		for(int index = 0; index < searchArray.length; index++)
-		{            
-			if(searchArray[index] == target)
-				returnArray = add(returnArray, index);
-		}
-
-		//Returns the array of indices.
-		return returnArray;
-    }
-
 	public static Pair[] add(Pair[] array, Pair addition)
 	{
 		//Declares the array.
@@ -113,12 +72,31 @@ public class Utils
 		return returnArray;
 	}
 
-	public static boolean inARow(int[] array, int target, int length)
+	public static int[] search(int[] searchArray , int target) 
+    {
+		//Variable Declaration
+		int returnArray[] = new int[0];
+
+		//Adds the instances where the target is found to the array.
+		for(int index = 0; index < searchArray.length; index++)
+		{            
+			if(searchArray[index] == target)
+				returnArray = add(returnArray, index);
+		}
+
+		//Returns the array of indices.
+		return returnArray;
+    }
+
+	public static boolean consecutive(int[] array, int target, int length)
 	{
+		//Variable Declaration
 		int rowLength;
 
+		//Variable Initialization
 		rowLength = 0;
 
+		//Cycles through the array, noting down how long rows are and setting the count back to 0 when the row is broken.
 		for(int index = 0; index < array.length; index++)
 		{
 			if(array[index] == target)
@@ -137,6 +115,7 @@ public class Utils
 			}
 		}
 
+		//Returns false (if true is not returned from the code above first).
 		return false;
 	}
 
@@ -152,8 +131,14 @@ public class Utils
 		return returnArray;
 	}
 
-	public static int[][] getDiagonals(int[][] array, int diagonalIndex)
+	public static int[][] getDiagonals(int[][] array)
 	{
-		return sdjfaslfjlkasjfkls;
+		int returnArray[][];
+
+		for(int index = 0; index < array.length; index++)
+		{
+			returnArray = returnArray;
+		}
+		return returnArray;
 	}
 }
