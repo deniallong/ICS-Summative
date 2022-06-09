@@ -95,4 +95,66 @@ public class Rook extends ChessPiece
 
         return moves;
     }
+
+    public Pair[] getDangerZones(ChessPiece[][] board)
+    {
+        // Declaring variables
+        Pair[] moves;
+
+        // Initializing variables
+        moves = new Pair[0];
+
+        // Processing
+        // Checking which moves are valid
+        // Checking top column
+        for (int i = row + 1; i < board.length; i++)
+        {
+            moves = Utils.add(moves, new Pair(i, col));
+
+            if (board[i][col] != null)
+            {
+                i = board.length;
+            }
+        }
+
+        // Checking bottom column
+        for (int i = row - 1; i >= 0; i--)
+        {
+            moves = Utils.add(moves, new Pair(i, col));
+
+            if (board[i][col] != null)
+            {
+                i = -1;
+            }
+        }
+
+        // Checking right row
+        for (int i = col + 1; i < board[row].length; i++)
+        {
+            moves = Utils.add(moves, new Pair(row, i));
+
+            if (board[row][i] != null)
+            {
+                i = board[row].length;
+            }
+        }
+
+        // Checking left row
+        for (int i = col - 1; i >= 0; i--)
+        {
+            moves = Utils.add(moves, new Pair(row, i));
+
+            if (board[row][i] != null)
+            {
+                i = -1;
+            }
+        }
+
+        return moves;
+    }
+
+    public ChessPiece clonePiece()
+    {
+        return new Rook(this.getPlayer(), row, col);
+    }
 }

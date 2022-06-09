@@ -15,6 +15,7 @@ public abstract class ChessPiece
     public String name;
     public int row;
     public int col;
+    public boolean moved;
 
     static 
     {
@@ -47,6 +48,9 @@ public abstract class ChessPiece
 
     // Placeholder functions
     public abstract Pair[] getMoves(ChessPiece[][] board);
+    public abstract Pair[] getDangerZones(ChessPiece[][]board);
+    public abstract ChessPiece clonePiece();
+    
    
     public void display() throws IOException
     {
