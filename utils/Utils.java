@@ -121,13 +121,16 @@ public class Utils
 
 	public static int[] getColumn(int[][] array, int col)
 	{
+		//Declares an array.
 		int returnArray[] = new int[array.length];
 
+		//Enters all elements in the specified column of a 2 dimensional array into the previously declared array.
 		for(int row = 0; row < array.length; row++)
 		{
 			returnArray[row] = array[row][col];
 		}
-
+		
+		//Returns the new array.
 		return returnArray;
 	}
 

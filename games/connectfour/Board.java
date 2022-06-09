@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import hsa.Console;
-import utils.Utils;
-import utils.ImageDisplayer;
+import utils.*;
 
 public class Board
 {
@@ -152,6 +151,7 @@ public class Board
             }
         }
 
+        //Loops through every diagonal of "board" for the same player's number appearing 4 times consecutively.
         for(int diagonalIndex = 0; diagonalIndex < Utils.getDiagonals(board).length; diagonalIndex++)
         {
             if(Utils.consecutive(Utils.getDiagonals(board)[diagonalIndex], player, 4))
@@ -180,21 +180,21 @@ public class Board
         if(checkWin(1))
         {
             c.println("\nPlayer 1 wins!");
-            i.display(yellowWin, 0, 50);
+            i.display(yellowWin, 0, 0);
         }
         
         //Displays the win message for player 2 if they win.
         else if(checkWin(2))
         {
             c.println("\nPlayer 2 wins!");
-            i.display(redWin, 0, 50);
+            i.display(redWin, 0, 0);
         }
         
         //Displays the tie message when there is a tie.
         else if(checkTie())
         {
             c.println("\nIt's a tie.");
-            i.display(tie, 0, 50);
+            i.display(tie, 0, 0);
         }
     }
 }

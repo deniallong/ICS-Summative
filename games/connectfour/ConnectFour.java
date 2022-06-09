@@ -12,8 +12,8 @@ public class ConnectFour
 
     public static void run() throws IOException
     {
-        c = new Console();
         b = new Board();
+        c = new Console();
 
         b.display();
         c.println("Each player will enter the number of the column they want to place their piece when prompted. The first player to get 4  pieces in a row, column, or diagonal, wins.");
@@ -22,8 +22,8 @@ public class ConnectFour
         {
             for(int player = 1; player <= 2 && b.checkWin(1) == false; player++)
             {
-                c.println("\nPlayer " + player + " move.");
-                b.getMove(player, Utils.input("Enter the column you want to drop your piece: ", b.getValidMoves(), c));
+                c.print("\nPlayer " + player + " move: ");
+                b.getMove(player, Utils.input("", b.getValidMoves(), c));
                 b.display();
             }
         }
