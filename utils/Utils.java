@@ -119,13 +119,13 @@ public class Utils
 		return false;
 	}
 
-	public static int[] getColumn(int[][] array, int columnIndex)
+	public static int[] getColumn(int[][] array, int col)
 	{
 		int returnArray[] = new int[array.length];
 
-		for(int rowIndex = 0; rowIndex < array.length; rowIndex++)
+		for(int row = 0; row < array.length; row++)
 		{
-			returnArray[rowIndex] = array[rowIndex][columnIndex];
+			returnArray[row] = array[row][col];
 		}
 
 		return returnArray;
@@ -133,12 +133,68 @@ public class Utils
 
 	public static int[][] getDiagonals(int[][] array)
 	{
-		int returnArray[][];
+		int diagonalIndex;
 
-		for(int index = 0; index < array.length; index++)
+		int returnArray[][] = new int[2 * (array.length + array[0].length - 1)][0];
+
+		diagonalIndex = 0;
+
+		for(int row = 0; row < array.length; row++)
 		{
-			returnArray = returnArray;
+			int rowTemp = row;
+
+			for(int col = 0; rowTemp >= 0 && col < array[row].length; col++)
+			{
+				returnArray[diagonalIndex] = add(returnArray[diagonalIndex], array[rowTemp][col]);
+
+				rowTemp--;
+			}
+
+			diagonalIndex++;
 		}
+
+		for(int col = 1; col < array[0].length; col++)
+		{
+			int colTemp = col;
+
+			for(int row = array.length - 1; row >= 0 && colTemp < array[row].length; row--)
+			{
+				returnArray[diagonalIndex] = add(returnArray[diagonalIndex], array[row][colTemp]);
+
+				colTemp++;
+			}
+
+			diagonalIndex++;
+		}
+
+		for(int row = array.length - 1; row >= 0; row--)
+		{
+			int rowTemp = row;
+
+			for(int col = 0; rowTemp < array.length && col < array[row].length; col++)
+			{
+				returnArray[diagonalIndex] = add(returnArray[diagonalIndex], array[rowTemp][col]);
+
+				rowTemp++;
+			}
+
+			diagonalIndex++;
+		}
+		
+		for(int col = 1; col < array[0].length; col++)
+		{
+			int colTemp = col;
+
+			for(int row = 0; row < array.length && colTemp < array[row].length; row++)
+			{
+				returnArray[diagonalIndex] = add(returnArray[diagonalIndex], array[row][colTemp]);
+
+				colTemp++;
+			}
+
+			diagonalIndex++;
+		}
+
 		return returnArray;
 	}
 }

@@ -34,11 +34,11 @@ public class Board
         initialize();
 
         //Fills all the indices of the array with 0.
-        for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
+        for(int row = 0; row < board.length; row++)
         {
-            for(int columnIndex = 0; columnIndex < board[rowIndex].length; columnIndex++)
+            for(int col = 0; col < board[row].length; col++)
             {
-                board[rowIndex][columnIndex] = 0;
+                board[row][col] = 0;
             }
         }
     }
@@ -57,7 +57,7 @@ public class Board
         tie = new File("resources/connectfour/images/TieMessage.png");
     }
 
-    public void displayPiece(int rowIndex, int columnIndex, int player) throws IOException
+    public void displayPiece(int row, int col, int player) throws IOException
     {
         //Variable Declaration
         int xMargin, yMargin, width, height, xPosition, yPosition;
@@ -68,8 +68,8 @@ public class Board
         width = 58;
         height = 58;
 
-        xPosition = columnIndex * width + xMargin;
-        yPosition = yMargin - rowIndex * height;
+        xPosition = col * width + xMargin;
+        yPosition = yMargin - row * height;
 
         //Decides to display yellow or red pieces depending on what player is in the space.
         if(player == 1)
@@ -89,13 +89,13 @@ public class Board
         i.display(boardImage, 0, 0);
 
         //Displays the corresponding piece or nothing in each index of "board".
-        for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
+        for(int row = 0; row < board.length; row++)
 	    {
-		    for(int columnIndex = 0; columnIndex < board[rowIndex].length; columnIndex++)
+		    for(int col = 0; col < board[row].length; col++)
             {
-                if(board[rowIndex][columnIndex] != 0)
+                if(board[row][col] != 0)
                 {
-                    displayPiece(rowIndex, columnIndex, board[rowIndex][columnIndex]);
+                    displayPiece(row, col, board[row][col]);
                 }
             }
 	    }
@@ -107,11 +107,11 @@ public class Board
         int validMoves[] = new int[0];
 
         //Adds the numbers of the columns where pieces can be dropped.
-        for(int columnIndex = 0; columnIndex < board[5].length; columnIndex++)
+        for(int col = 0; col < board[5].length; col++)
         {
-            if(board[5][columnIndex] == 0)
+            if(board[5][col] == 0)
             {
-                validMoves = Utils.add(validMoves, columnIndex + 1);
+                validMoves = Utils.add(validMoves, col + 1);
             }
         }
 
@@ -135,18 +135,26 @@ public class Board
     public boolean checkWin(int player)
     {
         //Loops through every row of "board" for the same player's number appearing 4 times consecutively.
-        for(int rowIndex = 0; rowIndex < board.length; rowIndex++)
+        for(int row = 0; row < board.length; row++)
         {
-            if(Utils.consecutive(board[rowIndex], player, 4))
+            if(Utils.consecutive(board[row], player, 4))
             {
                 return true;
             }
         }
 
         //Loops through every column of "board" for the same player's number appearing 4 times consecutively.
-        for(int columnIndex = 0; columnIndex < board[0].length; columnIndex++)
+        for(int col = 0; col < board[0].length; col++)
         {
-            if(Utils.consecutive(Utils.getColumn(board, columnIndex), player, 4))
+            if(Utils.consecutive(Utils.getColumn(board, col), player, 4))
+            {
+                return true;
+            }
+        }
+
+        for(int diagonalIndex = 0; diagonalIndex < Utils.getDiagonals(board).length; diagonalIndex++)
+        {
+            if(Utils.consecutive(Utils.getDiagonals(board)[diagonalIndex], player, 4))
             {
                 return true;
             }
