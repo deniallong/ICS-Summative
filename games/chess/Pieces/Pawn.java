@@ -82,4 +82,27 @@ public class Pawn extends ChessPiece
 
         return moves;
     }
+
+    public Pair[] getDangerZones(ChessPiece[][] board)
+    {
+        // Declaring variables
+        Pair[] moves;
+
+        // Initializing variables
+        if (this.getPlayer() == 0) {
+        
+            moves = new Pair[]{new Pair(row + 1, col - 1), new Pair(row + 1, col + 1)};
+        }
+        else
+        {
+            moves = new Pair[]{new Pair(row - 1, col - 1), new Pair(row - 1, col + 1)};
+        }
+
+        return moves;
+    }
+
+    public ChessPiece clonePiece()
+    {
+        return new Pawn(this.getPlayer(), row, col);
+    }
 }

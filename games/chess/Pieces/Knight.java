@@ -1,5 +1,6 @@
 package games.chess.Pieces;
 
+import games.chess.Chess;
 import games.chess.Structures.*;
 import utils.*;
 
@@ -21,27 +22,61 @@ public class Knight extends ChessPiece
 
         // Processing
         // Checking which moves are valid
-        if (row < board.length - 1 && board[row + 1][col] == null) 
+        if (row < 6)
         {
-            moves = Utils.add(moves, new Pair(row + 1, col));
-        }
-
-        // Checking whether an enemy piece exists on the direct diagonal or not
-        if (row < board.length - 1) 
-        {
-            // Left diagonal
-            if (col > 0 && board[row + 1][col - 1] != null && board[row + 1][col - 1].getPlayer() == this.getPlayer())
+            if (col > 0 && (board[row + 2][col - 1] == null || board[row + 2][col - 1].getPlayer() != this.getPlayer()))
             {
-                moves = Utils.add(moves, new Pair(row + 1, col - 1));
+                moves = Utils.add(moves, new Pair(row + 2, col - 1));
             }
-
-            // Right diagonal
-            if (col < board[0].length - 1 && board[row + 1][col + 1] != null && board[row + 1][col + 1].getPlayer() == this.getPlayer())
+            if (col < 7 && (board[row + 2][col + 1] == null || board[row + 2][col + 1].getPlayer() != this.getPlayer()))
             {
-                moves = Utils.add(moves, new Pair(row + 1, col + 1));
+                moves = Utils.add(moves, new Pair(row + 2, col + 1));
+            }
+        }
+        if (row < 7) 
+        {
+            if (col > 1 && (board[row + 1][col - 2] == null || board[row + 1][col - 2].getPlayer() != this.getPlayer()))
+            {
+                moves = Utils.add(moves, new Pair(row + 1, col - 2));
+            }
+            if (col < 6 && (board[row + 1][col + 2] == null || board[row + 1][col + 2].getPlayer() != this.getPlayer()))
+            {
+                moves = Utils.add(moves, new Pair(row + 1, col + 2));
+            }
+        }
+        if (row > 0) 
+        {
+            if (col > 1 && (board[row - 1][col - 2] == null || board[row - 1][col - 2].getPlayer() != this.getPlayer()))
+            {
+                moves = Utils.add(moves, new Pair(row - 1, col - 2));
+            }
+            if (col < 6 && (board[row - 1][col + 2] == null || board[row - 1][col + 2].getPlayer() != this.getPlayer()))
+            {
+                moves = Utils.add(moves, new Pair(row - 1, col + 2));
+            }
+        }
+        if (row > 1)
+        {
+            if (col > 0 && (board[row - 2][col - 1] == null || board[row - 2][col - 1].getPlayer() != this.getPlayer()))
+            {
+                moves = Utils.add(moves, new Pair(row - 2, col - 1));
+            }
+            if (col < 7 && (board[row - 2][col + 1] == null || board[row - 2][col + 1].getPlayer() != this.getPlayer()))
+            {
+                moves = Utils.add(moves, new Pair(row - 2, col + 1));
             }
         }
 
         return moves;
+    }
+
+    public Pair[] getDangerZones(ChessPiece[][] board)
+    {
+        return this.getMoves(board);
+    }
+
+    public ChessPiece clonePiece()
+    {
+        return new Knight(this.getPlayer(), row, col);
     }
 }
