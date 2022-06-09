@@ -75,7 +75,7 @@ public class Knight extends ChessPiece
 
     public Pair[] getDangerZones(ChessPiece[][] board)
     {
-        return new Pair[0];
+        return this.getMoves(board);
     }
 
     public ChessPiece clonePiece()
