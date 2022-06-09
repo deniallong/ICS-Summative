@@ -24,9 +24,6 @@ public class Knight extends ChessPiece
         // Checking which moves are valid
         if (row < 6)
         {
-            System.out.println(row);
-            System.out.println(col);
-            System.out.println(board[row + 2][col + 1]);
             if (col > 0 && (board[row + 2][col - 1] == null || board[row + 2][col - 1].getPlayer() != this.getPlayer()))
             {
                 moves = Utils.add(moves, new Pair(row + 2, col - 1));

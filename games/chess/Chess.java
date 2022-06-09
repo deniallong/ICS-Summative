@@ -7,6 +7,8 @@ import utils.*;
 
 import java.io.IOException;
 
+import javax.swing.plaf.synth.SynthPasswordFieldUI;
+
 public class Chess 
 {
 
@@ -19,6 +21,7 @@ public class Chess
         c = new Console();
 
         int turn;
+        int outcome;
         String[] move;
         boolean[][] checkedSquares;
         String fromLetter;
@@ -26,9 +29,13 @@ public class Chess
         Pair toCoords;
         ChessPiece blackKing; 
         ChessPiece whiteKing;
+        ChessPiece kingOfInterest;
         ChessPiece fromPiece;
         ChessPiece temp;
         boolean turnProgressed;
+        boolean gameContinue;
+
+        gameContinue = true;
 
         turn = 0;
 
@@ -38,26 +45,31 @@ public class Chess
         whiteKing = boardObject.board[0][4];
         blackKing = boardObject.board[7][4];
 
-        while (true)
+        while (gameContinue)
         {
-            boolean[][] poo = getCheckedSpaces(boardObject.board, 0);
 
-            for (int i = 7; i >= 0; i--) 
+            outcome = getGameOutcome(boardObject.board, whiteKing, blackKing, turn);
+
+            if (outcome != 0)
             {
-                for (int v = 0; v < 8; v++)
+                gameContinue = false;
+
+                if (outcome == -2)
                 {
-                    if (poo[i][v])
-                    {
-                        System.out.print("T");
-                    } else {
-                        System.out.print("F");
-                    }
+                    c.println("Black loses!");
                 }
-
-                System.out.println();
+                else if (outcome == -1 || outcome == 1) 
+                {
+                    c.println("Stalemate!");
+                }
+                else if (outcome == 2)
+                {
+                    c.println("White loses!");
+                }
             }
-
-            turnProgressed = false;
+            else 
+            {
+                turnProgressed = false;
             move = c.readLine().split(" ");
 
             fromCoords = new Pair(Integer.parseInt(move[0].substring(1, 2)) - 1, Integer.parseInt(move[0].substring(0, 1)) - 1);
@@ -74,29 +86,22 @@ public class Chess
                         if (boardObject.isValidMove(fromCoords, toCoords, turn))
                         {
                             checkedSquares = getCheckedSpaces(boardObject.board, turn);
+                            
+                            if (turn == 0) 
+                            {
+                                kingOfInterest = whiteKing;
+                            }
+                            else 
+                            {
+                                kingOfInterest = blackKing;
+                            }
 
-                            System.out.println(turn);
+                            // System.out.println(turn);
 
                             // Checking if a king is in check
-                            if (turn == 0 && checkedSquares[whiteKing.row][whiteKing.col])
+                            if (checkedSquares[kingOfInterest.row][kingOfInterest.col])
                             {
-                                if (avoidCheckValid(boardObject.board, fromCoords, toCoords, whiteKing))
-                                {
-                                    boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                    boardObject.board[fromCoords.a][fromCoords.b] = null;
-
-                                    fromPiece.row = toCoords.a;
-                                    fromPiece.col = toCoords.b;
-                                    turnProgressed = true;
-                                }
-                                else 
-                                {
-                                    c.println("That move is not valid, as the king would still be in check!");
-                                }
-                            }
-                            else if (turn == 1 && checkedSquares[blackKing.row][blackKing.col])
-                            {
-                                if (avoidCheckValid(boardObject.board, fromCoords, toCoords, blackKing))
+                                if (avoidCheckValid(boardObject.board, fromCoords, toCoords, kingOfInterest))
                                 {
                                     boardObject.board[toCoords.a][toCoords.b] = fromPiece;
                                     boardObject.board[fromCoords.a][fromCoords.b] = null;
@@ -180,23 +185,6 @@ public class Chess
                 }
             }
 
-            poo = getCheckedSpaces(boardObject.board, 0);
-
-            for (int i = 7; i >= 0; i--) 
-            {
-                for (int v = 0; v < 8; v++)
-                {
-                    if (poo[i][v])
-                    {
-                        System.out.print("T");
-                    } else {
-                        System.out.print("F");
-                    }
-                }
-
-                System.out.println();
-            }
-
             checkedSquares = getCheckedSpaces(boardObject.board, turn);
 
             if (turnProgressed)
@@ -219,6 +207,7 @@ public class Chess
 
                     c.println("It is now black's turn!");
                 }
+            }
             }
         }
     }
@@ -254,7 +243,7 @@ public class Chess
                         
                         if (moves[p].a >= 0 && moves[p].b >= 0 && moves[p].a < 8 && moves[p].b < 8)
                         {
-                            System.out.println(moves[p]);
+                         //   System.out.println(moves[p]);
                             ans[moves[p].a][moves[p].b] = true;
                         }
                     }
@@ -301,5 +290,79 @@ public class Chess
         boolean[][] checkedSquares = getCheckedSpaces(boardClone, board[from.a][from.b].getPlayer());
 
         return !checkedSquares[king.row][king.col];
+    }
+
+
+    public static int getGameOutcome(ChessPiece[][] board, ChessPiece whiteKing, ChessPiece blackKing, int turn)
+    {
+        int validWhiteMoves; 
+        int validBlackMoves; 
+        boolean whiteCheckmate;
+        boolean blackCheckmate;
+        ChessPiece kingOfInterest;
+
+        validWhiteMoves = 0;
+        validBlackMoves = 0;
+        whiteCheckmate = getCheckedSpaces(board, 0)[whiteKing.row][whiteKing.col];
+        blackCheckmate = getCheckedSpaces(board, 1)[blackKing.row][blackKing.col];
+
+        for (int i = 0; i < 8; i++) 
+        {
+            for (int v = 0; v < 8; v++)
+            {
+                if (board[i][v] != null)
+                {
+                    Pair[] moves; 
+                    
+                    if (board[i][v].getPlayer() == 0)
+                    {
+                        kingOfInterest = whiteKing;
+                    }
+                    else 
+                    {
+                        kingOfInterest = blackKing;
+                    }
+
+                    moves = board[i][v].getMoves(board);
+
+                    for (int p = 0; p < moves.length; p++) 
+                    {
+
+                        if (avoidCheckValid(board, new Pair(board[i][v].row, board[i][v].col), new Pair(moves[p].a, moves[p].b), kingOfInterest))
+                        {
+                            if (board[i][v].getPlayer() == 0)
+                            {
+                                validWhiteMoves ++;
+                                whiteCheckmate = false;
+                            }
+                            else 
+                            {
+                                validBlackMoves ++;
+                                blackCheckmate = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (whiteCheckmate)
+        {
+            return 2;
+        }
+        else if (blackCheckmate)
+        {
+            return -2;
+        }
+        else if (turn == 0 && validWhiteMoves == 0)
+        {
+            return 1;
+        }
+        else if (turn == 1 && validBlackMoves == 0)
+        {
+            return -1;
+        }
+
+        return 0;
     }
 }
