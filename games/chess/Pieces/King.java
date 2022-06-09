@@ -93,6 +93,19 @@ public class King extends ChessPiece
             }
         }
 
+        // Checking for castle
+        if (!this.moved && row == 0 && col == 4 && this.getPlayer() == 0)
+        {
+            moves = Utils.add(moves, new Pair(0, 0));
+            moves = Utils.add(moves, new Pair(0, 7));
+        }
+        
+        if (!this.moved && row == 7 && col == 4 && this.getPlayer() == 1)
+        {
+            moves = Utils.add(moves, new Pair(7, 0));
+            moves = Utils.add(moves, new Pair(7, 7));
+        }
+
         return moves;
     }
 

@@ -15,6 +15,7 @@ public abstract class ChessPiece
     public String name;
     public int row;
     public int col;
+    public boolean moved;
 
     static 
     {
