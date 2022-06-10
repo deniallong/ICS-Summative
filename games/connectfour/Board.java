@@ -10,12 +10,12 @@ public class Board
 {
     //Declares the tools used.
     static ImageDisplayer i;
-    static Console c;
-
+ 
     //Declares the files used.
     static File boardImage;
     static File yellowPieceImage;
     static File redPieceImage;
+    static File winFade;
     static File yellowWin;
     static File redWin;
     static File tie;
@@ -29,9 +29,6 @@ public class Board
         //Initializes "board".
         board = new int[6][7];
 
-        //Calls the Board.initialize method.
-        initialize();
-
         //Fills all the indices of the array with 0.
         for(int row = 0; row < board.length; row++)
         {
@@ -40,10 +37,7 @@ public class Board
                 board[row][col] = 0;
             }
         }
-    }
 
-    private static void initialize()
-    {
         //Creates new instance of utils.ImageDisplayer.
         i = new ImageDisplayer();
 
@@ -51,6 +45,7 @@ public class Board
         boardImage = new File("resources/connectfour/images/Connect4Board.png");
         yellowPieceImage = new File("resources/connectfour/images/Connect4YellowPiece.png");
         redPieceImage = new File("resources/connectfour/images/Connect4RedPiece.png");
+        winFade = new File("resources/connectfour/images/WinFade.png");
         yellowWin = new File("resources/connectfour/images/Player1WinMessage.png");
         redWin = new File("resources/connectfour/images/Player2WinMessage.png");
         tie = new File("resources/connectfour/images/TieMessage.png");
@@ -125,14 +120,102 @@ public class Board
         
         //Initializes each index of the array with the coordinates.
         move[1] = input - 1;
-        move[0] = Utils.search(Utils.getColumn(board, move[1]), 1).length + Utils.search(Utils.getColumn(board, move[1]), 2).length;
+        move[0] = Utils.search(getColumns()[move[1]], 1).length + Utils.search(getColumns()[move[1]], 2).length;
 
         //Puts the player's number in the correct index of "board".
         board[move[0]][move[1]] = player;
     }
 
+    public int[][] getColumns()
+	{
+		//Declares an array.
+		int returnArray[][] = new int[board[0].length][board.length];
+
+		//Enters all elements in the specified column of a 2 dimensional array into the previously declared array.
+		for(int row = 0; row < returnArray.length; row++)
+		{
+			for(int col = 0; col < returnArray[row].length; col++)
+			{
+				returnArray[row][col] = board[col][row];
+			}
+		}
+		
+		//Returns the new array.
+		return returnArray;
+	}
+
+	public int[][] getDiagonals()
+	{
+		int diagonalIndex;
+
+		int returnArray[][] = new int[2 * (board.length + board[0].length - 1)][0];
+
+		diagonalIndex = 0;
+
+		for(int row = 0; row < board.length; row++)
+		{
+			int rowTemp = row;
+
+			for(int col = 0; rowTemp >= 0 && col < board[row].length; col++)
+			{
+				returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[rowTemp][col]);
+
+				rowTemp--;
+			}
+
+			diagonalIndex++;
+		}
+
+		for(int col = 1; col < board[0].length; col++)
+		{
+			int colTemp = col;
+
+			for(int row = board.length - 1; row >= 0 && colTemp < board[row].length; row--)
+			{
+				returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[row][colTemp]);
+
+				colTemp++;
+			}
+
+			diagonalIndex++;
+		}
+
+		for(int row = board.length - 1; row >= 0; row--)
+		{
+			int rowTemp = row;
+
+			for(int col = 0; rowTemp < board.length && col < board[row].length; col++)
+			{
+				returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[rowTemp][col]);
+
+				rowTemp++;
+			}
+
+			diagonalIndex++;
+		}
+		
+		for(int col = 1; col < board[0].length; col++)
+		{
+			int colTemp = col;
+
+			for(int row = 0; row < board.length && colTemp < board[row].length; row++)
+			{
+				returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[row][colTemp]);
+
+				colTemp++;
+			}
+
+			diagonalIndex++;
+		}
+
+		return returnArray;
+	}
+
     public boolean checkWin(int player)
     {
+        int columns[][] = getColumns();
+        int diagonals[][] = getDiagonals();
+
         //Loops through every row of "board" for the same player's number appearing 4 times consecutively.
         for(int row = 0; row < board.length; row++)
         {
@@ -143,18 +226,18 @@ public class Board
         }
 
         //Loops through every column of "board" for the same player's number appearing 4 times consecutively.
-        for(int col = 0; col < board[0].length; col++)
+        for(int col = 0; col < columns.length; col++)
         {
-            if(Utils.consecutive(Utils.getColumn(board, col), player, 4))
+            if(Utils.consecutive(columns[col], player, 4))
             {
                 return true;
             }
         }
 
         //Loops through every diagonal of "board" for the same player's number appearing 4 times consecutively.
-        for(int diagonalIndex = 0; diagonalIndex < Utils.getDiagonals(board).length; diagonalIndex++)
+        for(int dia = 0; dia < diagonals.length; dia++)
         {
-            if(Utils.consecutive(Utils.getDiagonals(board)[diagonalIndex], player, 4))
+            if(Utils.consecutive(diagonals[dia], player, 4))
             {
                 return true;
             }
@@ -162,20 +245,11 @@ public class Board
         
         return false;
     }
-
-    public boolean checkTie()
-    {
-        //Checks if there are any valid moves. If none, that means all spaces are filled and there is a tie.
-        if(getValidMoves().length == 0)
-        {
-            return true;
-        }
-
-        return false;
-    }
     
     public void winMessage(Console c) throws IOException
     {
+        i.display(winFade, 0, 0);
+        
         //Displays the win message for player 1 if they win.
         if(checkWin(1))
         {
@@ -191,7 +265,7 @@ public class Board
         }
         
         //Displays the tie message when there is a tie.
-        else if(checkTie())
+        else
         {
             c.println("\nIt's a tie.");
             i.display(tie, 0, 0);
