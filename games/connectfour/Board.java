@@ -152,61 +152,36 @@ public class Board
 
 		diagonalIndex = 0;
 
-		for(int row = 0; row < board.length; row++)
-		{
-			int rowTemp = row;
+        for(int dir = 1; dir >= -1; dir -= 2)
+        {
+            for(int row = 0; row >= 0 && row < board.length; row += 1)
+            {
+                int rowTemp = row;
 
-			for(int col = 0; rowTemp >= 0 && col < board[row].length; col++)
+                for(int col = 0; rowTemp >= 0 && rowTemp < board.length && col < board[row].length; col += 1)
+                {
+                    returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[rowTemp][col]);
+
+                    rowTemp -= dir;
+                }
+
+                diagonalIndex++;
+            }
+
+            for(int col = 1; col < board[0].length; col++)
 			{
-				returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[rowTemp][col]);
+				int colTemp = col;
 
-				rowTemp--;
+				for(int row = (dir - 1) / (-2) * (board.length - 1); row >= 0 && row < board.length && colTemp < board[row].length; row += dir)
+				{
+					returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[row][colTemp]);
+
+					colTemp++;
+				}
+
+				diagonalIndex++;
 			}
-
-			diagonalIndex++;
-		}
-
-		for(int col = 1; col < board[0].length; col++)
-		{
-			int colTemp = col;
-
-			for(int row = board.length - 1; row >= 0 && colTemp < board[row].length; row--)
-			{
-				returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[row][colTemp]);
-
-				colTemp++;
-			}
-
-			diagonalIndex++;
-		}
-
-		for(int row = board.length - 1; row >= 0; row--)
-		{
-			int rowTemp = row;
-
-			for(int col = 0; rowTemp < board.length && col < board[row].length; col++)
-			{
-				returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[rowTemp][col]);
-
-				rowTemp++;
-			}
-
-			diagonalIndex++;
-		}
-		
-		for(int col = 1; col < board[0].length; col++)
-		{
-			int colTemp = col;
-
-			for(int row = 0; row < board.length && colTemp < board[row].length; row++)
-			{
-				returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[row][colTemp]);
-
-				colTemp++;
-			}
-
-			diagonalIndex++;
-		}
+        }
 
 		return returnArray;
 	}
