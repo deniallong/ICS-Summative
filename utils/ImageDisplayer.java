@@ -16,7 +16,7 @@ public class ImageDisplayer implements ImageObserver {
 
     static 
     {
-        c = new Console();
+        c = new Console(30, 75);
     }
     
     public void display(File file, int x, int y) throws IOException 

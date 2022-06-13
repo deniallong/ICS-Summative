@@ -6,9 +6,6 @@ import games.chess.Structures.*;
 import utils.*;
 
 import java.io.IOException;
-import java.util.spi.ToolProvider;
-
-import javax.swing.plaf.synth.SynthPasswordFieldUI;
 
 public class Chess 
 {
@@ -57,7 +54,7 @@ public class Chess
 
                 if (outcome == -2)
                 {
-                    c.println("Black loses!");
+                    c.println("Checkmate! Black loses!");
                 }
                 else if (outcome == -1 || outcome == 1) 
                 {
@@ -65,7 +62,7 @@ public class Chess
                 }
                 else if (outcome == 2)
                 {
-                    c.println("White loses!");
+                    c.println("Checkmate! White loses!");
                 }
             }
             else 
@@ -97,12 +94,7 @@ public class Chess
                                 kingOfInterest = blackKing;
                             }
 
-                            // System.out.println(turn);
-
                             // Checking if a king is in check
-
-                            System.out.println(checkedSquares[kingOfInterest.row][kingOfInterest.col]);
-                            System.out.println(fromPiece.name);
                             if (checkedSquares[kingOfInterest.row][kingOfInterest.col])
                             {
                                 if (avoidCheckValid(boardObject.board, fromCoords, toCoords, kingOfInterest))
@@ -122,7 +114,6 @@ public class Chess
                             }
                             else 
                             {
-                                System.out.println("fart");
                                 if (fromPiece.name == "king")
                                 {
                                     if (!checkedSquares[toCoords.a][toCoords.b])
@@ -369,7 +360,6 @@ public class Chess
                         
                         if (moves[p].a >= 0 && moves[p].b >= 0 && moves[p].a < 8 && moves[p].b < 8)
                         {
-                         //   System.out.println(moves[p]);
                             ans[moves[p].a][moves[p].b] = true;
                         }
                     }
