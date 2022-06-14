@@ -10,7 +10,7 @@ public class Test {
 		int dia;
         int rowTemp;
         
-        //Declares an array.
+        //Declares a matrix.
 		int returnArray[][] = new int[2 * (board.length + board[0].length - 1)][0];
 
         //Variable Initialization
@@ -22,12 +22,14 @@ public class Test {
             //Cycles through row and column coordinates.
             for(int row = 0; row >= 0 && row < board.length; row += 1)
             {
-                //Initializes temporary row variable.
+                //Cycles through both corners of the matrix.
                 for(int side = -1; side <= 1; side += 2)
                 {
-                    rowTemp = row + ((board.length - 1) * (1 + dir) / 2 - 2 * row) * (1 + side) / 2;
+                    //Initializes a temporary row variable.
+                    rowTemp = Utils.positiveNegativeAlternate(row, Utils.positiveNegativeAlternate(0, board.length - 1, dir), side);
 
-                    for(int col = (board[row].length - row - 1) * (1 + side) / 2; rowTemp >= 0 && rowTemp < board.length && col >= 0 && col < board[row].length; col += 1)
+                    //Cycles through the array, adding diagonals to the returned matrix.
+                    for(int col = Utils.positiveNegativeAlternate(0, board[row].length - row - 1, side); rowTemp >= 0 && rowTemp < board.length && col >= 0 && col < board[row].length; col += 1)
                     {
                         returnArray[dia] = Utils.add(returnArray[dia], board[rowTemp][col]);
 
@@ -39,7 +41,7 @@ public class Test {
             }
         }
 
-        //Returns the array of diagonals.
+        //Returns the matrix of diagonals.
 		return returnArray;
 	}
 
@@ -54,6 +56,7 @@ public class Test {
             System.out.println();
         }
     }
+
     public static void main(String[] args)
     {
         int array[][] = new int[6][7];

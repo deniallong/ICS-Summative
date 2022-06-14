@@ -142,4 +142,9 @@ public class Utils
 		//Returns false (if true is not returned from the code above first).
 		return false;
 	}
+
+	public static int positiveNegativeAlternate(int whenNegative, int whenPositive, int controller)
+    {
+        return whenNegative + (whenPositive - whenNegative) * (1 + controller) / 2;
+    }
 }
