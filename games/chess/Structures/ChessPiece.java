@@ -7,6 +7,7 @@ import utils.*;
 
 public abstract class ChessPiece 
 {
+    // Declaring variables
     static ImageDisplayer i;
 
     private int player;
@@ -19,9 +20,11 @@ public abstract class ChessPiece
 
     static 
     {
+        // Initializing variables
         i = new ImageDisplayer();
     }
 
+    // Constructor
     public ChessPiece(int player, String name, int row, int col) 
     {
         this.player = player;
@@ -50,8 +53,8 @@ public abstract class ChessPiece
     public abstract Pair[] getMoves(ChessPiece[][] board);
     public abstract Pair[] getDangerZones(ChessPiece[][]board);
     public abstract ChessPiece clonePiece();
-    
    
+    // Displays the current chesspiece
     public void display() throws IOException
     {
         i.display(pieceImage, 62 + col * 59, (7 - row) * 59);

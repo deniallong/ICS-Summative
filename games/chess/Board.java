@@ -11,6 +11,7 @@ import games.chess.Structures.*;
 public class Board 
 {
 
+    // Declaring variables
     static File boardImage;
     static ImageDisplayer i;
 
@@ -21,6 +22,7 @@ public class Board
 
     static 
     {
+        // Initializing variables
         i = new ImageDisplayer();
 
         boardImage = new File("resources/chess/images/chessboard.png");
@@ -28,7 +30,7 @@ public class Board
 
     public Board() throws IOException
     {
-
+        // Initializing variables
         this.rows = 8;
         this.cols = 8;
         this.board = new ChessPiece[8][8];
@@ -67,11 +69,14 @@ public class Board
         board[7][3] = new Queen(1, 7, 3);
     }
 
+    // Displays the board and all its pieces
     public void display() throws IOException
     {
 
+        // Displaying the board images
         i.display(boardImage, 0, 0);
         
+        // Calling the display method on each piece
         for (int row = 0; row < board.length; row++) 
         {
             for (int col = 0; col < board[row].length; col++)
@@ -84,14 +89,18 @@ public class Board
         }
     }
 
+    // Checking if the given two pairs are a valid move
     public boolean isValidMove(Pair start, Pair end, int playerTurn)
     {
+        // Declaring Variables
         int startr;
         int startc;
 
+        // Initializing variables
         startr = start.a;
         startc = start.b;
 
+        // Checking if the move is within the valid moves of the piece
         if (board[startr][startc] != null && board[startr][startc].getPlayer() == playerTurn)
         {
             Pair[] moves;
@@ -114,13 +123,7 @@ public class Board
         }
     }
 
-    public int[][] getCheckedSpaces()
-    {
-        // TODO
-
-        return new int[0][0];
-    }
-
+    // Getter for the board object
     public ChessPiece[][] getBoard()
     {
         return board;

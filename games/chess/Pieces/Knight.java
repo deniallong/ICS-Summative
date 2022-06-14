@@ -6,12 +6,13 @@ import utils.*;
 
 public class Knight extends ChessPiece 
 {
-
+    // Constructor
     public Knight(int player, int row, int col)
     {
         super(player, "knight", row, col);
     }
 
+    // Getting the moves for the current chesspiece
     public Pair[] getMoves(ChessPiece[][] board)
     {
         // Declaring variables
@@ -70,11 +71,13 @@ public class Knight extends ChessPiece
         return moves;
     }
 
+    // Getting "danger zones" around the piece where it could attack
     public Pair[] getDangerZones(ChessPiece[][] board)
     {
         return this.getMoves(board);
     }
 
+    // Cloning the current chesspiece
     public ChessPiece clonePiece()
     {
         return new Knight(this.getPlayer(), row, col);

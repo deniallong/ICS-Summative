@@ -10,6 +10,7 @@ import java.io.IOException;
 public class Chess 
 {
 
+    // Declaring variables
     private static Board boardObject;
 
     static Console c;
@@ -18,21 +19,29 @@ public class Chess
     {
         c = new Console();
 
+        // Declaring variables
         int turn;
         int outcome;
+
         String[] move;
+
         boolean[][] checkedSquares;
+
         String fromLetter;
+
         Pair fromCoords;
         Pair toCoords;
+
         ChessPiece blackKing; 
         ChessPiece whiteKing;
         ChessPiece kingOfInterest;
         ChessPiece fromPiece;
         ChessPiece temp;
+
         boolean turnProgressed;
         boolean gameContinue;
 
+        // Initializing Variables
         gameContinue = true;
 
         turn = 0;
@@ -43,11 +52,14 @@ public class Chess
         whiteKing = boardObject.board[0][4];
         blackKing = boardObject.board[7][4];
 
+        // While game is still ongoing
         while (gameContinue)
         {
 
+            // Getting the outcome of the game
             outcome = getGameOutcome(boardObject.board, whiteKing, blackKing, turn);
 
+            // Checking if the game is over, and then displaying the corresponding message
             if (outcome != 0)
             {
                 gameContinue = false;
@@ -68,177 +80,40 @@ public class Chess
             else 
             {
                 turnProgressed = false;
-            move = c.readLine().split(" ");
+                move = c.readLine().split(" ");
 
-            fromCoords = new Pair(Integer.parseInt(move[0].substring(1, 2)) - 1, Integer.parseInt(move[0].substring(0, 1)) - 1);
-            toCoords = new Pair(Integer.parseInt(move[1].substring(1, 2)) - 1, Integer.parseInt(move[1].substring(0, 1)) - 1);
+                // Getting the from coordinates and to coordinates
+                fromCoords = new Pair(Integer.parseInt(move[0].substring(1, 2)) - 1, Integer.parseInt(move[0].substring(0, 1)) - 1);
+                toCoords = new Pair(Integer.parseInt(move[1].substring(1, 2)) - 1, Integer.parseInt(move[1].substring(0, 1)) - 1);
 
-            if (verifyCoordinates(fromCoords) && verifyCoordinates(toCoords))
-            {
-                if (boardObject.board[fromCoords.a][fromCoords.b] != null)
+                // Checking if the move is valid
+                if (verifyCoordinates(fromCoords) && verifyCoordinates(toCoords))
                 {
-                    fromPiece = boardObject.board[fromCoords.a][fromCoords.b];
-
-                    if (fromPiece.getPlayer() == turn) 
+                    if (boardObject.board[fromCoords.a][fromCoords.b] != null)
                     {
-                        if (boardObject.isValidMove(fromCoords, toCoords, turn))
+                        fromPiece = boardObject.board[fromCoords.a][fromCoords.b];
+
+                        if (fromPiece.getPlayer() == turn) 
                         {
-                            checkedSquares = getCheckedSpaces(boardObject.board, turn);
-                            
-                            if (turn == 0) 
+                            if (boardObject.isValidMove(fromCoords, toCoords, turn))
                             {
-                                kingOfInterest = whiteKing;
-                            }
-                            else 
-                            {
-                                kingOfInterest = blackKing;
-                            }
-
-                            // Checking if a king is in check
-                            if (checkedSquares[kingOfInterest.row][kingOfInterest.col])
-                            {
-                                if (avoidCheckValid(boardObject.board, fromCoords, toCoords, kingOfInterest))
+                                // Getting squares in check
+                                checkedSquares = getCheckedSpaces(boardObject.board, turn);
+                                
+                                if (turn == 0) 
                                 {
-                                    fromPiece.moved = true;
-                                    boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                    boardObject.board[fromCoords.a][fromCoords.b] = null;
-
-                                    fromPiece.row = toCoords.a;
-                                    fromPiece.col = toCoords.b;
-                                    turnProgressed = true;
+                                    kingOfInterest = whiteKing;
                                 }
                                 else 
                                 {
-                                    c.println("That move is not valid, as the king would still be in check!");
+                                    kingOfInterest = blackKing;
                                 }
-                            }
-                            else 
-                            {
-                                if (fromPiece.name == "king")
+
+                                // Checking if a king is in check
+                                if (checkedSquares[kingOfInterest.row][kingOfInterest.col])
                                 {
-                                    if (!checkedSquares[toCoords.a][toCoords.b])
-                                    {
-                                        // Castling
-                                        if (!kingOfInterest.moved && kingOfInterest.row == 0 && kingOfInterest.col == 4 && ((toCoords.a == 0 && toCoords.b == 0) || (toCoords.a == 0 && toCoords.b == 7)))
-                                        {
-                                            if (turn == 0)
-                                            {
-                                                // Left castle
-                                                if (toCoords.a == 0 && toCoords.b == 0)
-                                                {
-                                                    if (boardObject.board[0][3] == null && boardObject.board[0][2] == null && boardObject.board[0][1] == null && (boardObject.board[0][0] == null || boardObject.board[0][0].name == "rook"))
-                                                    {
-                                                        temp = boardObject.board[toCoords.a][toCoords.b];
-
-                                                        fromPiece.moved = true;
-                                                        temp.moved = true;
-
-                                                        boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                                        boardObject.board[fromCoords.a][fromCoords.b] = temp;
-
-                                                        fromPiece.row = toCoords.a;
-                                                        fromPiece.col = toCoords.b;
-                                                        temp.row = fromCoords.a;
-                                                        temp.col = fromCoords.b;
-
-                                                        turnProgressed = true;
-                                                    }
-                                                }
-                                                // Right Castle
-                                                else if (toCoords.a == 0 && toCoords.b == 7)
-                                                {
-                                                    if (boardObject.board[0][5] == null && boardObject.board[0][6] == null && (boardObject.board[0][7] == null || boardObject.board[0][7].name == "rook"))
-                                                    {
-                                                        temp = boardObject.board[toCoords.a][toCoords.b];
-
-                                                        fromPiece.moved = true;
-                                                        temp.moved = true;
-
-                                                        boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                                        boardObject.board[fromCoords.a][fromCoords.b] = temp;
-
-                                                        fromPiece.row = toCoords.a;
-                                                        fromPiece.col = toCoords.b;
-                                                        temp.row = fromCoords.a;
-                                                        temp.col = fromCoords.b;
-
-                                                        turnProgressed = true;
-                                                    }
-                                                } 
-                                                else 
-                                                {
-                                                    c.println("That piece cannot move there!");
-                                                }
-                                            }
-                                            else 
-                                            {
-                                                // Left castle
-                                                if (toCoords.a == 7 && toCoords.b == 0)
-                                                {
-                                                    if (boardObject.board[7][3] == null && boardObject.board[7][2] == null && boardObject.board[7][1] == null && (boardObject.board[7][0] == null || boardObject.board[7][0].name == "rook"))
-                                                    {
-                                                        temp = boardObject.board[toCoords.a][toCoords.b];
-
-                                                        fromPiece.moved = true;
-                                                        temp.moved = true;
-
-                                                        boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                                        boardObject.board[fromCoords.a][fromCoords.b] = temp;
-
-                                                        fromPiece.row = toCoords.a;
-                                                        fromPiece.col = toCoords.b;
-                                                        temp.row = fromCoords.a;
-                                                        temp.col = fromCoords.b;
-
-                                                        turnProgressed = true;
-                                                    }
-                                                }
-                                                // Right Castle
-                                                else if (toCoords.a == 7 && toCoords.b == 7)
-                                                {
-                                                    if (boardObject.board[7][5] == null && boardObject.board[7][6] == null && (boardObject.board[7][7] == null || boardObject.board[7][7].name == "rook"))
-                                                    {
-                                                        temp = boardObject.board[toCoords.a][toCoords.b];
-
-                                                        fromPiece.moved = true;
-                                                        temp.moved = true;
-
-                                                        boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                                        boardObject.board[fromCoords.a][fromCoords.b] = temp;
-
-                                                        fromPiece.row = toCoords.a;
-                                                        fromPiece.col = toCoords.b;
-                                                        temp.row = fromCoords.a;
-                                                        temp.col = fromCoords.b;
-
-                                                        turnProgressed = true;
-                                                    }
-                                                } 
-                                                else 
-                                                {
-                                                    c.println("That piece cannot move there!");
-                                                }
-                                            }
-                                        }
-                                        else 
-                                        {
-                                            fromPiece.moved = true;
-                                            boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                            boardObject.board[fromCoords.a][fromCoords.b] = null;
-    
-                                            fromPiece.row = toCoords.a;
-                                            fromPiece.col = toCoords.b;
-                                            turnProgressed = true;
-                                        } 
-                                    } 
-                                    else 
-                                    {
-                                        c.println("The king cannot go there, as it will be in check!");
-                                    }
-                                } 
-                                else 
-                                {   
-                                    if (turn == 0 && avoidCheckValid(boardObject.board, fromCoords, toCoords, whiteKing) || turn == 1 && avoidCheckValid(boardObject.board, fromCoords, toCoords, blackKing))
+                                    // If king is not in check, make the move. Otherwise, display that the move is invalid
+                                    if (avoidCheckValid(boardObject.board, fromCoords, toCoords, kingOfInterest))
                                     {
                                         fromPiece.moved = true;
                                         boardObject.board[toCoords.a][toCoords.b] = fromPiece;
@@ -250,74 +125,226 @@ public class Chess
                                     }
                                     else 
                                     {
-                                        c.println("You cannot make that move, as it puts the king in check!");
+                                        c.println("That move is not valid, as the king would still be in check!");
                                     }
                                 }
-                            }    
-                        }
+                                else 
+                                {
+                                    // If the piece is not in check and is a king, we need to make sure the square they're moving to is also not in checks
+                                    if (fromPiece.name == "king")
+                                    {
+                                        if (!checkedSquares[toCoords.a][toCoords.b])
+                                        {
+                                            // Checking if a move is a castle
+                                            if (!kingOfInterest.moved && kingOfInterest.row == 0 && kingOfInterest.col == 4 && ((toCoords.a == 0 && toCoords.b == 0) || (toCoords.a == 0 && toCoords.b == 7)))
+                                            {
+                                                if (turn == 0)
+                                                {
+                                                    // Left castle
+                                                    if (toCoords.a == 0 && toCoords.b == 0)
+                                                    {
+                                                        if (boardObject.board[0][3] == null && boardObject.board[0][2] == null && boardObject.board[0][1] == null && (boardObject.board[0][0] == null || boardObject.board[0][0].name == "rook"))
+                                                        {
+                                                            temp = boardObject.board[toCoords.a][toCoords.b];
+
+                                                            fromPiece.moved = true;
+                                                            temp.moved = true;
+
+                                                            boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                                            boardObject.board[fromCoords.a][fromCoords.b] = temp;
+
+                                                            fromPiece.row = toCoords.a;
+                                                            fromPiece.col = toCoords.b;
+                                                            temp.row = fromCoords.a;
+                                                            temp.col = fromCoords.b;
+
+                                                            turnProgressed = true;
+                                                        }
+                                                    }
+                                                    // Right Castle
+                                                    else if (toCoords.a == 0 && toCoords.b == 7)
+                                                    {
+                                                        if (boardObject.board[0][5] == null && boardObject.board[0][6] == null && (boardObject.board[0][7] == null || boardObject.board[0][7].name == "rook"))
+                                                        {
+                                                            temp = boardObject.board[toCoords.a][toCoords.b];
+
+                                                            fromPiece.moved = true;
+                                                            temp.moved = true;
+
+                                                            boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                                            boardObject.board[fromCoords.a][fromCoords.b] = temp;
+
+                                                            fromPiece.row = toCoords.a;
+                                                            fromPiece.col = toCoords.b;
+                                                            temp.row = fromCoords.a;
+                                                            temp.col = fromCoords.b;
+
+                                                            turnProgressed = true;
+                                                        }
+                                                    } 
+                                                    else 
+                                                    {
+                                                        c.println("That piece cannot move there!");
+                                                    }
+                                                }
+                                                else 
+                                                {
+                                                    // Left castle
+                                                    if (toCoords.a == 7 && toCoords.b == 0)
+                                                    {
+                                                        if (boardObject.board[7][3] == null && boardObject.board[7][2] == null && boardObject.board[7][1] == null && (boardObject.board[7][0] == null || boardObject.board[7][0].name == "rook"))
+                                                        {
+                                                            temp = boardObject.board[toCoords.a][toCoords.b];
+
+                                                            fromPiece.moved = true;
+                                                            temp.moved = true;
+
+                                                            boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                                            boardObject.board[fromCoords.a][fromCoords.b] = temp;
+
+                                                            fromPiece.row = toCoords.a;
+                                                            fromPiece.col = toCoords.b;
+                                                            temp.row = fromCoords.a;
+                                                            temp.col = fromCoords.b;
+
+                                                            turnProgressed = true;
+                                                        }
+                                                    }
+                                                    // Right Castle
+                                                    else if (toCoords.a == 7 && toCoords.b == 7)
+                                                    {
+                                                        if (boardObject.board[7][5] == null && boardObject.board[7][6] == null && (boardObject.board[7][7] == null || boardObject.board[7][7].name == "rook"))
+                                                        {
+                                                            temp = boardObject.board[toCoords.a][toCoords.b];
+
+                                                            fromPiece.moved = true;
+                                                            temp.moved = true;
+
+                                                            boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                                            boardObject.board[fromCoords.a][fromCoords.b] = temp;
+
+                                                            fromPiece.row = toCoords.a;
+                                                            fromPiece.col = toCoords.b;
+                                                            temp.row = fromCoords.a;
+                                                            temp.col = fromCoords.b;
+
+                                                            turnProgressed = true;
+                                                        }
+                                                    } 
+                                                    else 
+                                                    {
+                                                        c.println("That piece cannot move there!");
+                                                    }
+                                                }
+                                            }
+                                            // If the move is not a castle, just move the piece regularly
+                                            else 
+                                            {
+                                                fromPiece.moved = true;
+                                                boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                                boardObject.board[fromCoords.a][fromCoords.b] = null;
+        
+                                                fromPiece.row = toCoords.a;
+                                                fromPiece.col = toCoords.b;
+                                                turnProgressed = true;
+                                            } 
+                                        } 
+                                        else 
+                                        {
+                                            c.println("The king cannot go there, as it will be in check!");
+                                        }
+                                    } 
+                                    // If the piece is not a king, move it like a regular piece
+                                    else 
+                                    {   
+                                        // If the piece is not a king, we need to make sure that 
+                                        // moving the piece out of the way will not cause the king to be in check
+                                        if (turn == 0 && avoidCheckValid(boardObject.board, fromCoords, toCoords, whiteKing) || turn == 1 && avoidCheckValid(boardObject.board, fromCoords, toCoords, blackKing))
+                                        {
+                                            fromPiece.moved = true;
+                                            boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                            boardObject.board[fromCoords.a][fromCoords.b] = null;
+
+                                            fromPiece.row = toCoords.a;
+                                            fromPiece.col = toCoords.b;
+                                            turnProgressed = true;
+                                        }
+                                        else 
+                                        {
+                                            c.println("You cannot make that move, as it puts the king in check!");
+                                        }
+                                    }
+                                }    
+                            }
+                            else 
+                            {
+                                c.println("That piece cannot move there!");
+                            }
+                        } 
                         else 
                         {
-                            c.println("That piece cannot move there!");
+                            c.println("That piece belongs to the opponent!");
                         }
+                    }
+                    else 
+                    {
+                        c.println("A piece does not exist there!");
+                    }
+                }   
+                else 
+                {
+                    c.println("Invalid move! One of the coordinates given was outside the board!");
+                }
+
+                // If the user entered a valid move, turnProgressed would be true and then it would progress
+                // onto the next player
+                // If the user did not enter a valid move, do not update the board and do not update the current player
+                if (turnProgressed)
+                {
+                    boardObject.display();
+                    
+                    if (turn == 0)
+                    {
+                        turn = 1;
                     } 
                     else 
                     {
-                        c.println("That piece belongs to the opponent!");
+                        turn = 0;
                     }
                 }
-                else 
-                {
-                    c.println("A piece does not exist there!");
-                }
-            }   
-            else 
-            {
-                c.println("Invalid move! One of the coordinates given was outside the board!");
-            }
 
-            if (turnProgressed)
-            {
-                boardObject.display();
-                
-                if (turn == 0)
-                {
-                    turn = 1;
-                } 
-                else 
-                {
-                    turn = 0;
-                }
-            }
+                checkedSquares = getCheckedSpaces(boardObject.board, turn);
 
-            checkedSquares = getCheckedSpaces(boardObject.board, turn);
-
-            if (turnProgressed)
-            {
-                if (turn == 0)
+                // Displaying the next move message, along with if the next player is in check
+                if (turnProgressed)
                 {
-                    if (checkedSquares[whiteKing.row][whiteKing.col])
+                    if (turn == 0)
                     {
-                        c.println("The white king is in check!");
-                    }
+                        if (checkedSquares[whiteKing.row][whiteKing.col])
+                        {
+                            c.println("The white king is in check!");
+                        }
 
-                    c.println("It is now white's turn!");
-                }
-                else 
-                {
-                    if (checkedSquares[blackKing.row][blackKing.col])
+                        c.println("It is now white's turn!");
+                    }
+                    else 
                     {
-                        c.println("The black king is in check!");
-                    }
+                        if (checkedSquares[blackKing.row][blackKing.col])
+                        {
+                            c.println("The black king is in check!");
+                        }
 
-                    c.println("It is now black's turn!");
+                        c.println("It is now black's turn!");
+                    }
                 }
-            }
             }
         }
     }
 
+    // Checking if a row in the board is clear
     public static boolean checkRowClear(ChessPiece[][] board, int row, int start, int end)
     {
+        // Iterating from the start to end and checking if those indices have any pieces
         for (int i = start; i < end; i++)
         {
             if (board[row][i] != null)
@@ -329,8 +356,10 @@ public class Chess
         return true;
     }
 
+    // Verifying that these coordinates are within the board's boundaries
     public static boolean verifyCoordinates(Pair pair)
     {
+        // Checking if the coordinate is within the board
         if (pair.a >= 0 && pair.a < 8 && pair.b >= 0 && pair.b < 8)
         {
             return true;
@@ -339,12 +368,16 @@ public class Chess
         return false;
     }
 
+    // Getting which spaces on the board are in check (are "attacked" by other pieces)
     public static boolean[][] getCheckedSpaces(ChessPiece[][] board, int player)
     {
+        // Declaring variables
         boolean[][] ans;
 
+        // Initializing variables
         ans = new boolean[8][8];
 
+        // Iterating through all the moves of each piece and marking the squares those pieces can reach as "checked"
         for (int i = 0; i < 8; i++) 
         {
             for (int v = 0; v < 8; v++)
@@ -370,11 +403,15 @@ public class Chess
         return ans;
     }
 
+    // Checking if a move causes the king to go OUT of check (therefore it is valid)
     public static boolean avoidCheckValid(ChessPiece[][] board, Pair from, Pair to, ChessPiece king)
     {
+        // Declaring variables
         ChessPiece[][] boardClone;
         ChessPiece fromPiece;
+        boolean[][] checkedSquares;
 
+        // Initializing variables
         boardClone = new ChessPiece[8][8]; 
 
         // Cloning the board
@@ -403,25 +440,29 @@ public class Chess
         boardClone[to.a][to.b].row = to.a;
         boardClone[to.a][to.b].col = to.b;
 
-        boolean[][] checkedSquares = getCheckedSpaces(boardClone, board[from.a][from.b].getPlayer());
+        checkedSquares = getCheckedSpaces(boardClone, board[from.a][from.b].getPlayer());
 
         return !checkedSquares[king.row][king.col];
     }
 
-
+    // Checking if the current state of the game is a checkmate, stalemate, or a regular position
     public static int getGameOutcome(ChessPiece[][] board, ChessPiece whiteKing, ChessPiece blackKing, int turn)
     {
+        // Declaring variables
         int validWhiteMoves; 
         int validBlackMoves; 
         boolean whiteCheckmate;
         boolean blackCheckmate;
         ChessPiece kingOfInterest;
 
+        // Initializing variables
         validWhiteMoves = 0;
         validBlackMoves = 0;
         whiteCheckmate = getCheckedSpaces(board, 0)[whiteKing.row][whiteKing.col];
         blackCheckmate = getCheckedSpaces(board, 1)[blackKing.row][blackKing.col];
 
+
+        // Iterating the moves for each piece on the chessboard, and seeing if checkmate/stalemate is the only outcome possible
         for (int i = 0; i < 8; i++) 
         {
             for (int v = 0; v < 8; v++)

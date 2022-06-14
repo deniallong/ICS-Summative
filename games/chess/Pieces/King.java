@@ -5,12 +5,13 @@ import utils.*;
 
 public class King extends ChessPiece 
 {
-    
+    // Constructor
     public King(int player, int row, int col)
     {
         super(player, "king", row, col);
     }
 
+    // Getting the moves for the chesspiece
     public Pair[] getMoves(ChessPiece[][] board)
     {
         // Declaring variables
@@ -109,6 +110,7 @@ public class King extends ChessPiece
         return moves;
     }
 
+    // Getting "danger zones" around the piece where it could attack
     public Pair[] getDangerZones(ChessPiece[][] board)
     {
         // Declaring variables
@@ -132,6 +134,7 @@ public class King extends ChessPiece
         return moves;
     }
 
+    // Cloning the current chesspiece
     public ChessPiece clonePiece()
     {
         return new King(this.getPlayer(), row, col);
