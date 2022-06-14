@@ -37,6 +37,30 @@ public class Utils
 			return input("", choices, c);
 		}
     }
+    public static int[][] add(int[][] array, int[][] addition)
+	{
+		//Declares the array.
+		int returnArray[][] = new int[array.length + addition.length][7];
+
+		//Enters all the elements of the old array into the new array.
+		for(int i = 0; i < array.length; i++)
+		    for (int j=0; j<array[i].length; j++)
+			{
+				returnArray[i][j] = array[i][j];
+			}
+	
+		
+		//Adds the new element to the end of the array.
+		for(int i = 0; i < addition.length; i++)
+			for (int j=0; j < addition[i].length; j++)
+			{
+				returnArray[array.length+i][j] = addition[i][j];
+			}		
+		
+	
+		//Returns the new array.
+		return returnArray;
+	}
 
     public static int[] add(int[] array, int addition)
 	{
@@ -119,82 +143,8 @@ public class Utils
 		return false;
 	}
 
-	public static int[] getColumn(int[][] array, int col)
-	{
-		int returnArray[] = new int[array.length];
-
-		for(int row = 0; row < array.length; row++)
-		{
-			returnArray[row] = array[row][col];
-		}
-
-		return returnArray;
-	}
-
-	public static int[][] getDiagonals(int[][] array)
-	{
-		int diagonalIndex;
-
-		int returnArray[][] = new int[2 * (array.length + array[0].length - 1)][0];
-
-		diagonalIndex = 0;
-
-		for(int row = 0; row < array.length; row++)
-		{
-			int rowTemp = row;
-
-			for(int col = 0; rowTemp >= 0 && col < array[row].length; col++)
-			{
-				returnArray[diagonalIndex] = add(returnArray[diagonalIndex], array[rowTemp][col]);
-
-				rowTemp--;
-			}
-
-			diagonalIndex++;
-		}
-
-		for(int col = 1; col < array[0].length; col++)
-		{
-			int colTemp = col;
-
-			for(int row = array.length - 1; row >= 0 && colTemp < array[row].length; row--)
-			{
-				returnArray[diagonalIndex] = add(returnArray[diagonalIndex], array[row][colTemp]);
-
-				colTemp++;
-			}
-
-			diagonalIndex++;
-		}
-
-		for(int row = array.length - 1; row >= 0; row--)
-		{
-			int rowTemp = row;
-
-			for(int col = 0; rowTemp < array.length && col < array[row].length; col++)
-			{
-				returnArray[diagonalIndex] = add(returnArray[diagonalIndex], array[rowTemp][col]);
-
-				rowTemp++;
-			}
-
-			diagonalIndex++;
-		}
-		
-		for(int col = 1; col < array[0].length; col++)
-		{
-			int colTemp = col;
-
-			for(int row = 0; row < array.length && colTemp < array[row].length; row++)
-			{
-				returnArray[diagonalIndex] = add(returnArray[diagonalIndex], array[row][colTemp]);
-
-				colTemp++;
-			}
-
-			diagonalIndex++;
-		}
-
-		return returnArray;
-	}
+	public static int positiveNegativeAlternate(int whenNegative, int whenPositive, int controller)
+    {
+        return whenNegative + (whenPositive - whenNegative) * (1 + controller) / 2;
+    }
 }
