@@ -29,7 +29,7 @@ public class Board
         //Initializes "board".
         board = new int[6][7];
 
-        //Fills all the indices of the array with 0.
+        //Fills all the indices of the matrix with 0.
         for(int row = 0; row < board.length; row++)
         {
             for(int col = 0; col < board[row].length; col++)
@@ -138,7 +138,7 @@ public class Board
 
     public int[][] getColumns()
 	{
-		//Declares an array.
+		//Declares a matrix.
 		int returnArray[][] = new int[board[0].length][board.length];
 
 		//Enters all elements in the specified column of a 2 dimensional array into the previously declared array.
@@ -173,13 +173,13 @@ public class Board
             for(int row = 0; row >= 0 && row < board.length; row += 1)
             {
                 //Cycles through both corners of the matrix.
-                for(int side = -1; side <= 1; side += 2)
+                for(int corner = -1; corner <= 1; corner += 2)
                 {
                     //Initializes a temporary row variable.
-                    rowTemp = Utils.positiveNegativeAlternate(row, Utils.positiveNegativeAlternate(0, board.length - 1, dir), side);
+                    rowTemp = Utils.positiveNegativeAlternate(row, Utils.positiveNegativeAlternate(0, board.length - 1, dir), corner);
 
-                    //Cycles through the array, adding diagonals to the returned matrix.
-                    for(int col = Utils.positiveNegativeAlternate(0, board[row].length - row - 1, side); rowTemp >= 0 && rowTemp < board.length && col >= 0 && col < board[row].length; col += 1)
+                    //Cycles through the board matrix, adding diagonals to the returned matrix.
+                    for(int col = Utils.positiveNegativeAlternate(0, board[row].length - row - 1, corner); rowTemp >= 0 && rowTemp < board.length && col >= 0 && col < board[row].length; col += 1)
                     {
                         returnArray[dia] = Utils.add(returnArray[dia], board[rowTemp][col]);
 
@@ -196,24 +196,27 @@ public class Board
 	}
 
 
-    public boolean checkWin(int player)
+    public int checkWin()
     {
-        //Declares arrays.
-        int arrayToCheck[][] = new int[0][0];
-        arrayToCheck = Utils.add(arrayToCheck, getRows());
-        arrayToCheck = Utils.add(arrayToCheck, getColumns());
-        arrayToCheck = Utils.add(arrayToCheck, getDiagonals());
+        //Declares a matrix of all the rows, columns, and diagonals to be checked.
+        int matrixToCheck[][] = new int[0][0];
 
-        //Loops through every row, column, and diagonal of "board" for the same player's number appearing 4 times consecutively.
-        for(int index = 0; index < arrayToCheck.length; index++)
+        matrixToCheck = Utils.add(matrixToCheck, getRows());
+        matrixToCheck = Utils.add(matrixToCheck, getColumns());
+        matrixToCheck = Utils.add(matrixToCheck, getDiagonals());
+
+        for(int player = 1; player <= 2; player++)
         {
-            if(Utils.consecutive(arrayToCheck[index], player, 4))
+            for(int index = 0; index < matrixToCheck.length; index++)
             {
-                    return true;
+                if(Utils.consecutive(matrixToCheck[index], player, 4))
+                {
+                    return player;
+                }
             }
         }
         
-        return false;
+        return 0;
     }
     
     public void winMessage(Console c) throws IOException
@@ -221,14 +224,14 @@ public class Board
         i.display(winFade, 0, 0);
         
         //Displays the win message for player 1 if they win.
-        if(checkWin(1))
+        if(checkWin() == 1)
         {
             c.println("\nPlayer 1 wins!");
             i.display(yellowWin, 0, 0);
         }
         
         //Displays the win message for player 2 if they win.
-        else if(checkWin(2))
+        else if(checkWin() == 2)
         {
             c.println("\nPlayer 2 wins!");
             i.display(redWin, 0, 0);
