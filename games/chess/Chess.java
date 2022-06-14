@@ -27,8 +27,6 @@ public class Chess
 
         boolean[][] checkedSquares;
 
-        String fromLetter;
-
         Pair fromCoords;
         Pair toCoords;
 
@@ -67,14 +65,17 @@ public class Chess
                 if (outcome == -2)
                 {
                     c.println("Checkmate! Black loses!");
+                    Board.displayWin(0);
                 }
                 else if (outcome == -1 || outcome == 1) 
                 {
                     c.println("Stalemate!");
+                    Board.displayTie();
                 }
                 else if (outcome == 2)
                 {
                     c.println("Checkmate! White loses!");
+                    Board.displayWin(1);
                 }
             }
             else 

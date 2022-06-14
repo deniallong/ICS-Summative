@@ -16,7 +16,7 @@ public class Main
     {
         // Main code
         //ChessDriver();
-        ConnectFourDriver();
+        ChessDriver();
     }
 
     public static void ChessDriver() throws IOException 

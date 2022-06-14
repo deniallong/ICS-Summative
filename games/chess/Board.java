@@ -13,6 +13,9 @@ public class Board
 
     // Declaring variables
     static File boardImage;
+    static File whiteWinImage;
+    static File blackWinImage;
+    static File tieImage;
     static ImageDisplayer i;
 
     public int rows;
@@ -26,6 +29,9 @@ public class Board
         i = new ImageDisplayer();
 
         boardImage = new File("resources/chess/images/chessboard.png");
+        whiteWinImage = new File("resources/chess/images/whitewin.png");
+        blackWinImage = new File("resources/chess/images/blackwin.png");
+        tieImage = new File("resources/chess/images/tie.png");
     }
 
     public Board() throws IOException
@@ -127,5 +133,24 @@ public class Board
     public ChessPiece[][] getBoard()
     {
         return board;
+    }
+
+    // Displays the win message
+    public static void displayWin(int player) throws IOException
+    {
+        if (player == 0)
+        {
+            i.display(whiteWinImage, 0, 0);
+        }
+        else 
+        {
+            i.display(blackWinImage, 0, 0);
+        }
+    }
+
+    // Displays a tie message
+    public static void displayTie() throws IOException
+    {
+        i.display(tieImage, 0, 0);
     }
 }
