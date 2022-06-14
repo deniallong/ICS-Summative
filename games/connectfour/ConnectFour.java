@@ -18,13 +18,14 @@ public class ConnectFour
         board.display();
         c.println("Each player will enter the number of the column they want to place their piece when prompted. The first player to get 4  pieces in a row, column, or diagonal, wins.");
         
-        for(int move = 1; board.checkWin(1) == false && board.checkWin(2) == false && move <= 42; move += 2)
+        for(int move = 1; board.checkWin() == 0 && move <= 42; move += 2)
         {
-            for(int player = 1; player <= 2 && board.checkWin(1) == false; player++)
+            for(int player = 1; player <= 2 && board.checkWin() != 1; player++)
             {
                 c.print("\nPlayer " + player + " move: ");
                 board.getMove(player, Utils.input("", board.getValidMoves(), c));
                 board.display();
+                System.out.println(board.checkWin());
             }
         }
 
