@@ -3,6 +3,8 @@ package games.connectfour;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.concurrent.TimeUnit;
+
 import hsa.Console;
 import utils.*;
 
@@ -219,9 +221,11 @@ public class Board
         return 0;
     }
     
-    public void winMessage(Console c) throws IOException
+    public void winMessage(Console c) throws IOException, InterruptedException
     {
         i.display(winFade, 0, 0);
+
+        TimeUnit.SECONDS.sleep(2);
         
         //Displays the win message for player 1 if they win.
         if(checkWin() == 1)

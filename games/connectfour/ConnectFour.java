@@ -10,7 +10,7 @@ public class ConnectFour
 	static Console c;
     static Board board;
 
-    public static void run() throws IOException
+    public static void run() throws IOException, InterruptedException
     {
         board = new Board();
         c = new Console();
@@ -25,7 +25,6 @@ public class ConnectFour
                 c.print("\nPlayer " + player + " move: ");
                 board.getMove(player, Utils.input("", board.getValidMoves(), c));
                 board.display();
-                System.out.println(board.checkWin());
             }
         }
 

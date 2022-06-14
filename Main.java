@@ -12,7 +12,7 @@ public class Main
     static Console c;
     static ImageDisplayer displayer;
     
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args) throws IOException, InterruptedException
     {
         // Main code
         //ChessDriver();
@@ -24,7 +24,7 @@ public class Main
         Chess.run();
     }
 
-    public static void ConnectFourDriver() throws IOException 
+    public static void ConnectFourDriver() throws IOException, InterruptedException
     {
         ConnectFour.run();
     }
