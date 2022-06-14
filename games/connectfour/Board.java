@@ -54,7 +54,12 @@ public class Board
     public void displayPiece(int row, int col, int player) throws IOException
     {
         //Variable Declaration
-        int xMargin, yMargin, width, height, xPosition, yPosition;
+        int xMargin;
+        int yMargin;
+        int width;
+        int height;
+        int xPosition;
+        int yPosition;
         
         //Variable Initialization
         xMargin = 41;
@@ -126,6 +131,11 @@ public class Board
         board[move[0]][move[1]] = player;
     }
 
+    public int[][] getRows()
+    {
+        return board;
+    }
+
     public int[][] getColumns()
 	{
 		//Declares an array.
@@ -144,77 +154,71 @@ public class Board
 		return returnArray;
 	}
 
-	public int[][] getDiagonals()
+    public int[][] getDiagonals()
 	{
-		int diagonalIndex;
-
+		//Variable Declaration
+		int dia;
+        int rowTemp;
+        
+        //Declares an array.
 		int returnArray[][] = new int[2 * (board.length + board[0].length - 1)][0];
 
-		diagonalIndex = 0;
+        //Variable Initialization
+		dia = 0;
 
+        //Cycles through both directions of diagonals.
         for(int dir = 1; dir >= -1; dir -= 2)
         {
+            //Cycles through row and column coordinates.
             for(int row = 0; row >= 0 && row < board.length; row += 1)
             {
-                int rowTemp = row;
+                //Initializes temporary row variable.
+                rowTemp = row;
 
-                for(int col = 0; rowTemp >= 0 && rowTemp < board.length && col < board[row].length; col += 1)
+                //Adds an array of diagonals based on the row.
+                for(int col = 0; rowTemp >= 0 && rowTemp < board.length && col >= 0 && col < board[row].length; col += 1)
                 {
-                    returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[rowTemp][col]);
+                    returnArray[dia] = Utils.add(returnArray[dia], board[rowTemp][col]);
 
                     rowTemp -= dir;
                 }
 
-                diagonalIndex++;
+                dia++;
+
+                //Changes the value of temporary row variable. The expression gives board.length - 1 when dir is 1 and 0 when dir is -1.
+                rowTemp = (board.length - 1) * (1 + dir) / 2;
+
+                //Adds an array that corresponds to the first array.
+                for(int col = board[row].length - 1 - row; rowTemp >= 0 && rowTemp < board.length && col >= 0 && col < board[row].length; col += 1)
+                {
+                    returnArray[dia] = Utils.add(returnArray[dia], board[rowTemp][col]);
+
+                    rowTemp -= dir;
+                }
+
+                dia++;
             }
-
-            for(int col = 1; col < board[0].length; col++)
-			{
-				int colTemp = col;
-
-				for(int row = (dir - 1) / (-2) * (board.length - 1); row >= 0 && row < board.length && colTemp < board[row].length; row += dir)
-				{
-					returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[row][colTemp]);
-
-					colTemp++;
-				}
-
-				diagonalIndex++;
-			}
         }
 
+        //Returns the array of diagonals.
 		return returnArray;
 	}
 
+
     public boolean checkWin(int player)
     {
-        int columns[][] = getColumns();
-        int diagonals[][] = getDiagonals();
+        //Declares arrays.
+        int arrayToCheck[][] = new int[0][0];
+        arrayToCheck = Utils.add(arrayToCheck, getRows());
+        arrayToCheck = Utils.add(arrayToCheck, getColumns());
+        arrayToCheck = Utils.add(arrayToCheck, getDiagonals());
 
-        //Loops through every row of "board" for the same player's number appearing 4 times consecutively.
-        for(int row = 0; row < board.length; row++)
+        //Loops through every row, column, and diagonal of "board" for the same player's number appearing 4 times consecutively.
+        for(int index = 0; index < arrayToCheck.length; index++)
         {
-            if(Utils.consecutive(board[row], player, 4))
+            if(Utils.consecutive(arrayToCheck[index], player, 4))
             {
-                return true;
-            }
-        }
-
-        //Loops through every column of "board" for the same player's number appearing 4 times consecutively.
-        for(int col = 0; col < columns.length; col++)
-        {
-            if(Utils.consecutive(columns[col], player, 4))
-            {
-                return true;
-            }
-        }
-
-        //Loops through every diagonal of "board" for the same player's number appearing 4 times consecutively.
-        for(int dia = 0; dia < diagonals.length; dia++)
-        {
-            if(Utils.consecutive(diagonals[dia], player, 4))
-            {
-                return true;
+                    return true;
             }
         }
         

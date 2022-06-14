@@ -37,6 +37,30 @@ public class Utils
 			return input("", choices, c);
 		}
     }
+    public static int[][] add(int[][] array, int[][] addition)
+	{
+		//Declares the array.
+		int returnArray[][] = new int[array.length + addition.length][7];
+
+		//Enters all the elements of the old array into the new array.
+		for(int i = 0; i < array.length; i++)
+		    for (int j=0; j<array[i].length; j++)
+			{
+				returnArray[i][j] = array[i][j];
+			}
+	
+		
+		//Adds the new element to the end of the array.
+		for(int i = 0; i < addition.length; i++)
+			for (int j=0; j < addition[i].length; j++)
+			{
+				returnArray[array.length+i][j] = addition[i][j];
+			}		
+		
+	
+		//Returns the new array.
+		return returnArray;
+	}
 
     public static int[] add(int[] array, int addition)
 	{

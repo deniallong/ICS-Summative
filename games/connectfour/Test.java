@@ -6,65 +6,70 @@ public class Test {
     
     public static int[][] getDiagonals(int[][] board)
 	{
-		int diagonalIndex;
-
+		//Variable Declaration
+		int dia;
+        int rowTemp;
+        
+        //Declares an array.
 		int returnArray[][] = new int[2 * (board.length + board[0].length - 1)][0];
 
-		diagonalIndex = 0;
+        //Variable Initialization
+		dia = 0;
 
+        //Cycles through both directions of diagonals.
         for(int dir = 1; dir >= -1; dir -= 2)
         {
+            //Cycles through row and column coordinates.
             for(int row = 0; row >= 0 && row < board.length; row += 1)
             {
-                int rowTemp = row;
-
-                for(int col = 0; rowTemp >= 0 && rowTemp < board.length && col < board[row].length; col += 1)
+                //Initializes temporary row variable.
+                for(int side = -1; side <= 1; side += 2)
                 {
-                    returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[rowTemp][col]);
+                    rowTemp = row + ((board.length - 1) * (1 + dir) / 2 - 2 * row) * (1 + side) / 2;
 
-                    rowTemp -= dir;
+                    for(int col = (board[row].length - row - 1) * (1 + side) / 2; rowTemp >= 0 && rowTemp < board.length && col >= 0 && col < board[row].length; col += 1)
+                    {
+                        returnArray[dia] = Utils.add(returnArray[dia], board[rowTemp][col]);
+
+                        rowTemp -= dir;
+                    }
+
+                    dia++;
                 }
-
-                diagonalIndex++;
             }
-
-            for(int col = 1; col < board[0].length; col++)
-			{
-				int colTemp = col;
-
-				for(int row = (dir - 1) / (-2) * (board.length - 1); row >= 0 && row < board.length && colTemp < board[row].length; row += dir)
-				{
-					returnArray[diagonalIndex] = Utils.add(returnArray[diagonalIndex], board[row][colTemp]);
-
-					colTemp++;
-				}
-
-				diagonalIndex++;
-			}
         }
 
+        //Returns the array of diagonals.
 		return returnArray;
 	}
 
-    public static void main(String[] args)
-    {
-        int array[][] = {{1,2,3,4,5,6,7},
-                         {7,6,5,4,3,2,1},
-                         {1,2,3,4,5,6,7},
-                         {7,6,5,4,3,2,1},
-                         {1,2,3,4,5,6,7},
-                         {7,6,5,4,3,2,1}};
-
-        int diagonals[][] = getDiagonals(array);
-
-        for(int row = 0; row < diagonals.length; row++)
-        {
-            for(int col = 0; col < diagonals[row].length; col++)
-            {
-                System.out.print(diagonals[row][col] + " ");
-            }
-
+    public static void debugArray(int [][]array) {
+        System.out.println("Checking arrays:");
+        for(int i = 0; i < array.length; i++) {
+		    for (int j=0; j<array[i].length; j++)
+			{
+				System.out.print(array[i][j]);
+                System.out.print(" ");
+			} 
             System.out.println();
         }
+    }
+    public static void main(String[] args)
+    {
+        int array[][] = new int[6][7];
+
+        for(int row = 0; row < array.length; row++)
+        {
+            for(int col = 0; col < array[row].length; col++)
+            {
+                array[row][col] = row * 7 + col;
+                System.out.print(array[row][col] + " ");
+            }
+            
+            System.out.println();
+        }
+
+        int diagonals[][] = getDiagonals(array);
+        debugArray(diagonals);
     }
 }
