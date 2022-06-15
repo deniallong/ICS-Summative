@@ -13,7 +13,7 @@ public class ConnectFour
     public static void run() throws IOException, InterruptedException
     {
         board = new Board();
-        c = new Console();
+        c = new Console(30, 75);
 
         board.display();
         c.println("Each player will enter the number of the column they want to place their piece when prompted. The first player to get 4  pieces in a row, column, or diagonal, wins.");
@@ -29,5 +29,8 @@ public class ConnectFour
         }
 
         board.winMessage(c);
+
+        c.print("\nPress any key to go back to the main menu");
+        c.getChar();
     }
 }

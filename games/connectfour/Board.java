@@ -160,7 +160,7 @@ public class Board
 	{
 		//Variable Declaration
 		int dia;
-        int rowTemp;
+        int row;
         
         //Declares a matrix.
 		int returnArray[][] = new int[2 * (board.length + board[0].length - 1)][0];
@@ -171,21 +171,20 @@ public class Board
         //Cycles through both directions of diagonals.
         for(int dir = 1; dir >= -1; dir -= 2)
         {
-            //Cycles through row and column coordinates.
-            for(int row = 0; row >= 0 && row < board.length; row += 1)
+            //Cycles through coordinates where diagonals can start.
+            for(int start = 0; start >= 0 && start < board.length; start++)
             {
                 //Cycles through both corners of the matrix.
                 for(int corner = -1; corner <= 1; corner += 2)
                 {
                     //Initializes a temporary row variable.
-                    rowTemp = Utils.positiveNegativeAlternate(row, Utils.positiveNegativeAlternate(0, board.length - 1, dir), corner);
+                    row = Utils.positiveNegativeAlternate(start, Utils.positiveNegativeAlternate(0, board.length - 1, dir), corner);
 
                     //Cycles through the board matrix, adding diagonals to the returned matrix.
-                    for(int col = Utils.positiveNegativeAlternate(0, board[row].length - row - 1, corner); rowTemp >= 0 && rowTemp < board.length && col >= 0 && col < board[row].length; col += 1)
+                    for(int col = Utils.positiveNegativeAlternate(0, board[start].length - start - 1, corner); row >= 0 && row < board.length && col >= 0 && col < board[start].length; col++)
                     {
-                        returnArray[dia] = Utils.add(returnArray[dia], board[rowTemp][col]);
-
-                        rowTemp -= dir;
+                        returnArray[dia] = Utils.add(returnArray[dia], board[row][col]);
+                        row -= dir;
                     }
 
                     dia++;

@@ -21,7 +21,6 @@ public class ImageDisplayer implements ImageObserver {
     
     public void display(File file, int x, int y) throws IOException 
     {
-
         // Creating the image object
         Image image = ImageIO.read(file);
 
