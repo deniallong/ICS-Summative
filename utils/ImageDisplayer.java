@@ -12,9 +12,9 @@ import hsa.Console;
 
 public class ImageDisplayer implements ImageObserver {
 
-    static Console c;
+    public Console c;
 
-    static 
+    public ImageDisplayer() 
     {
         c = new Console(30, 75);
     }
@@ -33,5 +33,11 @@ public class ImageDisplayer implements ImageObserver {
     public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) 
     {
         return false;
+    }
+
+    // Closes the console
+    public void close()
+    {
+        c.close();
     }
 }

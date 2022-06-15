@@ -8,8 +8,6 @@ import utils.*;
 public abstract class ChessPiece 
 {
     // Declaring variables
-    static ImageDisplayer i;
-
     private int player;
     private File pieceImage;
 
@@ -17,12 +15,6 @@ public abstract class ChessPiece
     public int row;
     public int col;
     public boolean moved;
-
-    static 
-    {
-        // Initializing variables
-        i = new ImageDisplayer();
-    }
 
     // Constructor
     public ChessPiece(int player, String name, int row, int col) 
@@ -55,7 +47,7 @@ public abstract class ChessPiece
     public abstract ChessPiece clonePiece();
    
     // Displays the current chesspiece
-    public void display() throws IOException
+    public void display(ImageDisplayer i) throws IOException
     {
         i.display(pieceImage, 62 + col * 59, (7 - row) * 59);
     }

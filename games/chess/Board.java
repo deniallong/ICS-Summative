@@ -16,6 +16,7 @@ public class Board
     static File whiteWinImage;
     static File blackWinImage;
     static File tieImage;
+    
     static ImageDisplayer i;
 
     public int rows;
@@ -26,8 +27,6 @@ public class Board
     static 
     {
         // Initializing variables
-        i = new ImageDisplayer();
-
         boardImage = new File("resources/chess/images/chessboard.png");
         whiteWinImage = new File("resources/chess/images/whitewin.png");
         blackWinImage = new File("resources/chess/images/blackwin.png");
@@ -37,6 +36,8 @@ public class Board
     public Board() throws IOException
     {
         // Initializing variables
+        i = new ImageDisplayer();
+
         this.rows = 8;
         this.cols = 8;
         this.board = new ChessPiece[8][8];
@@ -89,7 +90,7 @@ public class Board
             {
                 if (board[row][col] != null)
                 { 
-                    board[row][col].display();
+                    board[row][col].display(i);
                 }
             }
         }

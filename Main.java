@@ -14,9 +14,31 @@ public class Main
     
     public static void main(String[] args) throws IOException
     {
-        // Main code
-        //ChessDriver();
-        ChessDriver();
+        c = new Console(); 
+        
+        char choice; 
+
+        do 
+        {
+
+            c.println("Choose a game:");
+            c.println("1. Chess");
+            c.println("2. Connect 4");
+
+            choice = c.getChar();
+
+            if (choice == '1') 
+            {
+                ChessDriver();
+            }
+            else 
+            {
+                ConnectFourDriver();
+            }
+
+            c.clear();
+        }
+        while(choice != '0');
     }
 
     public static void ChessDriver() throws IOException 
