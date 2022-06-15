@@ -186,19 +186,7 @@ public class Chess
                                                         {
                                                             if (boardObject.board[0][3] == null && boardObject.board[0][2] == null && boardObject.board[0][1] == null && (boardObject.board[0][0] == null || boardObject.board[0][0].name.equals("rook")))
                                                             {
-                                                                temp = boardObject.board[toCoords.a][toCoords.b];
-
-                                                                fromPiece.moved = true;
-                                                                temp.moved = true;
-
-                                                                boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                                                boardObject.board[fromCoords.a][fromCoords.b] = temp;
-
-                                                                fromPiece.row = toCoords.a;
-                                                                fromPiece.col = toCoords.b;
-                                                                temp.row = fromCoords.a;
-                                                                temp.col = fromCoords.b;
-
+                                                                swap(fromPiece, fromCoords, toCoords, boardObject);
                                                                 turnProgressed = true;
                                                             }
                                                             else 
@@ -211,18 +199,7 @@ public class Chess
                                                         {
                                                             if (boardObject.board[0][5] == null && boardObject.board[0][6] == null && (boardObject.board[0][7] == null || boardObject.board[0][7].name.equals("rook")))
                                                             {
-                                                                temp = boardObject.board[toCoords.a][toCoords.b];
-
-                                                                fromPiece.moved = true;
-                                                                temp.moved = true;
-
-                                                                boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                                                boardObject.board[fromCoords.a][fromCoords.b] = temp;
-
-                                                                fromPiece.row = toCoords.a;
-                                                                fromPiece.col = toCoords.b;
-                                                                temp.row = fromCoords.a;
-                                                                temp.col = fromCoords.b;
+                                                                swap(fromPiece, fromCoords, toCoords, boardObject);
 
                                                                 turnProgressed = true;
                                                             }
@@ -243,18 +220,7 @@ public class Chess
                                                         {
                                                             if (boardObject.board[7][3] == null && boardObject.board[7][2] == null && boardObject.board[7][1] == null && (boardObject.board[7][0] == null || boardObject.board[7][0].name.equals("rook")))
                                                             {
-                                                                temp = boardObject.board[toCoords.a][toCoords.b];
-
-                                                                fromPiece.moved = true;
-                                                                temp.moved = true;
-
-                                                                boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                                                boardObject.board[fromCoords.a][fromCoords.b] = temp;
-
-                                                                fromPiece.row = toCoords.a;
-                                                                fromPiece.col = toCoords.b;
-                                                                temp.row = fromCoords.a;
-                                                                temp.col = fromCoords.b;
+                                                                swap(fromPiece, fromCoords, toCoords, boardObject);
 
                                                                 turnProgressed = true;
                                                             }
@@ -268,18 +234,7 @@ public class Chess
                                                         {
                                                             if (boardObject.board[7][5] == null && boardObject.board[7][6] == null && (boardObject.board[7][7] == null || boardObject.board[7][7].name.equals("rook")))
                                                             {
-                                                                temp = boardObject.board[toCoords.a][toCoords.b];
-
-                                                                fromPiece.moved = true;
-                                                                temp.moved = true;
-
-                                                                boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                                                boardObject.board[fromCoords.a][fromCoords.b] = temp;
-
-                                                                fromPiece.row = toCoords.a;
-                                                                fromPiece.col = toCoords.b;
-                                                                temp.row = fromCoords.a;
-                                                                temp.col = fromCoords.b;
+                                                                swap(fromPiece, fromCoords, toCoords, boardObject);
 
                                                                 turnProgressed = true;
                                                             }
@@ -419,6 +374,27 @@ public class Chess
             Board.i.close();
             c.close();
         }
+    }
+
+    // Swaps two chess pieces
+    public static void swap(ChessPiece fromPiece, Pair fromCoords, Pair toCoords, Board boardObject) 
+    {
+        // Declaring variables
+        ChessPiece temp; 
+
+        // Swapping the two pieces
+        temp = boardObject.board[toCoords.a][toCoords.b];
+
+        fromPiece.moved = true;
+        temp.moved = true;
+
+        boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+        boardObject.board[fromCoords.a][fromCoords.b] = temp;
+
+        fromPiece.row = toCoords.a;
+        fromPiece.col = toCoords.b;
+        temp.row = fromCoords.a;
+        temp.col = fromCoords.b;
     }
 
     // Checking if a row in the board is clear
