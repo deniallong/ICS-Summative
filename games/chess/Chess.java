@@ -79,7 +79,6 @@ public class Chess
             // Checking if the game is over, and then displaying the corresponding message
             if (outcome != 0)
             {
-                exit = true;
 
                 if (outcome == -2)
                 {
@@ -96,6 +95,8 @@ public class Chess
                     c.println("Checkmate! White loses!");
                     Board.displayWin(1);
                 }
+
+                gameContinue = false;
             }
             else 
             {
@@ -109,6 +110,7 @@ public class Chess
                     if (move[0].equals("0"))
                     {
                         gameContinue = false;
+                        exit = true;
 
                         Board.i.close();
                         c.close();
@@ -130,19 +132,19 @@ public class Chess
 
                             if (fromPiece.getPlayer() == turn) 
                             {
-                                if (boardObject.isValidMove(fromCoords, toCoords, turn))
+                                if (turn == 0) 
+                                {
+                                    kingOfInterest = whiteKing;
+                                }
+                                else 
+                                {
+                                    kingOfInterest = blackKing;
+                                }
+
+                                if (boardObject.isValidMove(fromCoords, toCoords, turn) || !kingOfInterest.moved && (kingOfInterest.row == 0 && kingOfInterest.col == 4 && ((toCoords.a == 0 && toCoords.b == 0) || (toCoords.a == 0 && toCoords.b == 7))) || (kingOfInterest.row == 7 && kingOfInterest.col == 4 && ((toCoords.a == 7 && toCoords.b == 0) || (toCoords.a == 7 && toCoords.b == 7))))
                                 {
                                     // Getting squares in check
                                     checkedSquares = getCheckedSpaces(boardObject.board, turn);
-                                    
-                                    if (turn == 0) 
-                                    {
-                                        kingOfInterest = whiteKing;
-                                    }
-                                    else 
-                                    {
-                                        kingOfInterest = blackKing;
-                                    }
 
                                     // Checking if a king is in check
                                     if (checkedSquares[kingOfInterest.row][kingOfInterest.col])
@@ -166,19 +168,23 @@ public class Chess
                                     else 
                                     {
                                         // If the piece is not in check and is a king, we need to make sure the square they're moving to is also not in checks
-                                        if (fromPiece.name == "king")
+                                        if (fromPiece.name.equals("king"))
                                         {
                                             if (!checkedSquares[toCoords.a][toCoords.b])
                                             {
+
                                                 // Checking if a move is a castle
-                                                if (!kingOfInterest.moved && kingOfInterest.row == 0 && kingOfInterest.col == 4 && ((toCoords.a == 0 && toCoords.b == 0) || (toCoords.a == 0 && toCoords.b == 7)))
+                                                if (!kingOfInterest.moved && 
+                                                ((kingOfInterest.row == 0 && kingOfInterest.col == 4 && ((toCoords.a == 0 && toCoords.b == 0) || (toCoords.a == 0 && toCoords.b == 7))) || 
+                                                (kingOfInterest.row == 7 && kingOfInterest.col == 4 && ((toCoords.a == 7 && toCoords.b == 0) || (toCoords.a == 7 && toCoords.b == 7)))))
                                                 {
+
                                                     if (turn == 0)
                                                     {
                                                         // Left castle
                                                         if (toCoords.a == 0 && toCoords.b == 0)
                                                         {
-                                                            if (boardObject.board[0][3] == null && boardObject.board[0][2] == null && boardObject.board[0][1] == null && (boardObject.board[0][0] == null || boardObject.board[0][0].name == "rook"))
+                                                            if (boardObject.board[0][3] == null && boardObject.board[0][2] == null && boardObject.board[0][1] == null && (boardObject.board[0][0] == null || boardObject.board[0][0].name.equals("rook")))
                                                             {
                                                                 temp = boardObject.board[toCoords.a][toCoords.b];
 
@@ -195,11 +201,15 @@ public class Chess
 
                                                                 turnProgressed = true;
                                                             }
+                                                            else 
+                                                            {
+                                                                c.println("That piece cannot move there!");
+                                                            }
                                                         }
                                                         // Right Castle
                                                         else if (toCoords.a == 0 && toCoords.b == 7)
                                                         {
-                                                            if (boardObject.board[0][5] == null && boardObject.board[0][6] == null && (boardObject.board[0][7] == null || boardObject.board[0][7].name == "rook"))
+                                                            if (boardObject.board[0][5] == null && boardObject.board[0][6] == null && (boardObject.board[0][7] == null || boardObject.board[0][7].name.equals("rook")))
                                                             {
                                                                 temp = boardObject.board[toCoords.a][toCoords.b];
 
@@ -215,6 +225,10 @@ public class Chess
                                                                 temp.col = fromCoords.b;
 
                                                                 turnProgressed = true;
+                                                            }
+                                                            else 
+                                                            {
+                                                                c.println("That piece cannot move there!");
                                                             }
                                                         } 
                                                         else 
@@ -227,7 +241,7 @@ public class Chess
                                                         // Left castle
                                                         if (toCoords.a == 7 && toCoords.b == 0)
                                                         {
-                                                            if (boardObject.board[7][3] == null && boardObject.board[7][2] == null && boardObject.board[7][1] == null && (boardObject.board[7][0] == null || boardObject.board[7][0].name == "rook"))
+                                                            if (boardObject.board[7][3] == null && boardObject.board[7][2] == null && boardObject.board[7][1] == null && (boardObject.board[7][0] == null || boardObject.board[7][0].name.equals("rook")))
                                                             {
                                                                 temp = boardObject.board[toCoords.a][toCoords.b];
 
@@ -244,11 +258,15 @@ public class Chess
 
                                                                 turnProgressed = true;
                                                             }
+                                                            else 
+                                                            {
+                                                                c.println("That piece cannot move there!");
+                                                            }
                                                         }
                                                         // Right Castle
                                                         else if (toCoords.a == 7 && toCoords.b == 7)
                                                         {
-                                                            if (boardObject.board[7][5] == null && boardObject.board[7][6] == null && (boardObject.board[7][7] == null || boardObject.board[7][7].name == "rook"))
+                                                            if (boardObject.board[7][5] == null && boardObject.board[7][6] == null && (boardObject.board[7][7] == null || boardObject.board[7][7].name.equals("rook")))
                                                             {
                                                                 temp = boardObject.board[toCoords.a][toCoords.b];
 
@@ -264,6 +282,10 @@ public class Chess
                                                                 temp.col = fromCoords.b;
 
                                                                 turnProgressed = true;
+                                                            }
+                                                            else 
+                                                            {
+                                                                c.println("That piece cannot move there!");
                                                             }
                                                         } 
                                                         else 
@@ -273,16 +295,20 @@ public class Chess
                                                     }
                                                 }
                                                 // If the move is not a castle, just move the piece regularly
-                                                else 
+                                                else if (boardObject.isValidMove(fromCoords, toCoords, turn))
                                                 {
                                                     fromPiece.moved = true;
                                                     boardObject.board[toCoords.a][toCoords.b] = fromPiece;
                                                     boardObject.board[fromCoords.a][fromCoords.b] = null;
-            
+    
                                                     fromPiece.row = toCoords.a;
                                                     fromPiece.col = toCoords.b;
                                                     turnProgressed = true;
-                                                } 
+                                                }
+                                                else 
+                                                {
+                                                    c.println("That piece cannot go there!");
+                                                }
                                             } 
                                             else 
                                             {
@@ -296,13 +322,20 @@ public class Chess
                                             // moving the piece out of the way will not cause the king to be in check
                                             if (turn == 0 && avoidCheckValid(boardObject.board, fromCoords, toCoords, whiteKing) || turn == 1 && avoidCheckValid(boardObject.board, fromCoords, toCoords, blackKing))
                                             {
-                                                fromPiece.moved = true;
-                                                boardObject.board[toCoords.a][toCoords.b] = fromPiece;
-                                                boardObject.board[fromCoords.a][fromCoords.b] = null;
+                                                if (boardObject.isValidMove(fromCoords, toCoords, turn))
+                                                {
+                                                    fromPiece.moved = true;
+                                                    boardObject.board[toCoords.a][toCoords.b] = fromPiece;
+                                                    boardObject.board[fromCoords.a][fromCoords.b] = null;
 
-                                                fromPiece.row = toCoords.a;
-                                                fromPiece.col = toCoords.b;
-                                                turnProgressed = true;
+                                                    fromPiece.row = toCoords.a;
+                                                    fromPiece.col = toCoords.b;
+                                                    turnProgressed = true;
+                                                }
+                                                else 
+                                                {
+                                                    c.println("That piece cannot go there!");
+                                                }
                                             }
                                             else 
                                             {
@@ -374,6 +407,17 @@ public class Chess
                     }
                 }
             }
+        }
+
+        // Prompting the user to return to the menu
+        if (!exit)
+        {
+            c.println();
+            c.println("Press any key to continue:");
+            c.getChar();
+
+            Board.i.close();
+            c.close();
         }
     }
 

@@ -114,6 +114,8 @@ public class Board
 	    }
 	}
 
+	validMoves = Utils.add(validMoves, 0);
+
 	//Returns the array of columns.
 	return validMoves;
     }

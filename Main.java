@@ -20,8 +20,8 @@ public class Main
 
         do 
         {
-
             c.println("Choose a game:");
+            c.println("0. Exit");
             c.println("1. Chess");
             c.println("2. Connect 4");
 
@@ -31,7 +31,7 @@ public class Main
             {
                 ChessDriver();
             }
-            else 
+            else if (choice == '2')
             {
                 ConnectFourDriver();
             }
@@ -39,6 +39,9 @@ public class Main
             c.clear();
         }
         while(choice != '0');
+
+        c.clear();
+        c.println("Goodbye!");
     }
 
     public static void ChessDriver() throws IOException 

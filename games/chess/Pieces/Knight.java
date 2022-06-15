@@ -1,6 +1,5 @@
 package games.chess.Pieces;
 
-import games.chess.Chess;
 import games.chess.Structures.*;
 import utils.*;
 
