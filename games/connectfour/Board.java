@@ -220,7 +220,7 @@ public class Board
 	return 0;
     }
     
-    public void winMessage(Console c) throws IOException, InterruptedException
+    public void winMessage(Console c) throws IOException
     {
 	i.display(winFade, 0, 0);
 	
