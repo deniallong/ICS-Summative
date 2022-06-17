@@ -13,8 +13,8 @@ public class ConnectFour
     //Variable Declaration
     static int input;
 
-    //Run method that throws IOException and InterruptedException.
-    public static void run() throws IOException, InterruptedException
+    //Run method that throws IOException.
+    public static void run() throws IOException
     {
         // Declaring variables
         boolean exit = false; 
