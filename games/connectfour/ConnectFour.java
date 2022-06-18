@@ -23,6 +23,7 @@ public class ConnectFour
         board = new Board();
         c = new Console(30, 75);
 
+        //Output
         //Displays the board.
         board.display();
         c.println("Each player will enter the number of the column they want to place their piece when prompted. The first player to get 4  pieces in a row, column, or diagonal, wins. Enter 0 to quit the game and return to the main menu.");
@@ -33,6 +34,7 @@ public class ConnectFour
             //Cycles through both players' moves.
             for(int player = 1; player <= 2 && board.checkWin() != 1 && !exit; player++)
             {
+                //Input
                 //Prompts for the move.
                 c.print("\nPlayer " + player + " move: ");
                 input = Utils.input("", board.getValidMoves(), c);
@@ -46,13 +48,18 @@ public class ConnectFour
                 }
                 else 
                 {
-                    //Puts the move on the board and displays the board once more.
+                    // Processing
+                    //Puts the move on the board
                     board.getMove(player, input);
+
+                    // Output
+                    // Displays the board
                     board.display();
                 }  
             }
         }
 
+        // Output
         if (!exit)
         {
             //Tells the user who has won or if they have tied.

@@ -34,7 +34,6 @@ public class Chess
         ChessPiece whiteKing;
         ChessPiece kingOfInterest;
         ChessPiece fromPiece;
-        ChessPiece temp;
 
         boolean turnProgressed;
         boolean gameContinue;
@@ -52,6 +51,7 @@ public class Chess
         whiteKing = boardObject.board[0][4];
         blackKing = boardObject.board[7][4];
 
+        // Output
         // Displaying instructions
         c.println("INSTRUCTIONS:");
 
@@ -76,10 +76,11 @@ public class Chess
             // Getting the outcome of the game
             outcome = getGameOutcome(boardObject.board, whiteKing, blackKing, turn);
 
+            // Processing
             // Checking if the game is over, and then displaying the corresponding message
             if (outcome != 0)
             {
-
+                // Output
                 if (outcome == -2)
                 {
                     c.println("Checkmate! Black loses!");
@@ -119,10 +120,12 @@ public class Chess
                 else 
                 {
 
+                    // Input
                     // Getting the from coordinates and to coordinates
                     fromCoords = new Pair(Integer.parseInt(move[0].substring(1, 2)) - 1, Integer.parseInt(move[0].substring(0, 1)) - 1);
                     toCoords = new Pair(Integer.parseInt(move[1].substring(1, 2)) - 1, Integer.parseInt(move[1].substring(0, 1)) - 1);
 
+                    // Processing 
                     // Checking if the move is valid
                     if (verifyCoordinates(fromCoords) && verifyCoordinates(toCoords))
                     {
@@ -338,6 +341,7 @@ public class Chess
 
                     checkedSquares = getCheckedSpaces(boardObject.board, turn);
 
+                    // Output
                     // Displaying the next move message, along with if the next player is in check
                     if (turnProgressed)
                     {
